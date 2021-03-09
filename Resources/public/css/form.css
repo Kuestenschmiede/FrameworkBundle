@@ -1,0 +1,64 @@
+.form-view {
+    float: left;
+    width: 100%;
+}
+
+input[type=file] {
+    overflow: hidden;
+    z-index: -1;
+}
+
+.label-file {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: black;
+    display: inline-block;
+}
+
+.label-file {
+    background-color: red;
+    cursor: pointer;
+}
+
+.c4g-form-field {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.invalid-postal {
+    border-color: red;
+}
+
+.form-view label img {
+    max-width: 200px;
+    max-height: 133px;
+}
+
+.radio-group {
+    display: flex;
+}
+
+.ck ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+.ck ol {
+    display: block;
+    list-style-type: decimal;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+textarea {
+    resize: vertical;
+}

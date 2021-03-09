@@ -1,0 +1,370 @@
+/*
+ * This file is part of con4gis,
+ * the gis-kit for Contao CMS.
+ *
+ * @package   	con4gis
+ * @version        7
+ * @author  	    con4gis contributors (see "authors.txt")
+ * @license 	    LGPL-3.0-or-later
+ * @copyright 	Küstenschmiede GmbH Software & Design
+ * @link              https://www.con4gis.org
+ *
+ */
+
+import React, {Component, Suspense} from "react";
+import FormView from "../form/FormView.jsx";
+import {TableButton} from "./button/TableButton.jsx";
+import {ModalDetailTableButton} from "./button/ModalDetailTableButton.jsx";
+import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles';
+import {AlertHandler} from "../../../../../CoreBundle/Resources/public/js/AlertHandler.js";
+
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+const MySwal = withReactContent(Swal);
+
+const MUIDataTable = React.lazy(() => import("mui-datatables"));
+const FormMapperField = React.lazy(() => import("./../form/fields/FormMapperField.jsx"));
+
+export default class TableView extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      selectedItems: [],
+      activeForm: false, // will be set to true when a selection button is clicked,
+      activeButton: null, // will be set when a selection button is clicked,
+    }
+
+    this.formData = [];
+    this.selectedItems = [];
+    this.addSelectedItem = this.addSelectedItem.bind(this);
+    this.handleButtonClick = this.handleButtonClick.bind(this);
+    this.submitForm = this.submitForm.bind(this);
+    this.cancelForm = this.cancelForm.bind(this);
+    this.setFormData = this.setFormData.bind(this);
+    this.fireRequest = this.fireRequest.bind(this);
+  }
+
+  getMuiTheme = () => createMuiTheme({
+    overrides: {
+      MuiPaper: {
+        elevation4: {
+          boxShadow: "none"
+        }
+      },
+      MuiToolbar: {
+        gutters: {
+          backgroundColor: "#f8f9fa",
+          borderRadius: "0.25rem",
+          paddingTop: "10px",
+          paddingBottom: "10px"
+        }
+      }
+    }
+  })
+
+  render() {
+    let buttons = null;
+    let regularButtons = null;
+    // selection buttons
+    if (this.state.selectedItems.length > 0 && this.props.component.selectionButtons
+      && this.props.component.selectionButtons.length > 0) {
+      buttons = <div className={"action-button-container"}>
+        {this.props.component.selectionButtons.map((item, index) => {
+          return <button className={"btn"} key={index}
+                         onClick={() => this.handleButtonClick(item, index)}>{item.label}</button>
+        })}
+      </div>;
+    }
+    // regular buttons
+    // TODO unterscheiden zwischen normalen und delete buttons
+
+    if (this.props.component.tableButtons && this.props.component.tableButtons.length > 0) {
+      regularButtons = <div className={"action-button-container"}>
+        {
+          this.props.component.tableButtons.map((item, index) => {
+            return <TableButton key={index} text={item.label} href={item.href}/>
+          })
+        }
+      </div>;
+    }
+    let options = {
+      textLabels: {
+        body: {
+          noMatch: "Keine Einträge gefunden",
+          toolTip: "Sortieren",
+          columnHeaderTooltip: column => `Sortierung für ${column.label}`
+        },
+        pagination: {
+          next: "Nächste Seite",
+          previous: "Vorherige Seite",
+          rowsPerPage: "Zeilen pro Seite:",
+          displayRows: "von",
+        },
+        toolbar: {
+          search: "Suchen",
+          downloadCsv: "CSV Herunterladen",
+          print: "Drucken",
+          viewColumns: "Spaltenansicht",
+          filterTable: "Tabelle filtern",
+        },
+        filter: {
+          all: "Alle",
+          title: "FILTER",
+          reset: "ZURÜCKSETZEN",
+        },
+        viewColumns: {
+          title: "Zeige Spalten",
+          titleAria: "Zeige/Verstecke Spalten",
+        },
+        selectedRows: {
+          text: "Zeile(en) ausgewählt",
+          delete: "Löschen",
+          deleteAria: "Lösche ausgewählte Zeilen",
+        },
+      }
+    };
+
+
+    if (this.props.component.tableButtons && this.props.component.tableButtons.length > 0) {
+      options["customToolbar"] = function () {
+        return <React.Fragment>
+          {regularButtons}
+        </React.Fragment>;
+      }
+    }
+    if (this.props.component.checkbox) {
+      options["onRowSelectionChange"] = (currentRowsSelected, allRowsSelected, rowsSelected) => {
+        this.addSelectedItem(currentRowsSelected, allRowsSelected, rowsSelected);
+      };
+    }
+    if (this.props.component.selectionButtons && this.props.component.selectionButtons.length > 0) {
+      options["customToolbarSelect"] = function () {
+        return <React.Fragment>
+          {buttons}
+        </React.Fragment>;
+      };
+    }
+
+    let columns = this.createColumns(this.props.fields);
+    if (this.props.component.checkbox) {
+      options["selectableRows"] = "single";
+    } else {
+      options["selectableRows"] = "none";
+    }
+
+    return (
+      <div className={""}>
+        <MuiThemeProvider theme={this.getMuiTheme()}>
+          <MUIDataTable data={this.props.data} columns={columns}
+                        options={options} key={0} ref={(node) => this.datatable = node}
+                        title={this.props.component.headline}
+                        responsive
+          >
+          </MUIDataTable>
+        </MuiThemeProvider>
+      </div>
+    );
+  }
+
+  setFormData(name, objData) {
+    this.formData = {
+      ...this.formData,
+      ...objData
+    };
+  }
+
+  addSelectedItem(currentRowsSelected, allRowsSelected, rowsSelected) {
+    this.setState({selectedItems: rowsSelected});
+  }
+
+  handleButtonClick(buttonConf, index) {
+    // set props object to make form fields work
+    buttonConf.form.props = {};
+    buttonConf.form.props.updateFunction = this.setFormData;
+    let form = <Suspense fallback={<div style={{textAlign: "center", margin: "auto"}}><img src="bundles/con4gisframework/img/preloader-image.svg" className="preloader-image" alt=""/></div>}>
+      <form key={1} className={"form-view"} method={"POST"}>
+        {
+          buttonConf.form.fields.map((item, id) => {
+            return <FormMapperField form={buttonConf.form} field={item} data={[]} key={id + 1}/>
+          })
+        }
+      </form>
+    </Suspense>;
+
+    // show modal
+    MySwal.fire({
+      title: <p>{buttonConf.label}</p>,
+      html: form,
+      confirmButtonText: buttonConf.submitButtonLabel || "Absenden",
+      showConfirmButton: true,
+      showCancelButton: true,
+      cancelButtonText: buttonConf.cancelButtonLabel || "Abbrechen",
+      customClass: {
+        content: "zIndex-9",
+        actions: "zIndex-8"
+      }
+    }).then((value) => {
+      if (value.isConfirmed) {
+        this.submitForm(buttonConf);
+      } else {
+        this.cancelForm();
+      }
+    })
+  }
+
+  submitForm(activeButton) {
+    // event.preventDefault();
+    // get id of selected dataset
+    let selectedId = this.state.selectedItems[0];
+    let selectedData = this.props.data[selectedId];
+    let url = activeButton.form.url;
+    this.formData.id = selectedData.id;
+    jQuery.post(url, this.formData).done((responseData) => {
+      // TODO der server sollte eigentlich die aktuellen Daten wieder zurückliefern
+      // this.resetSelection();
+      location.reload();
+    });
+  }
+
+  cancelForm() {
+    this.resetSelection();
+  }
+
+  resetSelection() {
+    // delete selected row
+    this.datatable.selectRowDelete();
+    // set state, while rerendering the deleted row will be added again
+    // this is used to clear the selection
+    // since the used component has no API method to do so otherwise
+    this.setState({selectedItems: []});
+    this.selectedItems = [];
+  }
+
+  createColumns(fields) {
+    let columns = [];
+    for (let i = 0; i < fields.length; i++) {
+      let column;
+      switch (fields[i].type) {
+        case "text":
+          columns.push(fields[i]);
+          break;
+        case "reference":
+          column = fields[i];
+          column.options.customBodyRender = (value, tableMeta, updateValue) => {
+            return column.references[value];
+          };
+          columns.push(column);
+          break;
+        case "modal-detail-button":
+          column = fields[i];
+          column.options.customBodyRender = (value, tableMeta, updateValue) => {
+            if (!!value) {
+              return <ModalDetailTableButton buttonLabel={column.buttonLabel}
+                                             title={column.label}
+                                             message={value}
+                                             confirmButtonText={column.confirmButtonText} />
+            } else {
+              return '';
+            }
+          };
+          columns.push(column);
+          break;
+        case "datetime":
+          column = fields[i];
+          column.options.customBodyRender = (value, tableMeta, updateValue) => {
+            let date = new Date(value * 1000);
+            let day = date.getDate();
+            if (day < 10) {
+              day = '0' + day;
+            }
+            let month = date.getMonth() + 1;
+            if (month < 10) {
+              month = '0' + month;
+            }
+            return day + '.' + month + '.' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes();
+          };
+          columns.push(column);
+          break;
+        case "button":
+          let buttonCol = {
+            name: fields[i].name,
+            label: fields[i].label,
+            options: {
+              sort: false,
+              filter: false,
+              customBodyRender: (value, tableMeta, updateValue) => {
+                if (fields[i].method === "POST") {
+                  const callback = (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    this.fireRequest(fields[i].href.replace(fields[i].hrefField, value));
+                  }
+                  return (<a onMouseUp={callback}
+                             className={"btn btn-secondary"}>{fields[i].buttonText}</a>);
+                } else {
+                  return (<TableButton href={fields[i].href.replace(fields[i].hrefField, value)}
+                                       text={fields[i].buttonText}
+                                       formFields={fields[i].formFields}
+                                       submitButtonLabel={fields[i].submitButtonLabel}
+                                       cancelButtonLabel={fields[i].cancelButtonLabel}
+                                       url={fields[i].url}
+                                       formHeadlineFieldIndex={fields[i].formHeadlineFieldIndex}
+                                       value={value}
+                                       rowData={tableMeta.rowData}/>);
+                }
+
+              }
+            }
+          }
+          columns.push(buttonCol);
+          break;
+        case "conditional-marker":
+          let objMarkers = fields[i].markers;
+          let markerCol = {
+            name: fields[i].name,
+            label: fields[i].label,
+            options: {
+              sort: false,
+              customBodyRender: (value) => {
+                let markerData = objMarkers[value];
+                return <span className={markerData.class} data-state={markerData.dataState}
+                        data-toggle={markerData.dataToggle} data-placement={markerData.dataPlacement}
+                        title={markerData.title}/>
+              }
+            }
+          }
+          columns.push(markerCol);
+          break;
+        default:
+          columns.push(fields[i]);
+      }
+    }
+
+    return columns;
+  }
+
+  fireRequest(url) {
+    // sanity check
+    let ah = new AlertHandler();
+    let confirmCallback = () => {
+      jQuery.post(url).done((data) => {
+        if (data.success) {
+          location.reload();
+        }
+      });
+    };
+    let cancelCallback = () => {
+
+    };
+    ah.showConfirmDialog(
+      this.props.component.confirmationHeadline,
+      this.props.component.confirmationMessage,
+      confirmCallback,
+      cancelCallback,
+      this.props.component.confirmationYes,
+      this.props.component.confirmationNo,
+    );
+  }
+}

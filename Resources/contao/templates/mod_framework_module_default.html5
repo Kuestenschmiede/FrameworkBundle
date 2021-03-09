@@ -1,0 +1,8 @@
+<div id="entrypoint" class="projects-module">
+    <script>
+      window.frameworkData = window.frameworkData || [];
+      window.frameworkData.push(<?php echo $this->configuration; ?>);
+    </script>
+</div>
+
+<script src="/bundles/con4gisframework/build/c4g-framework.js"></script>

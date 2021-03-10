@@ -18,7 +18,7 @@ use NotificationCenter\Model\Notification;
 /**
  * Class C4GNotification
  * Class to simplify sending Notifications via the Notification Center
- * @package con4gis\CoreBundle\Classes\Notification
+ * @package con4gis\FrameworkBundle\Classes\Notification
  */
 class C4GNotification
 {

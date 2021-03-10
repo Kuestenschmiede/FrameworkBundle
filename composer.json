@@ -25,6 +25,7 @@
     "contao-components/jquery": "^3.0",
     "menatwork/contao-multicolumnwizard-bundle": "^3.4",
     "terminal42/notification_center": "^1.5",
+    "bugbuster/contao-mobiledetection-bundle": "^1.0",
     "guzzlehttp/guzzle": "^6.2"
   },
   "conflict": {

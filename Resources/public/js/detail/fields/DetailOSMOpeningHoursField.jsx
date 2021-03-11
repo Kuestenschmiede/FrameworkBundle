@@ -48,7 +48,7 @@ export default class DetailOSMOpeningHoursField extends Component {
           while (osmString.indexOf("\"") !== -1) {
             osmString = osmString.replace("\"", "");
           }
-         }
+        }
         osmOh = new opening_hours(osmString, {address: {country_code: "de"}});
       } catch (e) {
         daysNode = osmString;
@@ -62,7 +62,7 @@ export default class DetailOSMOpeningHoursField extends Component {
           let today = new Date();
           let day = today.getDay();
           let first = 0;
-          let weekdays = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+          let weekdays = this.props.languageRefs.WEEKDAYS;
           let sortedDays = [];
 
           first = day;
@@ -114,13 +114,13 @@ export default class DetailOSMOpeningHoursField extends Component {
 
     // check for 24/7 opening
     if (this.alwaysOpenStrings.includes(osmString)) {
-      daysNode = "Wir haben rund um die Uhr für Sie geöffnet.";
+      daysNode = this.props.languageRefs.ALWAYS_OPEN;
       osmStringReadable = "";
     }
 
     return (
         <div className={"opening-hours"}>
-          <h3 key={0} className={"opening-hours-headline"}>{"Öffnungszeiten:"}</h3>
+          <h3 key={0} className={"opening-hours-headline"}>{this.props.languageRefs.OPENING_HOURS}</h3>
           {daysNode}
           <div className={"opening-hours-opened"}>
             {osmNode}
@@ -136,19 +136,19 @@ export default class DetailOSMOpeningHoursField extends Component {
     if (oh.getUnknown()) {
       let comment = oh.getComment();
       if (comment) {
-        if (comment === "Specified as open end. Closing time was guessed.") {
+        if (comment === this.props.languageRefs.OPEN_END_CLOSE_GUESSED) {
           if (osmString && (osmString[osmString.length-1] === '+')) {
-            comment = "Open End"
+            comment = this.props.languageRefs.OPEN_END;
           } else {
-            comment = "Spezifiziert als offenes Ende. Schließungszeit wurde erraten";
+            comment = this.props.languageRefs.OPEN_END_CLOSE_GUESSED;
           }
         }
       }
 
-      output += ' Wir haben vielleicht geöffnet,'
-          + (comment ? ' aber das hängt ab von: "' + comment + '"' : '');
+      output += this.props.languageRefs.MAYBE_OPEN
+          + (comment ? this.props.languageRefs.DEPENDING_UPON + comment + '"' : '');
     } else {
-      output += ' ' + (oh.getState() ? 'Wir haben zurzeit geöffnet' : 'Wir haben zurzeit geschlossen')
+      output += ' ' + (oh.getState() ? this.props.languageRefs.CURRENTLY_OPEN : this.props.languageRefs.CURRENTLY_CLOSED)
           + (comment ? ', comment "' + comment + '"' : '');
     }
 
@@ -165,11 +165,11 @@ export default class DetailOSMOpeningHoursField extends Component {
 
         let today = new Date();
         if ((today.getDate() === nextchange.getDate()) && (today.getMonth() === nextchange.getMonth()) && (today.getFullYear() === nextchange.getFullYear())) {
-          output += ' und sind um ' + nexthour + ':' + nextminute + ' Uhr wieder für Sie da';
+          output += this.props.languageRefs.WE_ARE_AT + nexthour + ':' + nextminute + this.props.languageRefs.AVAILABLE_FOR_YOU;
         } else if ((today.getDate()+1 === nextchange.getDate()) && (today.getMonth() === nextchange.getMonth()) && (today.getFullYear() === nextchange.getFullYear())) {
-          output += ' und sind morgen um ' + nexthour + ':' + nextminute + ' Uhr wieder für Sie da';
+          output += this.props.languageRefs.WE_ARE_TOMORROW_AT + nexthour + ':' + nextminute + this.props.languageRefs.AVAILABLE_FOR_YOU;
         } else {
-          output += ' und sind am ' + nextday + '.' + nextmonth + '. um ' + nexthour + ':' + nextminute + ' Uhr wieder für Sie da';
+          output += this.props.languageRefs.WE_ARE_ON + nextday + '.' + nextmonth + '. ' + this.props.languageRefs.AT + ' ' + nexthour + ':' + nextminute + this.props.languageRefs.AVAILABLE_FOR_YOU;
         }
       }
     }
@@ -216,7 +216,7 @@ export default class DetailOSMOpeningHoursField extends Component {
         let toMinute = toDate.getMinutes().toString().padStart(2, '0');
         let toStr = toHour + ':' + toMinute + ' Uhr';
         if (osmString && (osmString[osmString.length-1] == '+')) {
-          toStr = 'Open End';
+          toStr = this.props.languageRefs.OPEN_END;
         }
 
         outputArr[i] = new Array(fromDate.getDay(), fromStr + toStr);

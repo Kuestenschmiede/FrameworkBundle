@@ -12,6 +12,7 @@
  */
 
 import React, {Component, Suspense} from "react";
+import checkIfFieldIsRendered from "../../util/conditions";
 
 const Modal = React.lazy(() => import("../../modal/Modal.jsx"));
 const ModalContentMessage = React.lazy(() => import("../../modal/content/ModalContentMessage.jsx"));
@@ -113,7 +114,9 @@ export default class DetailModalFormButtonField extends Component {
                                               field={item}
                                               fields={fields}
                                               key={id}
-                                              detail={this.props.detail}/>
+                                              detail={this.props.detail}
+                                              languageRefs={this.props.languageRefs}
+                    />
                   })
                 }
               </div>
@@ -122,7 +125,9 @@ export default class DetailModalFormButtonField extends Component {
                   return <FormMapperField form={{props: formProps, fields: json.formFields}}
                                           field={item}
                                           data={json.formData || []}
-                                          key={id + 1}/>
+                                          key={id + 1}
+                                          languageRefs={this.props.languageRefs}
+                  />
                 })
               }
             </Suspense>
@@ -184,10 +189,9 @@ export default class DetailModalFormButtonField extends Component {
   }
 
   render() {
-    if (this.props.field.conditionField) {
-      if (String(this.props.data[this.props.field.conditionField]) !== String(this.props.field.conditionValue)) {
-        return null;
-      }
+    // check condition
+    if (!checkIfFieldIsRendered(this.props.field, this.props.data)) {
+      return null;
     }
 
     return (

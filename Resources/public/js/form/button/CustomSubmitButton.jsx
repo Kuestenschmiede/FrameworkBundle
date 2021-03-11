@@ -143,8 +143,8 @@ export default class CustomSubmitButton extends Component {
             })
             fieldNode.addClass("field-invalid");
             const ah = new AlertHandler();
-            let title = "Position überpfrüfen";
-            let content = "Die angegebene Position liegt außerhalb des angegeben Postleitzahlgebietes."
+            let title = this.props.languageRefs.CHECK_POSITION;
+            let content = this.props.languageRefs.POSITION_OUT_OF_RANGE;
             ah.showErrorDialog(title, content);
           }
         } else {
@@ -180,9 +180,9 @@ export default class CustomSubmitButton extends Component {
         let result = response[0];
         const ah = new AlertHandler();
         let alertText = "<b>Breite:</b> " + result.lat + " <br><b>Länge:</b> " + result.lon;
-        let alertHeadline = "Geographische Position ergänzen";
-        let textConfirm = "Mit Position speichern";
-        let textCancel = "Ohne Position speichern";
+        let alertHeadline = this.props.languageRefs.ADD_GEOLOCATION;
+        let textConfirm = this.props.languageRefs.SAVE_WITH_POSITION;
+        let textCancel = this.props.languageRefs.SAVE_WITHOUT_POSITION;
         const confirmCallback = () => {
           let data = this.props.form.props.component.data
           data.geoy = result.lat;
@@ -240,9 +240,10 @@ export default class CustomSubmitButton extends Component {
         alertText += "<b>Hausnummer:</b> " + streetnumber + "<br>";
       }
 
-      let alertHeadline = "Adresse ergänzen";
-      let textConfirm = "Mit ergänzter Adresse speichern";
-      let textCancel = "Ohne ergänzter Adresse speichern";
+
+      let alertHeadline = this.props.languageRefs.ADD_ADDRESS;
+      let textConfirm = this.props.languageRefs.SAVE_WITH_ADDRESS;
+      let textCancel = this.props.languageRefs.SAVE_WITHOUT_ADDRESS;
       const confirmCallback = () => {
         let data = this.props.form.props.component.data
         data.locationCity = city;

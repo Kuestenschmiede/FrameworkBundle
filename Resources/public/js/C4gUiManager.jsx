@@ -13,6 +13,7 @@
 
 
 import React, {Component, Suspense} from "react";
+import {getLanguage} from "./i18n";
 
 const TableView = React.lazy(() => import("./table/TableView.jsx"));
 const TileView = React.lazy(() => import("./tiles/TileView.jsx"));
@@ -31,6 +32,7 @@ export class C4gUiManager extends Component {
     };
 
     this.nodeRefs = {};
+    this.languageRefs = getLanguage(props.language);
     this.updateData = this.updateData.bind(this);
     this.setData = this.setData.bind(this);
     this.deleteData = this.deleteData.bind(this);
@@ -198,7 +200,6 @@ export class C4gUiManager extends Component {
       components[component].data = [];
       if (!initial) {
         this.state.filterChanged = true;
-        console.log("filterChanged");
       }
     }
     components[component].filterData = formData;
@@ -215,7 +216,7 @@ export class C4gUiManager extends Component {
     return <Suspense fallback={<div style={{textAlign: "center", margin: "auto"}}><img src="bundles/con4gisframework/img/preloader-image.svg" className="preloader-image" alt=""/></div>} key={key}>
       <TableView key={index + 1} data={this.state.components[key].data.rows}
                  fields={this.state.components[key].data.columns}
-                 component={this.state.components[key]}/>
+                 component={this.state.components[key]} languageRefs={this.languageRefs}/>
     </Suspense>;
   }
 
@@ -233,6 +234,7 @@ export class C4gUiManager extends Component {
                 setFunction={this.setData}
                 filterChanged={this.state.filterChanged}
                 ref={(node) => {this.nodeRefs[this.state.components[key].name] = node;}}
+                languageRefs={this.languageRefs}
       />
     </Suspense>;
   }
@@ -248,6 +250,7 @@ export class C4gUiManager extends Component {
                 addDataFunction={this.addData}
                 setFilterDataFunction={this.setFilterData}
                 setFieldsFunction={this.setFields}
+                languageRefs={this.languageRefs}
       />
     </Suspense>
   }
@@ -256,7 +259,9 @@ export class C4gUiManager extends Component {
     return <Suspense fallback={<div style={{textAlign: "center", margin: "auto"}}><img src="bundles/con4gisframework/img/preloader-image.svg" className="preloader-image" alt=""/></div>} key={key}>
       <DetailView key={index + 1} data={component.data}
                   fields={component.fields}
-                  component={this.state.components[key]}/>
+                  component={this.state.components[key]}
+                  languageRefs={this.languageRefs}
+      />
     </Suspense>
   }
 

@@ -19,18 +19,18 @@ class DetailModalFormButtonField extends DetailField
     private $confirmButtonText = '';
     private $closeButtonText = '';
     private $submitUrl = '';
-
+    
     /**
-     * The field this fields display depends upon, if there is one.
-     * @var string
+     * The fields this fields' display depends upon, if there is one.
+     * @var array
      */
-    protected $conditionField = '';
-
+    protected $conditionField = [];
+    
     /**
-     * The value of the conditionField for which this field is displayed.
-     * @var string
+     * The value of the conditionFields for which this field is displayed.
+     * @var array
      */
-    protected $conditionValue = '';
+    protected $conditionValue = [];
 
     const TYPE = 'modal-form-button';
 
@@ -127,36 +127,36 @@ class DetailModalFormButtonField extends DetailField
     {
         $this->submitUrl = $submitUrl;
     }
-
+    
     /**
-     * @return string
+     * @return array
      */
-    public function getConditionField(): string
+    public function getConditionField(): array
     {
         return $this->conditionField;
     }
-
+    
     /**
      * @param string $conditionField
      */
-    public function setConditionField(string $conditionField): void
+    public function setConditionField(string $conditionField)
     {
-        $this->conditionField = $conditionField;
+        $this->conditionField[] = $conditionField;
     }
-
+    
     /**
-     * @return string
+     * @return array
      */
-    public function getConditionValue(): string
+    public function getConditionValue(): array
     {
         return $this->conditionValue;
     }
-
+    
     /**
      * @param string $conditionValue
      */
-    public function setConditionValue(string $conditionValue): void
+    public function setConditionValue(string $conditionValue)
     {
-        $this->conditionValue = $conditionValue;
+        $this->conditionValue[] = $conditionValue;
     }
 }

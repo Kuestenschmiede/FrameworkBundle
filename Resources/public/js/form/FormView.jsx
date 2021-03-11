@@ -50,7 +50,7 @@ export default class FormView extends Component {
             // let btn = ButtonTypeMapper.mapButton(button.type);
             // buttons.push(React.createElement(btn, {key: index, form: this, button: button}));
             buttons.push(<Suspense fallback={<div style={{textAlign: "center", margin: "auto"}}><img src="bundles/con4gisframework/img/preloader-image.svg" className="preloader-image" alt=""/></div>} key={index}>
-                <MapperButton key={index} form={this} button={button}/>
+                <MapperButton key={index} form={this} button={button} languageRefs={this.props.languageRefs}/>
             </Suspense>);
         }, this);
 
@@ -70,7 +70,7 @@ export default class FormView extends Component {
                 wrappedFields = wrappedFields.concat(item.wrappedFields);
                 return <Suspense fallback={<div style={{textAlign: "center", margin: "auto"}}><img src="bundles/con4gisframework/img/preloader-image.svg" className="preloader-image" alt=""/>.</div>} key={id}>
                     <FormMapperField key={id} field={item} data={this.props.component.data} parentNode={this}
-                                     fields={this.props.component.fields} form={this} errorTexts={this.state.errorTexts || {}}/>
+                                     fields={this.props.component.fields} form={this} errorTexts={this.state.errorTexts || {}} languageRefs={this.props.languageRefs}/>
                 </Suspense>;
             } else {
                 if (!wrappedFields.includes(item.name)) {
@@ -78,7 +78,7 @@ export default class FormView extends Component {
                     // since the wrapped fields will be rendered by the wrapper
                     return <Suspense fallback={<div style={{textAlign: "center", margin: "auto"}}><img src="bundles/con4gisframework/img/preloader-image.svg" className="preloader-image" alt=""/></div>} key={id}>
                         <FormMapperField key={id} field={item} data={this.props.component.data} parentNode={this}
-                                         form={this} errorText={this.state.errorTexts ? this.state.errorTexts[item.name] : {}}/>
+                                         form={this} errorText={this.state.errorTexts ? this.state.errorTexts[item.name] : {}} languageRefs={this.props.languageRefs}/>
                     </Suspense>;
                 }
             }

@@ -62,13 +62,13 @@ export default class DetailContactField extends Component {
     if (this.props.data[this.props.field.websiteFieldName]) {
       let href = this.props.data[this.props.field.websiteFieldName];
       website = (<span className={"entry-content website"}>
-          <a href={href}>{"Website"}</a>
+          <a href={href}>{this.props.languageRefs.WEBSITE}</a>
         </span>);
     }
     if (this.props.data[this.props.field.openingTimesFieldName]) {
       let field = this.props.field;
       field.name = this.props.field.openingTimesFieldName;
-      openingTimes = <DetailOSMOpeningHoursField data={this.props.data} field={field}/>
+      openingTimes = <DetailOSMOpeningHoursField data={this.props.data} field={field} languageRefs={this.props.languageRefs}/>
     }
 
     if (this.props.field.addressFieldnamePrefix) {
@@ -91,7 +91,7 @@ export default class DetailContactField extends Component {
 
     if (this.props.field.withSocialMedia) {
       socialMedia = this.props.field.socialMediaFields.map((item, index) => {
-        return <DetailLinkField key={index} field={item} data={this.props.data}/>
+        return <DetailLinkField key={index} field={item} data={this.props.data} languageRefs={this.props.languageRefs}/>
       });
     }
     return (

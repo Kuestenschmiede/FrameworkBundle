@@ -50,10 +50,10 @@ export class TableButton extends Component {
     MySwal.fire({
       title: <p>{this.props.text}</p>,
       html: <React.Fragment>{div}{form}</React.Fragment>,
-      confirmButtonText: this.props.submitButtonLabel || "Absenden",
+      confirmButtonText: this.props.submitButtonLabel || this.props.languageRefs.CONFIRM,
       showConfirmButton: true,
       showCancelButton: true,
-      cancelButtonText: this.props.cancelButtonLabel || "Abbrechen",
+      cancelButtonText: this.props.cancelButtonLabel || this.props.languageRefs.CANCEL,
       customClass: {
         content: "zIndex-9",
         actions: "zIndex-8"

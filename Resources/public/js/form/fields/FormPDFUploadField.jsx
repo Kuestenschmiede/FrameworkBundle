@@ -47,8 +47,6 @@ export default class FormPDFUploadField extends Component {
   }
 
   processPdf(file, fileName, fileType) {
-    // TODO pdf viewer zur preview
-
     const reader = new FileReader();
     reader.onload = () => {
       const data = reader.result;
@@ -107,7 +105,7 @@ export default class FormPDFUploadField extends Component {
       className = this.props.field.className + " " + this.props.field.name;
     }
     let fieldName = this.props.field.name;
-    let fileLabel = this.props.field.noFileSelectedLabel || "Keine Datei ausgewählt";
+    let fileLabel = this.props.field.noFileSelectedLabel || this.props.languageRefs.NO_FILE_SELECTED;
     if (this.props.data[fieldName] && this.props.data[fieldName].name) {
       fileLabel = this.props.data[fieldName].name;
     }
@@ -117,7 +115,7 @@ export default class FormPDFUploadField extends Component {
         <div className={className + " file-label"}>{fileLabel}</div>
         <input ref={input => this.inputElement = input} type={"file"} accept=".pdf" onChange={this.onSelectFile} id={fieldName}
                name={fieldName + (this.props.field.max > 1 ? "[]" : "")} style={{display: "none"}}/>
-        <input type="button" value={"Datei auswählen"} onClick={(e) => {
+        <input type="button" value={this.props.languageRefs.CHOOSE_FILE} onClick={(e) => {
           e.preventDefault();
           this.inputElement.click();
         }} className={className + "btn"}/>

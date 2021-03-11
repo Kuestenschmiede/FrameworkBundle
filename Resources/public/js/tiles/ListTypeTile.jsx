@@ -31,7 +31,7 @@ export default class ListTypeTile extends Component {
               this.props.fields.map((item, id) => {
                 if (item.type !== 'image') {
                   if (item.type !== "linkbutton") {
-                    return <ListTypeTileMapperField key={id} field={item} data={this.props.dataEntry} fields={this.props.fields} list={this.props.list}/>
+                    return <ListTypeTileMapperField key={id} field={item} data={this.props.dataEntry} fields={this.props.fields} list={this.props.list} languageRefs={this.props.languageRefs}/>
                   }
                 }
               }, this)

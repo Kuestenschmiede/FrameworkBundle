@@ -35,7 +35,7 @@ export default class FormWrapperField extends Component {
           wrappedFields.map((item, id) => {
             return <FormMapperField key={id} field={item} data={this.props.data} form={this.props.form}
                                     errorText={this.props.errorTexts ? this.props.errorTexts[item.name] : null}
-                                    parentNode={this} fields={this.props.fields}/>
+                                    parentNode={this} fields={this.props.fields} languageRefs={this.props.languageRefs}/>
           })
         }
       </div>

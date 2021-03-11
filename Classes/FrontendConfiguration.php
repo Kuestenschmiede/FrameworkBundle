@@ -34,6 +34,7 @@ class FrontendConfiguration implements JsonSerializable
     {
         $this->configuration['entryPoint'] = $entryPoint;
         $this->configuration['components'] = [];
+        $this->configuration['language'] = "de";
     }
 
     /**
@@ -197,5 +198,10 @@ class FrontendConfiguration implements JsonSerializable
         if ($form->getMapData()) {
             $this->configuration['components'][$form->getName()]['mapData'] = $form->getMapData();
         }
+    }
+    
+    public function setLanguage($language)
+    {
+        $this->configuration['language'] = $language;
     }
 }

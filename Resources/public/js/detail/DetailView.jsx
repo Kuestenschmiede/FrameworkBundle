@@ -58,12 +58,12 @@ export default class DetailView extends Component {
           if (compSections[i].rowForEachField) {
             sectionContent = contentFields[i].map((item, id) => {
               return (<div key={id} className={"c4g-row"}>
-                <DetailMapperField data={this.props.data} field={item} fields={this.props.fields} key={id} detail={this}/>
+                <DetailMapperField data={this.props.data} field={item} fields={this.props.fields} key={id} detail={this} languageRefs={this.props.languageRefs}/>
               </div>);
             });
           } else {
             sectionContent = contentFields[i].map((item, id) => {
-              return <DetailMapperField data={this.props.data} field={item} fields={this.props.fields} key={fieldKey++} detail={this}/>
+              return <DetailMapperField data={this.props.data} field={item} fields={this.props.fields} key={fieldKey++} detail={this} languageRefs={this.props.languageRefs}/>
             });
           }
 
@@ -105,7 +105,7 @@ export default class DetailView extends Component {
               <div className={"c4g-col"}>
                 {
                   this.props.fields.map((item, id) => {
-                    return <DetailMapperField data={this.props.data} field={item} fields={this.props.fields} key={id} detail={this}/>
+                    return <DetailMapperField data={this.props.data} field={item} fields={this.props.fields} key={id} detail={this} languageRefs={this.languageRefs}/>
                   })
                 }
               </div>

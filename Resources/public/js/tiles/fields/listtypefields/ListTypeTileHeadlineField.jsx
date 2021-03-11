@@ -41,7 +41,7 @@ export default class ListTypeTileHeadlineField extends Component {
           headline = <h6 className={this.props.field.name}>{this.props.data[this.props.field.name]}</h6>;
           break;
         default:
-          console.warn("Invalid headline level.");
+          console.warn(this.props.languageRefs.UNSUPPORTED_HEADLINE_LEVEL);
       }
 
       return (

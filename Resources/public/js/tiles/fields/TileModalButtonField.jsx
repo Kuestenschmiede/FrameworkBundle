@@ -106,13 +106,13 @@ export default class TileModalButtonField extends Component {
               </div>}>
               <ExperimentalGridTile dataEntry={this.props.data}
                             fields={this.props.fields.filter(field => field.type !== this.props.field.type)}
-                            list={this.props.list}/>
+                            list={this.props.list} languageRefs={this.props.languageRefs}/>
               {
                 json.formFields.map((item, id) => {
                   return <FormMapperField form={{props: formProps, fields: json.formFields}}
                                           field={item}
                                           data={json.formData || []}
-                                          key={id + 1}/>
+                                          key={id + 1} languageRefs={this.props.languageRefs}/>
                 })
               }
             </Suspense>

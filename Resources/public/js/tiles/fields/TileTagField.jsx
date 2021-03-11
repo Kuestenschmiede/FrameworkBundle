@@ -37,20 +37,7 @@ export default class TileTagField extends Component {
             class: this.props.field.innerClass + ' ' + tagName
           };
           index += 1;
-          // let link = {
-          //   name: item.name,
-          //   href: item.linkHref,
-          //   linkText: item.linkLabel
-          // };
           tagElements.push(<TileImageField key={id + index} field={tagField} data={[]}/>);
-
-
-
-          // if (link.href && link.linkText) {
-          //   index += 1;
-          //   tagElements.push(<TileLinkField key={id + index} field={link} data={[]}/>);
-          // }
-
         }
       });
     } else {

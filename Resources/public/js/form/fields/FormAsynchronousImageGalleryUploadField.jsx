@@ -53,7 +53,7 @@ export default class FormAsynchronousImageGalleryUploadField extends Component {
             let field = JSON.parse(JSON.stringify(this.props.field));
             field.label = "";
             field.name = field.name + "_" + index;
-            return <FormAsynchronousCroppedFileUploadField key={index} data={this.props.data} field={field} form={this.props.form}/>
+            return <FormAsynchronousCroppedFileUploadField key={index} data={this.props.data} field={field} form={this.props.form} languageRefs={this.props.languageRefs}/>
           })}
           {description}
         </div>

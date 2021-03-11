@@ -46,7 +46,6 @@ export default class FormImageGalleryUploadField extends Component {
         arrImages.push({});
       }
     }
-
     return (
         <div className={(this.props.field.className ? this.props.field.className + " " : "") + "c4g-form-field"}>
           {label}
@@ -54,7 +53,7 @@ export default class FormImageGalleryUploadField extends Component {
             let field = JSON.parse(JSON.stringify(this.props.field));
             field.label = "";
             field.name = field.name + "_" + index;
-            return <FormCroppedFileUploadField key={index} data={this.props.data} field={field} form={this.props.form}/>
+            return <FormCroppedFileUploadField key={index} data={this.props.data} field={field} form={this.props.form} languageRefs={this.props.languageRefs}/>
           })}
           {description}
         </div>

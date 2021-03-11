@@ -78,13 +78,11 @@ export default class TableView extends Component {
       </div>;
     }
     // regular buttons
-    // TODO unterscheiden zwischen normalen und delete buttons
-
     if (this.props.component.tableButtons && this.props.component.tableButtons.length > 0) {
       regularButtons = <div className={"action-button-container"}>
         {
           this.props.component.tableButtons.map((item, index) => {
-            return <TableButton key={index} text={item.label} href={item.href}/>
+            return <TableButton key={index} text={item.label} href={item.href} languageRefs={this.props.languageRefs}/>
           })
         }
       </div>;
@@ -92,36 +90,36 @@ export default class TableView extends Component {
     let options = {
       textLabels: {
         body: {
-          noMatch: "Keine Einträge gefunden",
-          toolTip: "Sortieren",
+          noMatch: this.props.languageRefs.TABLE_NO_MATCH,
+          toolTip: this.props.languageRefs.TABLE_TOOLTIP,
           columnHeaderTooltip: column => `Sortierung für ${column.label}`
         },
         pagination: {
-          next: "Nächste Seite",
-          previous: "Vorherige Seite",
-          rowsPerPage: "Zeilen pro Seite:",
-          displayRows: "von",
+          next: this.props.languageRefs.TABLE_NEXT_PAGE,
+          previous: this.props.languageRefs.TABLE_PREVIOUS_PAGE,
+          rowsPerPage: this.props.languageRefs.TABLE_ROWS_PER_PAGE,
+          displayRows: this.props.languageRefs.TABLE_DISPLAY_ROWS,
         },
         toolbar: {
-          search: "Suchen",
-          downloadCsv: "CSV Herunterladen",
-          print: "Drucken",
-          viewColumns: "Spaltenansicht",
-          filterTable: "Tabelle filtern",
+          search: this.props.languageRefs.TABLE_SEARCH,
+          downloadCsv: this.props.languageRefs.TABLE_DOWNLOAD_CSV,
+          print: this.props.languageRefs.TABLE_PRINT,
+          viewColumns: this.props.languageRefs.TABLE_VIEW_COLUMNS,
+          filterTable: this.props.languageRefs.TABLE_FILTER_TABLE,
         },
         filter: {
-          all: "Alle",
-          title: "FILTER",
-          reset: "ZURÜCKSETZEN",
+          all: this.props.languageRefs.TABLE_FILTER_ALL,
+          title: this.props.languageRefs.TABLE_FILTER_TITLE,
+          reset: this.props.languageRefs.TABLE_FILTER_RESET,
         },
         viewColumns: {
-          title: "Zeige Spalten",
-          titleAria: "Zeige/Verstecke Spalten",
+          title: this.props.languageRefs.TABLE_TITLE,
+          titleAria: this.props.languageRefs.TABLE_TITLE_ARIA,
         },
         selectedRows: {
-          text: "Zeile(en) ausgewählt",
-          delete: "Löschen",
-          deleteAria: "Lösche ausgewählte Zeilen",
+          text: this.props.languageRefs.TABLE_SELECTED_TEXT,
+          delete: this.props.languageRefs.TABLE_SELECTED_DELETE,
+          deleteAria: this.props.languageRefs.TABLE_SELECTED_DELETE_ARIA,
         },
       }
     };
@@ -197,10 +195,10 @@ export default class TableView extends Component {
     MySwal.fire({
       title: <p>{buttonConf.label}</p>,
       html: form,
-      confirmButtonText: buttonConf.submitButtonLabel || "Absenden",
+      confirmButtonText: buttonConf.submitButtonLabel || this.props.languageRefs.CONFIRM,
       showConfirmButton: true,
       showCancelButton: true,
-      cancelButtonText: buttonConf.cancelButtonLabel || "Abbrechen",
+      cancelButtonText: buttonConf.cancelButtonLabel || this.props.languageRefs.CANCEL,
       customClass: {
         content: "zIndex-9",
         actions: "zIndex-8"
@@ -222,7 +220,6 @@ export default class TableView extends Component {
     let url = activeButton.form.url;
     this.formData.id = selectedData.id;
     jQuery.post(url, this.formData).done((responseData) => {
-      // TODO der server sollte eigentlich die aktuellen Daten wieder zurückliefern
       // this.resetSelection();
       location.reload();
     });

@@ -28,7 +28,6 @@ export default class TileDistanceField extends Component {
         label = <span className={"entry-label"}>{this.props.field.label}</span>;
       }
 
-      // TODO check if geolocation is active
       let value = this.props.data[this.props.field.name];
 
       return (

@@ -196,7 +196,6 @@ export default class FormCroppedFileUploadField extends Component {
     if (this.props.field.description) {
       description = (<small className={"field-description form-text text-muted"}>{this.props.field.description}</small>);
     }
-
     return (
       <React.Fragment>
         <div className={"form-group"}>
@@ -219,8 +218,8 @@ export default class FormCroppedFileUploadField extends Component {
           <img alt="Crop" style={{ maxWidth: '100%' }} src={croppedImageUrl} />
         )}
         {croppedImageUrl && (
-          <button onClick={this.unsetImage} title={"Hier klicken um das Bild zu entfernen."}
-                  className={"btn btn-primary remove-image " + this.props.field.name}>Bild entfernen</button>
+          <button onClick={this.unsetImage} title={this.props.languageRefs.CLICK_TO_REMOVE_IMAGE}
+                  className={"btn btn-primary remove-image " + this.props.field.name}>{this.props.languageRefs.REMOVE_IMAGE}</button>
         )}
       </React.Fragment>
     );

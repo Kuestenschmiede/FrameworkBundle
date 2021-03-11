@@ -53,7 +53,7 @@ export default class DetailHeadlineField extends Component {
           headline = <h6>{this.props.data[this.props.field.name]}</h6>;
           break;
         default:
-          console.warn("unsupported headline level.");
+          console.warn(this.props.languageRefs.UNSUPPORTED_HEADLINE_LEVEL);
       }
 
       return (

@@ -29,9 +29,6 @@ export default class TileLinkField extends Component {
       if (this.props.field.hrefName && this.props.data[this.props.field.hrefName]) {
         href = href.replace(this.props.field.hrefName, this.props.data[this.props.field.hrefName]);
       }
-      if (!href.startsWith('http')) {
-        href = 'https://' + href;
-      }
       return (
           <div className={this.props.field.wrapperClass}>
             {label}

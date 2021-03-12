@@ -26,6 +26,7 @@ export default class TileModalButtonField extends Component {
     this.renderDefaultContent = this.renderDefaultContent.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.closeAndClearModal = this.closeAndClearModal.bind(this);
     this.onAjaxDone = this.onAjaxDone.bind(this);
     this.onAjaxFail = this.onAjaxFail.bind(this);
     this.showForm = this.showForm.bind(this);
@@ -62,6 +63,10 @@ export default class TileModalButtonField extends Component {
 
   closeModal() {
     this.setState({showModal: false});
+  }
+
+  closeAndClearModal() {
+    this.setState({showModal: false, modalContent: this.renderDefaultContent()});
   }
 
   onAjaxDone(json) {
@@ -152,7 +157,7 @@ export default class TileModalButtonField extends Component {
     if (json && json.success) {
       this.setState({modalContent: <ModalContentMessage title={json.success.title}
                                                         message={json.success.message}
-                                                        onConfirm={this.closeModal}
+                                                        onConfirm={this.closeAndClearModal}
                                                         confirmButtonText={this.props.field.closeButtonText}/>
       });
     } else {

@@ -107,8 +107,11 @@ export default class DetailModalFormButtonField extends Component {
       let formProps = {};
       formProps.updateFunction = function () {};
       let content = <div className={this.props.className || 'c4g-modal-content'}>
-        <div>
-          <span className={'title'}>{this.props.field.label}</span>
+        <button className={'c4g-btn c4g-btn-top-close'} type={'button'} onClick={this.closeModal}>
+          <span className={'c4g-btn-text'}>{this.props.field.closeButtonText}</span>
+        </button>
+        <div className={'c4g-modal__title-wrapper'}>
+          <span className={'c4g-modal__title'}>{this.props.field.label}</span>
         </div>
         <form>
           <div>
@@ -141,12 +144,12 @@ export default class DetailModalFormButtonField extends Component {
               }
             </Suspense>
           </div>
-          <div>
-            <button className={'highlight'} type={'button'} onClick={this.submitForm}>
-              {this.props.field.confirmButtonText}
+          <div className={'c4g-panel-buttons'}>
+            <button className={'c4g-btn c4g-btn-submit'} type={'button'} onClick={this.submitForm}>
+              <span className={'c4g-btn-text'}>{this.props.field.confirmButtonText}</span>
             </button>
-            <button type={'button'} onClick={this.closeModal}>
-              {this.props.field.closeButtonText}
+            <button className={'c4g-btn c4g-btn-close'} type={'button'} onClick={this.closeModal}>
+              <span className={'c4g-btn-text'}>{this.props.field.closeButtonText}</span>
             </button>
           </div>
         </form>
@@ -159,7 +162,7 @@ export default class DetailModalFormButtonField extends Component {
   }
 
   submitForm(event) {
-    let formElements = event.target.form.elements;
+    let formElements = event.target.parentNode.form.elements;
     let data = {};
     let index = 0;
     while (index < formElements.length) {

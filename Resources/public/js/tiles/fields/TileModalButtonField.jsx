@@ -93,7 +93,6 @@ export default class TileModalButtonField extends Component {
       let formProps = {};
       formProps.updateFunction = function () {
       };
-      console.log(this.props);
       let content = <div className={this.props.className || 'c4g-modal-content'}>
         <div>
           <span className={'title'}>{this.props.field.label}</span>

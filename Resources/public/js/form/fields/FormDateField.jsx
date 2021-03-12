@@ -33,9 +33,6 @@ export default class FormDateField extends Component {
     this.regex = {
       fullPattern: '^(([1-9])|(0[1-9])|(1[0-9])|(2[0-9])|(3[0-1]))\.(([1-9])|(0[1-9])|(1[0-2]))\.[1-2]([0-9]{3})$',
       full: new RegExp('^(([1-9])|(0[1-9])|(1[0-9])|(2[0-9])|(3[0-1]))\.(([1-9])|(0[1-9])|(1[0-2]))\.[1-2]([0-9]{3})$')
-      // day: new RegExp('^((0[1-9])|(1[0-9])|(2[0-9])|(3[0-1]))$'),
-      // month: new RegExp('^(([1-9])|(0[1-9])|(1[0-2]))$'),
-      // year: new RegExp('^([1-2]([0-9]{0,3}))$')
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -56,33 +53,6 @@ export default class FormDateField extends Component {
       if (day !== date.getDate()) {
           event.target.value = this.convertDateToString(date);
       }
-      // } else {
-      //   let values = dateString.split('.');
-      //   if (values.length === 1) {
-      //     if (values[0] === '0' || this.regex.day.test(values[0]) === true) {
-      //       if (values[0].length > 1) {
-      //         this.setState({dateString: values[0] + '.'});
-      //       } else {
-      //         this.setState({dateString: values[0]});
-      //       }
-      //     }
-      //   } else if (values.length === 2) {
-      //     if ((this.regex.day.test(values[0]) && this.regex.month.test(values[1])) || (this.regex.day.test(values[0]) && (values[1] === '' || values[1] === '0')) || (this.regex.month.test(values[1]) && (values[0] === '' || values[0] === '0'))) {
-      //       if (dateString.length > 6) {
-      //         this.setState({dateString: dateString + '.'});
-      //       } else {
-      //         this.setState({dateString: dateString});
-      //       }
-      //     }
-      //   } else if (values.length === 3) {
-      //     if (this.regex.day.test(values[0]) && this.regex.month.test(values[1])) {
-      //       if (this.regex.year.test(values[2])) {
-      //         this.setState({dateString: dateString});
-      //       }
-      //     } else if (dateString.length < this.state.dateString) {
-      //       this.setState({dateString: dateString});
-      //     }
-      //   }
     } else if (dateString === '') {
       this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: null});
     }

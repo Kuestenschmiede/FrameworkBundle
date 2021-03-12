@@ -19,13 +19,13 @@ class DetailModalFormButtonField extends DetailField
     private $confirmButtonText = '';
     private $closeButtonText = '';
     private $submitUrl = '';
-    
+
     /**
      * The fields this fields' display depends upon, if there is one.
      * @var array
      */
     protected $conditionField = [];
-    
+
     /**
      * The value of the conditionFields for which this field is displayed.
      * @var array
@@ -127,7 +127,7 @@ class DetailModalFormButtonField extends DetailField
     {
         $this->submitUrl = $submitUrl;
     }
-    
+
     /**
      * @return array
      */
@@ -135,7 +135,7 @@ class DetailModalFormButtonField extends DetailField
     {
         return $this->conditionField;
     }
-    
+
     /**
      * @param string $conditionField
      */
@@ -143,7 +143,7 @@ class DetailModalFormButtonField extends DetailField
     {
         $this->conditionField[] = $conditionField;
     }
-    
+
     /**
      * @return array
      */
@@ -151,7 +151,7 @@ class DetailModalFormButtonField extends DetailField
     {
         return $this->conditionValue;
     }
-    
+
     /**
      * @param string $conditionValue
      */

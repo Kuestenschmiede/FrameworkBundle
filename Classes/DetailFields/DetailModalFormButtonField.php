@@ -19,6 +19,7 @@ class DetailModalFormButtonField extends DetailField
     private $confirmButtonText = '';
     private $closeButtonText = '';
     private $submitUrl = '';
+    private $innerFields = [];
 
     /**
      * The fields this fields' display depends upon, if there is one.
@@ -44,6 +45,7 @@ class DetailModalFormButtonField extends DetailField
         $config['submitUrl'] = $this->submitUrl;
         $config['conditionField'] = $this->conditionField;
         $config['conditionValue'] = $this->conditionValue;
+        $config['innerFields'] = $this->innerFields;
 
         return $config;
     }
@@ -158,5 +160,21 @@ class DetailModalFormButtonField extends DetailField
     public function setConditionValue(string $conditionValue)
     {
         $this->conditionValue[] = $conditionValue;
+    }
+
+    /**
+     * @return array
+     */
+    public function getInnerFields(): array
+    {
+        return $this->innerFields;
+    }
+
+    /**
+     * @param array $innerFields
+     */
+    public function setInnerFields(array $innerFields): void
+    {
+        $this->innerFields = $innerFields;
     }
 }

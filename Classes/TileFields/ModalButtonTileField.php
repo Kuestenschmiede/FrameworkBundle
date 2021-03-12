@@ -20,6 +20,7 @@ class ModalButtonTileField extends TileField
     private $closeButtonText = '';
     private $submitUrl = '';
     private $conditions = [];
+    private $innerFields = [];
 
     const TYPE = 'modal-button';
 
@@ -32,6 +33,7 @@ class ModalButtonTileField extends TileField
         $config['closeButtonText'] = $this->closeButtonText;
         $config['submitUrl'] = $this->submitUrl;
         $config['conditions'] = $this->conditions;
+        $config['innerFields'] = $this->innerFields;
 
         return $config;
     }
@@ -128,5 +130,21 @@ class ModalButtonTileField extends TileField
             'value' => $value,
             'not' => $not,
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getInnerFields(): array
+    {
+        return $this->innerFields;
+    }
+
+    /**
+     * @param array $innerFields
+     */
+    public function setInnerFields(array $innerFields): void
+    {
+        $this->innerFields = $innerFields;
     }
 }

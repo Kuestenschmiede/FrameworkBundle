@@ -282,5 +282,11 @@ export class C4gUiManager extends Component {
         reactRenderReady();
       }, 750);
     }
+
+    if (typeof reactRenderReadySecond === "function") {
+      window.setTimeout(function() {
+        reactRenderReadySecond();
+      }, 750);
+    }
   }
 }

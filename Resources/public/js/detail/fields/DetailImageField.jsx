@@ -28,7 +28,7 @@ export default class DetailImageField extends Component {
       let src = this.props.data[this.props.field.name].src;
       let altName = this.props.data[this.props.field.name].alt;
       let imageNode = null;
-      if (this.props.field.withPopover) {
+      if (this.props.field.withPopover && this.props.field.popoverField && this.props.data[this.props.field.popoverField]) {
         imageNode = <img className={"img-fluid"} src={src} alt={altName} data-toggle={"tooltip"} data-content={this.props.data[this.props.field.popoverField]} title={this.props.data[this.props.field.popoverField]}/>;
       } else {
         imageNode = <img className={"img-fluid"} src={src} alt={altName} title={altName} />;

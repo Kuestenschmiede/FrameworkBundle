@@ -78,20 +78,22 @@ export default class FormTextField extends Component {
     }
 
     let content = <React.Fragment>
-      {label}
-      {this.props.errorText && typeof this.props.errorText === "string" && <div className={"text-danger"}>{this.props.errorText}</div>}
-      <input type={this.props.field.type}
-             id={this.props.field.name}
-             name={this.props.field.name}
-             required={this.props.field.required}
-             defaultValue={this.props.data[this.props.field.name] || this.props.field.value}
-             pattern={this.props.field.pattern}
-             onChange={this.handleChange}
-             placeholder={this.props.field.placeholder}
-             className={"c4g-form-control c4g-form-input" + ((this.props.errorText && typeof this.props.errorText === "string") ? " is-invalid" : "")}
-             maxLength={this.props.field.maxLength}
-             aria-label={ariaLabel}/>
-      {description}
+      <div className={(this.props.field.className ? this.props.field.className + " " : "") + "c4g-form-field"}>
+        {label}
+        {this.props.errorText && typeof this.props.errorText === "string" && <div className={"text-danger"}>{this.props.errorText}</div>}
+        <input type={this.props.field.type}
+               id={this.props.field.name}
+               name={this.props.field.name}
+               required={this.props.field.required}
+               defaultValue={this.props.data[this.props.field.name] || this.props.field.value}
+               pattern={this.props.field.pattern}
+               onChange={this.handleChange}
+               placeholder={this.props.field.placeholder}
+               className={"c4g-form-control c4g-form-input" + ((this.props.errorText && typeof this.props.errorText === "string") ? " is-invalid" : "")}
+               maxLength={this.props.field.maxLength}
+               aria-label={ariaLabel}/>
+        {description}
+      </div>
     </React.Fragment>;
 
     if (this.props.field.wrappingDiv) {

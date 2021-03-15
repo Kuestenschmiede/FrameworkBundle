@@ -95,9 +95,14 @@ export default class TileModalButtonField extends Component {
 
   showForm(json) {
     try {
+      let fields;
+      if (typeof this.props.field.innerFields !== 'undefined' && this.props.field.innerFields.length > 0) {
+        fields = this.props.fields.filter(field => this.props.field.innerFields.includes(field.name));
+      } else {
+        fields = this.props.fields.filter(field => field.type !== this.props.field.type);
+      }
       let formProps = {};
-      formProps.updateFunction = function () {
-      };
+      formProps.updateFunction = function () {};
       let content = <div className={this.props.className || 'c4g-modal-content'}>
         <div>
           <span className={'title'}>{this.props.field.label}</span>
@@ -109,7 +114,7 @@ export default class TileModalButtonField extends Component {
                 <img src="bundles/con4gisframework/img/preloader-image.svg" className="preloader-image" alt=""/>
               </div>}>
               <ExperimentalGridTile dataEntry={this.props.data}
-                            fields={this.props.fields.filter(field => field.type !== this.props.field.type)}
+                            fields={fields}
                             list={this.props.list} languageRefs={this.props.languageRefs}/>
               {
                 json.formFields.map((item, id) => {

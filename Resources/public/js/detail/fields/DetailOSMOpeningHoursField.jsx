@@ -77,20 +77,24 @@ export default class DetailOSMOpeningHoursField extends Component {
           for (let i = 0; i < sortedDays.length; i++) {
             let cnt = 0;
             let dayoutput = [<div key={(i + 1)} className={"opening-hours-day"}>{weekdays[sortedDays[i]]}</div>];
+            let intervals = [];
             for (let j = 0; j < outputArr.length; j++) {
               if (outputArr[j][0] === sortedDays[i]) {
                 let day = <div key={(j + 2) * 100} className={"opening-hours-day-interval"}>{outputArr[j][1]}</div>;
-                dayoutput.push(day);
+                intervals.push(day);
                 cnt++;
               }
             }
 
             if (cnt === 0) {
               let day = <div key={(i + 1) + 300} className={"opening-hours-day-interval"}>Geschlossen</div>;
-              dayoutput.push(day);
+              intervals.push(day);
             }
 
-            days.push(<div className={"opening-hours-day-entry"} key={(i + 3) * 1000}>{dayoutput}</div>);
+            days.push(<div className={"opening-hours-day-entry"} key={(i + 3) * 1000}>
+              {dayoutput}
+              <div className={"opening-hours-day-interval-wrapper"}>{intervals}</div>
+            </div>);
           }
           daysNode = <div key={1} className={"opening-hours-days"}>{days}</div>;
         }

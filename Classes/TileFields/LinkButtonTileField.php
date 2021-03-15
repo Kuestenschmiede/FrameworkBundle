@@ -42,16 +42,17 @@ class LinkButtonTileField extends TileField
     protected $conditionalClasses = [];
 
     /**
-     * The field this fields display depends upon, if there is one.
-     * @var string
+     * The fields this fields' display depends upon, if there is one.
+     * @var array
      */
-    protected $conditionField = '';
+    protected $conditionField = [];
 
     /**
-     * The value of the conditionField for which this field is displayed.
-     * @var string
+     * The value of the conditionFields for which this field is displayed.
+     * @var array
      */
-    protected $conditionValue = '';
+    protected $conditionValue = [];
+
 
     /**
      * If set, the given field will be checked for content. If it's not empty,
@@ -59,12 +60,8 @@ class LinkButtonTileField extends TileField
      * @var string
      */
     protected $externalLinkField = '';
-
-    /**
-     * If this switch is set, then the condition applies only to the external link.
-     * @var bool
-     */
-    protected $externalFieldCondition = false;
+    protected $externalLinkFieldConditionField = [];
+    protected $externalLinkFieldConditionValue = [];
 
     const TYPE = 'linkbutton';
 
@@ -80,7 +77,8 @@ class LinkButtonTileField extends TileField
         $config['conditionValue'] = $this->conditionValue;
         $config['conditionalClasses'] = $this->conditionalClasses;
         $config['externalLinkField'] = $this->externalLinkField;
-        $config['externalFieldCondition'] = $this->externalFieldCondition;
+        $config['externalLinkFieldConditionField'] = $this->externalLinkFieldConditionField;
+        $config['externalLinkFieldConditionValue'] = $this->externalLinkFieldConditionValue;
         $config['addDataAttributes'] = $this->addDataAttributes;
         $config['hookAfterClick'] = $this->hookAfterClick;
         $config['hookName'] = $this->hookName;
@@ -98,13 +96,10 @@ class LinkButtonTileField extends TileField
 
     /**
      * @param string $href
-     * @return LinkButtonTileField
      */
-    public function setHref(string $href): LinkButtonTileField
+    public function setHref(string $href)
     {
         $this->href = $href;
-
-        return $this;
     }
 
     /**
@@ -127,22 +122,19 @@ class LinkButtonTileField extends TileField
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getHrefField(): string
+    public function getHrefFields(): array
     {
-        return $this->hrefField;
+        return $this->hrefFields;
     }
 
     /**
      * @param string $hrefField
-     * @return LinkButtonTileField
      */
-    public function setHrefField(string $hrefField): LinkButtonTileField
+    public function setHrefField(string $hrefField)
     {
         $this->hrefFields[] = $hrefField;
-
-        return $this;
     }
 
     public function setHrefFields(array $hrefFields)
@@ -183,9 +175,9 @@ class LinkButtonTileField extends TileField
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getConditionField(): string
+    public function getConditionField(): array
     {
         return $this->conditionField;
     }
@@ -193,15 +185,15 @@ class LinkButtonTileField extends TileField
     /**
      * @param string $conditionField
      */
-    public function setConditionField(string $conditionField): void
+    public function setConditionField(string $conditionField)
     {
-        $this->conditionField = $conditionField;
+        $this->conditionField[] = $conditionField;
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getConditionValue(): string
+    public function getConditionValue(): array
     {
         return $this->conditionValue;
     }
@@ -209,9 +201,41 @@ class LinkButtonTileField extends TileField
     /**
      * @param string $conditionValue
      */
-    public function setConditionValue(string $conditionValue): void
+    public function setConditionValue(string $conditionValue)
     {
-        $this->conditionValue = $conditionValue;
+        $this->conditionValue[] = $conditionValue;
+    }
+
+    /**
+     * @return array
+     */
+    public function getExternalLinkFieldConditionField(): array
+    {
+        return $this->externalLinkFieldConditionField;
+    }
+
+    /**
+     * @param string $externalLinkFieldConditionField
+     */
+    public function setExternalLinkFieldConditionField(string $externalLinkFieldConditionField): void
+    {
+        $this->externalLinkFieldConditionField[] = $externalLinkFieldConditionField;
+    }
+
+    /**
+     * @return array
+     */
+    public function getExternalLinkFieldConditionValue(): array
+    {
+        return $this->externalLinkFieldConditionValue;
+    }
+
+    /**
+     * @param string $externalLinkFieldConditionValue
+     */
+    public function setExternalLinkFieldConditionValue(string $externalLinkFieldConditionValue): void
+    {
+        $this->externalLinkFieldConditionValue[] = $externalLinkFieldConditionValue;
     }
 
     /**
@@ -289,21 +313,5 @@ class LinkButtonTileField extends TileField
     public function setHookName(string $hookName): void
     {
         $this->hookName = $hookName;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isExternalFieldCondition(): bool
-    {
-        return $this->externalFieldCondition;
-    }
-
-    /**
-     * @param bool $externalFieldCondition
-     */
-    public function setExternalFieldCondition(bool $externalFieldCondition): void
-    {
-        $this->externalFieldCondition = $externalFieldCondition;
     }
 }

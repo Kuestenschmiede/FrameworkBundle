@@ -17,13 +17,46 @@ export default class TileLinkButtonField extends Component {
   constructor(props) {
     super(props);
 
+    this.hasValidExternalLink = this.hasValidExternalLink.bind(this);
     this.executeAsyncCall = this.executeAsyncCall.bind(this);
+  }
+
+  hasValidExternalLink() {
+    if (!this.props.field.externalLinkField) {
+      return false;
+    }
+
+    try {
+      let valid = false;
+      if (this.props.field.externalLinkFieldConditionField.length === this.props.field.externalLinkFieldConditionValue.length) {
+        this.props.field.externalLinkFieldConditionField.forEach(
+          function (element, index) {
+            if (String(this.props.data[element]) === String(this.props.field.externalLinkFieldConditionValue[index])) {
+              valid = true;
+            }
+          },
+          this
+        );
+        return valid;
+      }
+    } catch (e) {
+      return false;
+    }
   }
 
   render() {
     if (this.props.field.href && this.props.field.linkText) {
-      if (this.props.field.conditionField && !this.props.field.externalFieldCondition) {
-        if (this.props.data[this.props.field.conditionField] !== this.props.field.conditionValue) {
+      if (this.props.field.conditionField.length === this.props.field.conditionValue.length) {
+        let render = true;
+        this.props.field.conditionField.forEach(
+          function (element, index) {
+            if (String(this.props.data[element]) !== String(this.props.field.conditionValue[index])) {
+              render = false;
+            }
+          },
+          this
+        );
+        if (!render) {
           return null;
         }
       }
@@ -32,13 +65,9 @@ export default class TileLinkButtonField extends Component {
       label = <span className={"entry-label"}>{this.props.field.label}</span>;
       }
       let href = this.props.field.href;
-      if (this.props.field.externalLinkField && this.props.data[this.props.field.externalLinkField]
-        && (!this.props.field.externalFieldCondition
-        || (this.props.data[this.props.field.conditionField] === this.props.field.conditionValue))) {
+
+      if (this.hasValidExternalLink()) {
         href = this.props.data[this.props.field.externalLinkField];
-        if (href.indexOf("https://") === -1) {
-          href = "https://" + href;
-        }
       } else {
         if (this.props.field.hrefFields) {
           this.props.field.hrefFields.map((item, id) => {
@@ -46,7 +75,6 @@ export default class TileLinkButtonField extends Component {
           });
         }
       }
-
 
       let condClasses = "";
       if (this.props.field.conditionalClasses) {
@@ -60,7 +88,6 @@ export default class TileLinkButtonField extends Component {
         }
       }
       let anchor = null;
-      // let anchorClass = this.props.field.buttonClass + " " + condClasses;
       let anchorClass = this.props.field.class;
       if (this.props.field.asyncCall) {
         if (this.props.field.addDataAttributes) {

@@ -10,6 +10,15 @@ export default class ExperimentalGridTile extends Component {
   }
 
   render() {
+    let wrappedFields = [];
+    for (let i = 0; i < this.props.fields.length; i++) {
+      if (this.props.fields[i].type) {
+        if (this.props.fields[i].wrappedFields) {
+          wrappedFields = wrappedFields.concat(this.props.fields[i].wrappedFields);
+        }
+      }
+    }
+
     return (
       <div className="c4g-list-element">
 
@@ -17,7 +26,9 @@ export default class ExperimentalGridTile extends Component {
 
           {
             this.props.fields.map((item, id) => {
-              return <TileMapperField key={id} field={item} data={this.props.dataEntry} list={this.props.list} fields={this.props.fields}/>;
+              if (!wrappedFields.includes(item.name)) {
+                return <TileMapperField key={id} field={item} data={this.props.dataEntry} list={this.props.list} fields={this.props.fields}/>;
+              }
             })
           }
 

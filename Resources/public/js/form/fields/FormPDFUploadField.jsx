@@ -113,12 +113,12 @@ export default class FormPDFUploadField extends Component {
       <div>
         {label}
         <div className={className + " file-label"}>{fileLabel}</div>
-        <input ref={input => this.inputElement = input} type={"file"} accept=".pdf" onChange={this.onSelectFile} id={fieldName}
+        <input className={"form-control-file"} ref={input => this.inputElement = input} type={"file"} accept=".pdf" onChange={this.onSelectFile} id={fieldName}
                name={fieldName + (this.props.field.max > 1 ? "[]" : "")} style={{display: "none"}}/>
         <input type="button" value={this.props.languageRefs.CHOOSE_FILE} onClick={(e) => {
           e.preventDefault();
           this.inputElement.click();
-        }} className={className + "btn"}/>
+        }} className={className + "btn btn-outline-primary"}/>
        {description}
       </div>
     );

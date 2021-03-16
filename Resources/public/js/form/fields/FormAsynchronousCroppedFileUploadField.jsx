@@ -47,6 +47,7 @@ export default class FormAsynchronousCroppedFileUploadField extends Component {
       this.state.imageName = this.props.data[this.props.field.name].name;
     }
 
+    this.inputRef = null;
     this.allowedFileTypes = [
       "image/png",
       "image/jpeg",
@@ -103,6 +104,14 @@ export default class FormAsynchronousCroppedFileUploadField extends Component {
     let newCrop = JSON.parse(JSON.stringify(this.state.crop));
     if (this.props.data[this.props.field.name]) {
       let importantPart = this.props.data[this.props.field.name].importantPart;
+      if (!importantPart) {
+        importantPart = {
+          x: 0.05,
+          y: 0.05,
+          height: 0.9,
+          width: 0.9
+        }
+      }
       newCrop.x = importantPart.x * this.imageRef.width;
       newCrop.y = importantPart.y * this.imageRef.height;
       newCrop.width = importantPart.width * this.imageRef.width;
@@ -203,7 +212,7 @@ export default class FormAsynchronousCroppedFileUploadField extends Component {
         <div className={"form-group"}>
           {label}
           <input type={"file"} accept=".jpg, .png, .jpeg" onChange={this.onSelectFile} id={fieldName}
-                 className={"form-control-file"}
+                 className={"form-control-file"} ref={(node) => {this.inputRef = node;}}
                  required={this.props.field.required && !croppedImageUrl}
           />
           {value && (
@@ -227,7 +236,7 @@ export default class FormAsynchronousCroppedFileUploadField extends Component {
         {croppedImageUrl && (
           <img alt="Crop" style={{ maxWidth: '100%' }} src={croppedImageUrl} />
         )}
-        {croppedImageUrl && (
+        {src && (
           <button onClick={this.unsetImage} title={this.props.languageRefs.CLICK_TO_REMOVE_IMAGE}
                   className={"btn btn-primary remove-image " + this.props.field.name}>{this.props.languageRefs.REMOVE_IMAGE}</button>
         )}
@@ -244,6 +253,9 @@ export default class FormAsynchronousCroppedFileUploadField extends Component {
       crop: null,
       croppedImageUrl: null
     });
+    if (this.inputRef) {
+      this.inputRef.value = "";
+    }
     this.props.form.props.updateFunction(this.props.form.props.name, data);
     let requestData = {uuid: data.uuid, fieldName: this.props.field.name};
     jQuery.post(this.props.field.removeImageUrl, requestData)

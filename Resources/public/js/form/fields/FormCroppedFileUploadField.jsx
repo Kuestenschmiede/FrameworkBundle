@@ -53,6 +53,7 @@ export default class FormCroppedFileUploadField extends Component {
       "image/jpeg",
       "image/jpg"
     ];
+    this.inputRef = null;
   }
 
   onSelectFile = e => {
@@ -200,7 +201,7 @@ export default class FormCroppedFileUploadField extends Component {
       <React.Fragment>
         <div className={"form-group"}>
           {label}
-          <input type={"file"} accept=".jpg, .png, .jpeg" onChange={this.onSelectFile} id={fieldName}
+          <input type={"file"} accept=".jpg, .png, .jpeg" onChange={this.onSelectFile} id={fieldName} ref={(node) => {this.inputRef = node;}}
                  name={fieldName + (this.props.field.max > 1 ? "[]" : "")} className={"form-control-file"}/>
           {description}
         </div>
@@ -217,7 +218,7 @@ export default class FormCroppedFileUploadField extends Component {
         {croppedImageUrl && (
           <img alt="Crop" style={{ maxWidth: '100%' }} src={croppedImageUrl} />
         )}
-        {croppedImageUrl && (
+        {src && (
           <button onClick={this.unsetImage} title={this.props.languageRefs.CLICK_TO_REMOVE_IMAGE}
                   className={"btn btn-primary remove-image " + this.props.field.name}>{this.props.languageRefs.REMOVE_IMAGE}</button>
         )}
@@ -234,6 +235,10 @@ export default class FormCroppedFileUploadField extends Component {
       crop: null,
       croppedImageUrl: null
     });
+    if (this.inputRef !== null) {
+      // clear file selection
+      this.inputRef.value = "";
+    }
     this.props.form.props.updateFunction(this.props.form.props.name, data);
   }
 }

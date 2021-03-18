@@ -101,17 +101,18 @@ export default class DetailOSMOpeningHoursField extends Component {
         }
       }
     }
-    if (osmStringReadable !== null) {
+    if ((osmStringReadable !== null) && (osmStringReadable !== '')) {
       osmNode = <div key={2} className={"opening-hours-opened-state"}>{osmStringReadable}</div>;
     }
     if (hint !== null) {
       hintNode = <div key={3} className={"opening-hours-opened-hint"}>{hint}</div>;
+      if (osmStringReadable.indexOf(hint) !== -1) {
+        // hint is substring of osmStringReadable
+        // so do not show it
+        hintNode = null;
+      }
     }
-    if (osmStringReadable.indexOf(hint) !== -1) {
-      // hint is substring of osmStringReadable
-      // so do not show it
-      hintNode = null;
-    }
+
     // check for "string only"
     if (daysNode === "") {
       daysNode = null;

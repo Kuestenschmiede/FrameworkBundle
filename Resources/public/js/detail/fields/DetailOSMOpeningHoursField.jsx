@@ -37,6 +37,7 @@ export default class DetailOSMOpeningHoursField extends Component {
     let hint = null;
     let hintNode = null;
     let osmNode = null;
+    let openingHours = null;
     let days = [];
     if (osmString) {
       try {
@@ -122,14 +123,15 @@ export default class DetailOSMOpeningHoursField extends Component {
       osmStringReadable = "";
     }
 
+    if (osmNode || hintNode) {
+      openingHours = <div className={"opening-hours-opened"}>{osmNode}{hintNode}</div>;
+    }
+
     return (
         <div className={"opening-hours"}>
           <h3 key={0} className={"opening-hours-headline"}>{this.props.languageRefs.OPENING_HOURS}</h3>
           {daysNode}
-          <div className={"opening-hours-opened"}>
-            {osmNode}
-            {hintNode}
-          </div>
+          {openingHours}
         </div>
     );
   }

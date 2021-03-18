@@ -41,11 +41,7 @@ export default class TileTagField extends Component {
         }
       });
     } else {
-      if (this.props.list.props.component.layoutType === "grid") {
-        return <div className={this.props.field.wrapperClass} />
-      } else {
-        return null;
-      }
+      return null;
     }
     return (
       <div className={this.props.field.wrapperClass}>

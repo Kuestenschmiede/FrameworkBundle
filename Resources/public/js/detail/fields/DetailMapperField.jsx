@@ -30,6 +30,7 @@ const DetailTagField = React.lazy(() => import("./DetailTagField.jsx"));
 const DetailLinkField = React.lazy(() => import("./DetailLinkField.jsx"));
 const DetailVideoPreviewField = React.lazy(() => import("./DetailVideoPreviewField.jsx"));
 const DetailFooterField = React.lazy(() => import("./DetailFooterField.jsx"));
+const DetailImageLinkField = React.lazy(() => import("./DetailImageLinkField.jsx"));
 
 export default class DetailMapperField extends Component {
 
@@ -69,6 +70,8 @@ export default class DetailMapperField extends Component {
         return <DetailTagField {...this.props}/>;
       case "link":
         return <DetailLinkField {...this.props}/>;
+      case "image-link":
+        return <DetailImageLinkField {...this.props}/>;
       case "video-preview":
         return <DetailVideoPreviewField {...this.props}/>;
       case "footer":

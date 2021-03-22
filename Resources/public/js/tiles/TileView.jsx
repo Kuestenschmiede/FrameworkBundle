@@ -74,10 +74,6 @@ export default class TileView extends Component {
       }
     }
 
-    let bottomLine = null;
-    if (this.props.component.bottomLine) {
-      bottomLine = this.props.component.bottomLine;
-    }
     if (this.props.data.length === 0) {
       if (!this.props.updated && this.props.textBeforeUpdate) {
         return <div className="container">

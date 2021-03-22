@@ -78,12 +78,6 @@ class TileList
     ];
 
     /**
-     * Maximum data count that should be loaded.
-     * @var int
-     */
-    private $maxData = 0;
-
-    /**
      * The amount of datasets that will be loaded in each request.
      * @var int
      */
@@ -497,22 +491,6 @@ class TileList
         if (in_array($layoutType, $this->allowedLayoutTypes)) {
             $this->layoutType = $layoutType;
         }
-    }
-
-    /**
-     * @return int
-     */
-    public function getMaxData(): int
-    {
-        return $this->maxData;
-    }
-
-    /**
-     * @param int $maxData
-     */
-    public function setMaxData(int $maxData): void
-    {
-        $this->maxData = $maxData;
     }
 
     /**

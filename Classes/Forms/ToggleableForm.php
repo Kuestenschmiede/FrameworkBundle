@@ -107,6 +107,16 @@ class ToggleableForm implements ToggleableFormInterface
         $this->form->setRenderAsForm($renderAsForm);
     }
 
+    public function isHidden(): bool
+    {
+        return $this->form->isHidden();
+    }
+
+    public function setHidden(bool $hidden): void
+    {
+        $this->form->setHidden($hidden);
+    }
+
     public function getButtonWrapperClass(): string
     {
         return $this->form->getButtonWrapperClass();

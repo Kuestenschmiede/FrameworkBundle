@@ -92,7 +92,8 @@ export default class FormView extends Component {
                 buttonLabel = this.props.component.toggleableOnLabel;
                 toggledClass = ' ' + this.props.component.toggleableOnClass;
             }
-            return <div className={this.props.component.toggleableBaseClass + '-outer' + toggledClass}>
+            return <div className={this.props.component.toggleableBaseClass + '-outer' + toggledClass}
+                        hidden={this.props.component.hidden}>
                 <div className={this.props.component.toggleableBaseClass + '-inner'}>
                     <div className={this.props.component.toggleableBaseClass + '-button-wrapper' + toggledClass}>
                         <button className={this.props.component.toggleableBaseClass + '-button' + toggledClass}

@@ -19,8 +19,8 @@ export default class FormTimeField extends Component {
     super(props);
 
     this.regex = {
-      fullPattern: '^((0)|([0-1][0-9])|(2[0-3])):((0)|([0-5][0-9]))$',
-      full: new RegExp('^((0)|([0-1][0-9])|(2[0-3])):((0)|([0-5][0-9]))$')
+      fullPattern: '^(([0-9])|([0-1][0-9])|(2[0-3])):([0-5][0-9])$',
+      full: new RegExp('^(([0-9])|([0-1][0-9])|(2[0-3])):([0-5][0-9])$')
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -34,6 +34,22 @@ export default class FormTimeField extends Component {
       let hours = parseInt(values[0]);
       let minutes = parseInt(values[1]);
       this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: ((hours * 3600) + (minutes * 60))});
+    } else {
+      if (dateString.length === 4) {
+        let parts = dateString.split('');
+        if (this.regex.full.test(parts[0] + parts[1] + ':' + parts[2] + parts[3]) === true) {
+          let hours = parseInt(parts[0] + parts[1]);
+          let minutes = parseInt(parts[2] + parts[3]);
+          this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: ((hours * 3600) + (minutes * 60))});
+        }
+      } else if (dateString.length === 3) {
+        let parts = dateString.split('');
+        if (this.regex.full.test(parts[0] + ':' + parts[1] + parts[2]) === true) {
+          let hours = parseInt(parts[0]);
+          let minutes = parseInt(parts[1] + parts[2]);
+          this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: ((hours * 3600) + (minutes * 60))});
+        }
+      }
     }
   }
 

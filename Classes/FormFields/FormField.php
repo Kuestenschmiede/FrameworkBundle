@@ -12,7 +12,9 @@
  */
 namespace con4gis\FrameworkBundle\Classes\FormFields;
 
-abstract class FormField
+use con4gis\FrameworkBundle\Classes\ConfigurationInterface;
+
+abstract class FormField implements ConfigurationInterface
 {
     protected $name = '';
     protected $label = '';

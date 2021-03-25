@@ -18,7 +18,7 @@ class ConditionalMarkerTableField extends TableField
 
     const TYPE = 'conditional-marker';
 
-    public function getConfiguration()
+    public function getConfiguration(): array
     {
         $conf = parent::getConfiguration();
         $conf['markers'] = $this->arrMarkers;

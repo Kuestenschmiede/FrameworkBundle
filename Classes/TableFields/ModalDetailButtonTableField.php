@@ -19,7 +19,7 @@ class ModalDetailButtonTableField extends TableField
 
     const TYPE = 'modal-detail-button';
 
-    public function getConfiguration()
+    public function getConfiguration(): array
     {
         $config = parent::getConfiguration();
         $config['buttonLabel'] = $this->buttonLabel;

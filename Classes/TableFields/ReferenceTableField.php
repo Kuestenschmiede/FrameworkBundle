@@ -18,7 +18,7 @@ class ReferenceTableField extends TableField
 
     const TYPE = 'reference';
 
-    public function getConfiguration()
+    public function getConfiguration(): array
     {
         $config = parent::getConfiguration();
         $config['references'] = $this->references;

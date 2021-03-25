@@ -37,7 +37,7 @@ export default class DetailMapLocationField extends Component {
         let map = layerController.mapController.map;
         setTimeout(function() {
           map.updateSize();
-          map.render()
+          map.render();
         }, 1000);
       };
       window.c4gMapsHooks = window.c4gMapsHooks || {};

@@ -17,7 +17,6 @@ import {MapController} from "../../../../../../MapsBundle/Resources/public/js/co
 export default class DetailMapLocationField extends Component {
   constructor(props) {
     super(props);
-    const scope = this;
     this.state = {
       initial: true
     };

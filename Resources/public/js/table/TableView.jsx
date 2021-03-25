@@ -15,6 +15,7 @@ import React, {Component, Suspense} from "react";
 import FormView from "../form/FormView.jsx";
 import {TableButton} from "./button/TableButton.jsx";
 import {ModalDetailTableButton} from "./button/ModalDetailTableButton.jsx";
+import {PostActionButton} from "./button/PostActionButton.jsx";
 import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles';
 import {AlertHandler} from "../../../../../CoreBundle/Resources/public/js/AlertHandler.js";
 
@@ -289,6 +290,24 @@ export default class TableView extends Component {
               minutes = '0' + minutes;
             }
             return day + '.' + month + '.' + date.getFullYear() + ' ' + hours + ':' + minutes;
+          };
+          columns.push(column);
+          break;
+        case "action-button":
+          column = fields[i];
+          column.options.customBodyRender = (value, tableMeta, updateValue) => {
+            let buttons = [];
+            for (let i = 0; i < column.actions.length; i++) {
+              let props = column.actions[i];
+              props['rowData'] = tableMeta.rowData;
+              props['fields'] = fields;
+              props['setRowData'] = this.props.setRowData
+              props['value'] = value
+              buttons.push(
+                <PostActionButton {...props} />
+              );
+            }
+            return <React.Fragment>{buttons}</React.Fragment>;
           };
           columns.push(column);
           break;

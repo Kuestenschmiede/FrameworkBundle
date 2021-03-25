@@ -6,7 +6,6 @@ export default class FormWrapperField extends Component {
 
   constructor(props) {
     super(props);
-
   }
 
   render() {

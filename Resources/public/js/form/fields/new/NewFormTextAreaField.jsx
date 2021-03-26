@@ -27,7 +27,7 @@ export default class NewFormTextAreaField extends Component {
   render() {
     return (
     <div className={(this.props.className ? this.props.className + ' ' : '') +
-    'c4g-form-field c4g-form-group' + (this.props.error && ' c4g-invalid')}>
+    'c4g-form-field c4g-form-group' + ((this.props.error && ' c4g-invalid') || '')}>
       <label className={'c4g-label-outer'}>
         <span className={'c4g-label-inner'}>{this.props.label}</span>
         <textarea name={this.props.name}

@@ -38,6 +38,10 @@ export default class DetailMapperField extends Component {
     super(props);
   }
 
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   render() {
     switch (this.props.field.type) {
       case "text":

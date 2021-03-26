@@ -80,8 +80,19 @@ class PostAction implements ConfigurationInterface
         $this->cancelText = $cancelText;
     }
 
+    /**
+     * @param ConfigurationInterface $formField
+     */
     public function addFormField(ConfigurationInterface $formField)
     {
         $this->formFields[] = $formField;
+    }
+
+    /**
+     * @param ConfigurationInterface ...$formFields
+     */
+    public function setFormFields(ConfigurationInterface ...$formFields)
+    {
+        $this->formFields = $formFields;
     }
 }

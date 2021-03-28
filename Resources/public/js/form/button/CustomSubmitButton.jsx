@@ -74,11 +74,11 @@ export default class CustomSubmitButton extends Component {
       let geoy = geopicker.$fieldGeoY.val();
       data.geox = geox;
       data.geoy = geoy;
-      if (!data.geox && !data.geoy) {
+      if (!data.geox && !data.geoy && data.locationCity && data.locationStreet) {
         this.addPosition(data, mapController);
         return false;
       }
-      else if (!data.locationCity || !data.locationStreet || !data.locationStreetNumber) {
+      else if (data.geox && data.geoy && (!data.locationCity || !data.locationStreet || !data.locationStreetNumber)) {
         this.addAddress(data, mapController);
         return false;
       }

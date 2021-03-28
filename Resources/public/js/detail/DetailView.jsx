@@ -14,7 +14,7 @@
 import React, {Component} from "react";
 
 import {DetailAnchorMenu} from "./DetailAnchorMenu.jsx";
-
+//const DetailAnchorMenu = React.lazy(() => import("./DetailAnchorMenu.jsx"));
 const DetailMapperField = React.lazy(() => import("./fields/DetailMapperField.jsx"));
 
 export default class DetailView extends Component {

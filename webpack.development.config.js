@@ -16,7 +16,11 @@ var config = {
   },
   devtool: "inline-source-map",
   resolve: {
-    modules: ['node_modules', 'Resources/public/js'],
+    modules: [
+      'node_modules',
+      'Resources/public/js',
+      '../../../../../RoutingBundle/Resources/public/js'
+    ],
     extensions: ['.jsx', '.js']
   },
   plugins: [
@@ -38,6 +42,9 @@ var config = {
           path.resolve('./Resources/public/js/*'),
           path.resolve('./../MapsBundle/Resources/public/js'),
           path.resolve('./../MapsBundle/Resources/public/js/*'),
+          path.resolve('./../RoutingBundle/Resources/public/js'),
+          path.resolve('./../RoutingBundle/Resources/public/js/*'),
+          path.resolve('./../CoreBundle/Resources/public/js'),
         ],
       },
       {

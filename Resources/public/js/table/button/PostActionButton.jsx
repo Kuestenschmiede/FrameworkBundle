@@ -58,7 +58,19 @@ export class PostActionButton extends Component {
   }
 
   closeModal() {
-    this.setState({showModal: false});
+    if (this.props.formFields) {
+      let formData = {};
+      this.props.formFields.forEach(function(field) {
+        formData[field.name] = field.value || '';
+      }, this);
+      this.setState({
+        formData: formData,
+        errorMessages: {},
+        showModal: false
+      });
+    } else {
+      this.setState({showModal: false});
+    }
   }
 
   resetModal() {
@@ -164,7 +176,7 @@ export class PostActionButton extends Component {
     if (this.props.formFields) {
       let fields = [];
       this.props.formFields.forEach(function(field) {
-        let props = field;
+        let props = jQuery.extend(true, {}, field);
         props.value = this.state.formData[field.name];
         props.onChange = this.onFormUpdate.bind(this, field);
         props.error = this.state.errorMessages[field.name];

@@ -304,7 +304,7 @@ export default class TableView extends Component {
               props['setRowData'] = this.props.setRowData
               props['value'] = value
               buttons.push(
-                <PostActionButton {...props} />
+                <PostActionButton key={i} {...props} />
               );
             }
             return <React.Fragment>{buttons}</React.Fragment>;

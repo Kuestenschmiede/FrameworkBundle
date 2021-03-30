@@ -16,7 +16,7 @@ class TextTableField extends TableField
 {
     const TYPE = 'text';
 
-    public function getConfiguration()
+    public function getConfiguration(): array
     {
         $conf = parent::getConfiguration();
         $conf['type'] = self::TYPE;

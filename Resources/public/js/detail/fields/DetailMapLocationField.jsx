@@ -17,7 +17,6 @@ import {MapController} from "../../../../../../MapsBundle/Resources/public/js/co
 export default class DetailMapLocationField extends Component {
   constructor(props) {
     super(props);
-    const scope = this;
     this.state = {
       initial: true
     };
@@ -37,7 +36,7 @@ export default class DetailMapLocationField extends Component {
         let map = layerController.mapController.map;
         setTimeout(function() {
           map.updateSize();
-          map.render()
+          map.render();
         }, 1000);
       };
       window.c4gMapsHooks = window.c4gMapsHooks || {};

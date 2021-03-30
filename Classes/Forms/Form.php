@@ -14,13 +14,15 @@ namespace con4gis\FrameworkBundle\Classes\Forms;
 
 class Form implements FormInterface
 {
-    protected $name = '';
-    protected $headline = '';
-    protected $method = 'GET';
-    protected $mapData = null;
-    protected $class = '';
-    protected $renderAsForm = true;
-    protected $buttonWrapperClass = 'c4g-panel-buttons';
+    private $name = '';
+    private $headline = '';
+    private $method = 'GET';
+    private $mapData = null;
+    private $class = '';
+    private $renderAsForm = true;
+    private $buttonWrapperClass = 'c4g-panel-buttons';
+    private $hidden = false;
+
 
     /**
      * If true, a div with the container class and a div with the row class will be generated into the form.
@@ -42,6 +44,7 @@ class Form implements FormInterface
             'renderAsForm' => $this->renderAsForm,
             'buttonWrapperClass' => $this->buttonWrapperClass,
             'containerRow' => $this->containerRow,
+            'hidden' => $this->hidden,
         ];
     }
 
@@ -155,6 +158,22 @@ class Form implements FormInterface
     public function setRenderAsForm(bool $renderAsForm): void
     {
         $this->renderAsForm = $renderAsForm;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHidden(): bool
+    {
+        return $this->hidden;
+    }
+
+    /**
+     * @param bool $hidden
+     */
+    public function setHidden(bool $hidden): void
+    {
+        $this->hidden = $hidden;
     }
 
     /**

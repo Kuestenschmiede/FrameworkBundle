@@ -87,7 +87,6 @@ class FrontendConfiguration implements JsonSerializable
             'filterData' => $list->getFilterData(),
             'loadingText' => $list->getLoadingText(),
             'layoutType' => $list->getLayoutType(),
-            'maxData' => $list->getMaxData(),
             'loadStep' => $list->getLoadStep(),
             'scrollThreshold' => $list->getScrollThreshold(),
             'onlySearchWithParam' => $list->getOnlySearchWithParam(),

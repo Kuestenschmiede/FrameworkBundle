@@ -48,11 +48,6 @@ export default class TileView extends Component {
   }
 
   render() {
-    let maxDataLoaded = false;
-    if (this.props.component.maxData && this.props.component.maxData > 0) {
-      maxDataLoaded = this.props.data.length >= this.props.component.maxData;
-    }
-
     let headline = null;
     if (this.props.component.headline) {
       if (this.props.component.headlineLevel) {
@@ -79,10 +74,6 @@ export default class TileView extends Component {
       }
     }
 
-    let bottomLine = null;
-    if (this.props.component.bottomLine) {
-      bottomLine = this.props.component.bottomLine;
-    }
     if (this.props.data.length === 0) {
       if (!this.props.updated && this.props.textBeforeUpdate) {
         return <div className="container">
@@ -120,7 +111,7 @@ export default class TileView extends Component {
     let scrollProps = {
       dataLength: this.props.data.length,
       next: this.fetchMoreData,
-      hasMore: this.state.asyncLoading && !maxDataLoaded,
+      hasMore: this.state.asyncLoading,
       loader: <div className={"preloader-image-wrapper"}
                    style={{textAlign: "center", margin: "auto"}}>{this.props.component.loadingText ||
       <img src="bundles/con4gisframework/img/preloader-image.svg" className="preloader-image" alt=""/>}</div>,

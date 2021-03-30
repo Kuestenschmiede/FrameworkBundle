@@ -16,14 +16,16 @@ class ModalDetailButtonTableField extends TableField
 {
     private $buttonLabel = '';
     private $confirmButtonText = '';
+    private $className = '';
 
     const TYPE = 'modal-detail-button';
 
-    public function getConfiguration()
+    public function getConfiguration(): array
     {
         $config = parent::getConfiguration();
         $config['buttonLabel'] = $this->buttonLabel;
         $config['confirmButtonText'] = $this->confirmButtonText;
+        $config['className'] = $this->className;
 
         return $config;
     }
@@ -58,5 +60,21 @@ class ModalDetailButtonTableField extends TableField
     public function setConfirmButtonText(string $confirmButtonText): void
     {
         $this->confirmButtonText = $confirmButtonText;
+    }
+
+    /**
+     * @return string
+     */
+    public function getClassName(): string
+    {
+        return $this->className;
+    }
+
+    /**
+     * @param string $className
+     */
+    public function setClassName(string $className): void
+    {
+        $this->className = $className;
     }
 }

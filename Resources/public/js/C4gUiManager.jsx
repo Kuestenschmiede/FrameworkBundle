@@ -212,11 +212,22 @@ export class C4gUiManager extends Component {
     });
   }
 
+  setRowData(component, rowData, id) {
+    let components = this.state.components;
+    components[component].data.rows.forEach(function (element, index) {
+      if (element.id === id) {
+        components[component].data.rows[index] = rowData;
+      }
+    }, this);
+    this.setState({components: components});
+  }
+
   createTableContent(component, index, key) {
     return <Suspense fallback={<div style={{textAlign: "center", margin: "auto"}}><img src="bundles/con4gisframework/img/preloader-image.svg" className="preloader-image" alt=""/></div>} key={key}>
       <TableView key={index + 1} data={this.state.components[key].data.rows}
                  fields={this.state.components[key].data.columns}
-                 component={this.state.components[key]} languageRefs={this.languageRefs}/>
+                 component={this.state.components[key]} languageRefs={this.languageRefs}
+                 setRowData={this.setRowData.bind(this, key)}/>
     </Suspense>;
   }
 

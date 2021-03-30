@@ -19,15 +19,12 @@ export default class FormDateField extends Component {
     super(props);
 
     let date = null;
-    // let dateString = null;
     if (this.props.data[this.props.field.name]) {
       date = new Date(this.props.data[this.props.field.name] * 1000);
-      // dateString = this.convertDateToString(date);
     }
 
     this.state = {
-      date: date,
-      // dateString: dateString
+      date: date
     };
 
     this.regex = {

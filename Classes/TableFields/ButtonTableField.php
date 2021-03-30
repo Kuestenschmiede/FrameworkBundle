@@ -41,7 +41,7 @@ class ButtonTableField extends TableField
 
     const TYPE = 'button';
 
-    public function getConfiguration()
+    public function getConfiguration(): array
     {
         $conf = parent::getConfiguration();
         $conf['buttonText'] = $this->buttonText;

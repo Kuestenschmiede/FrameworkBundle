@@ -1,5 +1,8 @@
 services:
 
+  con4gis\FrameworkBundle\Classes\Service\PageUrlService:
+    public: true
+
   con4gis\FrameworkBundle\Controller\DemoTableModuleController:
     tags:
       -

@@ -12,7 +12,9 @@
  */
 namespace con4gis\FrameworkBundle\Classes\TableFields;
 
-abstract class TableField
+use con4gis\FrameworkBundle\Classes\ConfigurationInterface;
+
+abstract class TableField implements ConfigurationInterface
 {
     protected $name = '';
     protected $headline = '';
@@ -25,7 +27,7 @@ abstract class TableField
 
     const TYPE = '';
 
-    public function getConfiguration()
+    public function getConfiguration(): array
     {
         return [
             'name' => $this->name,

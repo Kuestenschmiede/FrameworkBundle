@@ -15,6 +15,7 @@ import React, {Component, Suspense} from "react";
 import FormView from "../form/FormView.jsx";
 import {TableButton} from "./button/TableButton.jsx";
 import {ModalDetailTableButton} from "./button/ModalDetailTableButton.jsx";
+import {PostActionButton} from "./button/PostActionButton.jsx";
 import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles';
 import {AlertHandler} from "../../../../../CoreBundle/Resources/public/js/AlertHandler.js";
 
@@ -261,7 +262,8 @@ export default class TableView extends Component {
               return <ModalDetailTableButton buttonLabel={column.buttonLabel}
                                              title={column.label}
                                              message={value}
-                                             confirmButtonText={column.confirmButtonText} />
+                                             confirmButtonText={column.confirmButtonText}
+                                             className={column.className}/>
             } else {
               return '';
             }
@@ -280,7 +282,33 @@ export default class TableView extends Component {
             if (month < 10) {
               month = '0' + month;
             }
-            return day + '.' + month + '.' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes();
+            let hours = date.getHours() + 1;
+            if (hours < 10) {
+              hours = '0' + hours;
+            }
+            let minutes = date.getMinutes() + 1;
+            if (minutes < 10) {
+              minutes = '0' + minutes;
+            }
+            return day + '.' + month + '.' + date.getFullYear() + ' ' + hours + ':' + minutes;
+          };
+          columns.push(column);
+          break;
+        case "action-button":
+          column = fields[i];
+          column.options.customBodyRender = (value, tableMeta, updateValue) => {
+            let buttons = [];
+            for (let i = 0; i < column.actions.length; i++) {
+              let props = column.actions[i];
+              props['rowData'] = tableMeta.rowData;
+              props['fields'] = fields;
+              props['setRowData'] = this.props.setRowData
+              props['value'] = value
+              buttons.push(
+                <PostActionButton key={i} {...props} />
+              );
+            }
+            return <React.Fragment>{buttons}</React.Fragment>;
           };
           columns.push(column);
           break;

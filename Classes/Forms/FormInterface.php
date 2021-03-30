@@ -37,6 +37,9 @@ interface FormInterface
     public function isRenderAsForm(): bool;
     public function setRenderAsForm(bool $renderAsForm): void;
 
+    public function isHidden(): bool;
+    public function setHidden(bool $hidden): void;
+
     public function getButtonWrapperClass(): string;
     public function setButtonWrapperClass(string $buttonWrapperClass): void;
 }

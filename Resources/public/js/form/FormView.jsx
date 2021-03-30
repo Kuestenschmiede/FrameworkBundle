@@ -47,8 +47,6 @@ export default class FormView extends Component {
         let buttons = [];
         let wrappedFields = [];
         this.props.component.buttons.forEach(function (button, index) {
-            // let btn = ButtonTypeMapper.mapButton(button.type);
-            // buttons.push(React.createElement(btn, {key: index, form: this, button: button}));
             buttons.push(<Suspense fallback={<div style={{textAlign: "center", margin: "auto"}}><img src="bundles/con4gisframework/img/preloader-image.svg" className="preloader-image" alt=""/></div>} key={index}>
                 <MapperButton key={index} form={this} button={button} languageRefs={this.props.languageRefs}/>
             </Suspense>);
@@ -65,7 +63,6 @@ export default class FormView extends Component {
         }
 
         let fieldContent = this.props.component.fields.map((item, id) => {
-            // let field = FieldTypeMapper.mapFormField(item.type);
             if (item.type === "wrapper") {
                 wrappedFields = wrappedFields.concat(item.wrappedFields);
                 return <Suspense fallback={<div style={{textAlign: "center", margin: "auto"}}><img src="bundles/con4gisframework/img/preloader-image.svg" className="preloader-image" alt=""/>.</div>} key={id}>
@@ -95,7 +92,8 @@ export default class FormView extends Component {
                 buttonLabel = this.props.component.toggleableOnLabel;
                 toggledClass = ' ' + this.props.component.toggleableOnClass;
             }
-            return <div className={this.props.component.toggleableBaseClass + '-outer' + toggledClass}>
+            return <div className={this.props.component.toggleableBaseClass + '-outer' + toggledClass}
+                        hidden={this.props.component.hidden}>
                 <div className={this.props.component.toggleableBaseClass + '-inner'}>
                     <div className={this.props.component.toggleableBaseClass + '-button-wrapper' + toggledClass}>
                         <button className={this.props.component.toggleableBaseClass + '-button' + toggledClass}

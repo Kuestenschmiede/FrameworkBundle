@@ -110,6 +110,7 @@ export class PostActionButton extends Component {
     this.props.fields.forEach(function(element, index) {
       data[element.name] = this.props.rowData[index];
     }, this);
+    data.REQUEST_TOKEN = this.props.REQUEST_TOKEN;
     data.formData = this.state.formData;
     jQuery.post(this.props.url, data).done(this.onRequestDone).fail(this.onRequestFail);
     this.closeModal();

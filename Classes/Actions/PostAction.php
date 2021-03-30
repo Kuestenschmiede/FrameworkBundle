@@ -13,6 +13,7 @@ class PostAction implements ConfigurationInterface
     private $confirmText = '';
     private $cancelText = '';
     private $formFields = [];
+    private $requestToken = '';
 
     public function getConfiguration(): array
     {
@@ -28,7 +29,8 @@ class PostAction implements ConfigurationInterface
             'message' => $this->message,
             'confirmText' => $this->confirmText,
             'cancelText' => $this->cancelText,
-            'formFields' => $formFieldConfig
+            'formFields' => $formFieldConfig,
+            'REQUEST_TOKEN' => $this->requestToken
         ];
     }
 
@@ -94,5 +96,21 @@ class PostAction implements ConfigurationInterface
     public function setFormFields(ConfigurationInterface ...$formFields)
     {
         $this->formFields = $formFields;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequestToken(): string
+    {
+        return $this->requestToken;
+    }
+
+    /**
+     * @param string $requestToken
+     */
+    public function setRequestToken(string $requestToken): void
+    {
+        $this->requestToken = $requestToken;
     }
 }

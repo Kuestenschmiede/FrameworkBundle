@@ -262,7 +262,8 @@ export default class TableView extends Component {
               return <ModalDetailTableButton buttonLabel={column.buttonLabel}
                                              title={column.label}
                                              message={value}
-                                             confirmButtonText={column.confirmButtonText} />
+                                             confirmButtonText={column.confirmButtonText}
+                                             className={column.className}/>
             } else {
               return '';
             }

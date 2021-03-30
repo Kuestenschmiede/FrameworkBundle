@@ -204,9 +204,11 @@ export class PostActionButton extends Component {
 
     return (
       <Condition data={data} conditions={this.props.conditions}>
-        <button type={"button"}
+        <button className={'c4g-btn ' + this.props.className} type={"button"}
                 onClick={this.showModal}>
-          {this.props.buttonText}
+          <span className={'c4g-btn-text'}>
+            {this.props.buttonText}
+          </span>
         </button>
         <Modal show={this.state.showModal && !this.state.dynamicModal}>
           {confirmModal}

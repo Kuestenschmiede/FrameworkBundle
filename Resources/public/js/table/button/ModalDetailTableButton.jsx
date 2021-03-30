@@ -40,7 +40,7 @@ export class ModalDetailTableButton extends Component {
   render() {
     return (
       <React.Fragment>
-        <button type={"button"}
+        <button className={'c4g-btn ' + this.props.className} type={"button"}
                 onClick={this.showModal}>
           {this.props.buttonLabel}
         </button>

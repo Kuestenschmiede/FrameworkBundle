@@ -53,7 +53,6 @@ class LinkButtonTileField extends TileField
      */
     protected $conditionValue = [];
 
-
     /**
      * If set, the given field will be checked for content. If it's not empty,
      * the content found there will be used as href for this field.

@@ -23,7 +23,6 @@ class Form implements FormInterface
     private $buttonWrapperClass = 'c4g-panel-buttons';
     private $hidden = false;
 
-
     /**
      * If true, a div with the container class and a div with the row class will be generated into the form.
      * @var bool

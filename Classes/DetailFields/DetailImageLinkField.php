@@ -1,27 +1,25 @@
 <?php
 
-
 namespace con4gis\FrameworkBundle\Classes\DetailFields;
-
 
 class DetailImageLinkField extends DetailField
 {
-    const TYPE = "image-link";
-    
-    private $wrapperClass = "";
-    
-    private $innerClass = "";
-    
+    const TYPE = 'image-link';
+
+    private $wrapperClass = '';
+
+    private $innerClass = '';
+
     public function getConfiguration()
     {
         $conf = parent::getConfiguration();
         $conf['wrapperClass'] = $this->wrapperClass;
         $conf['innerClass'] = $this->innerClass;
         $conf['type'] = self::TYPE;
-        
+
         return $conf;
     }
-    
+
     /**
      * @return string
      */
@@ -29,7 +27,7 @@ class DetailImageLinkField extends DetailField
     {
         return $this->wrapperClass;
     }
-    
+
     /**
      * @param string $wrapperClass
      */
@@ -37,7 +35,7 @@ class DetailImageLinkField extends DetailField
     {
         $this->wrapperClass = $wrapperClass;
     }
-    
+
     /**
      * @return string
      */
@@ -45,7 +43,7 @@ class DetailImageLinkField extends DetailField
     {
         return $this->innerClass;
     }
-    
+
     /**
      * @param string $innerClass
      */

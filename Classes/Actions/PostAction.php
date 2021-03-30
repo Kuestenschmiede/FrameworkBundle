@@ -32,7 +32,7 @@ class PostAction implements ConfigurationInterface
             'cancelText' => $this->cancelText,
             'formFields' => $formFieldConfig,
             'className' => $this->className,
-            'REQUEST_TOKEN' => $this->requestToken
+            'REQUEST_TOKEN' => $this->requestToken,
         ];
     }
 

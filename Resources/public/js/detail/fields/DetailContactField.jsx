@@ -12,11 +12,8 @@
  */
 
 import React, {Component} from "react";
-//import DetailOSMOpeningHoursField from "./DetailOSMOpeningHoursField.jsx";
-//import DetailLinkField from "./DetailLinkField.jsx";
-const DetailOSMOpeningHoursField = React.lazy(() => import('./DetailOSMOpeningHoursField.jsx'));
-const DetailLinkField = React.lazy(() => import('./DetailLinkField.jsx'));
-
+import DetailOSMOpeningHoursField from "./DetailOSMOpeningHoursField.jsx";
+import DetailLinkField from "./DetailLinkField.jsx";
 
 export default class DetailContactField extends Component {
 

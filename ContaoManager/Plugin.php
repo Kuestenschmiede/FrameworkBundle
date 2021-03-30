@@ -39,7 +39,7 @@ class Plugin implements BundlePluginInterface, ConfigPluginInterface, RoutingPlu
     {
         return [
             BundleConfig::create(con4gisFrameworkBundle::class)
-                ->setLoadAfter([con4gisCoreBundle::class,con4gisMapsBundle::class])
+                ->setLoadAfter([con4gisCoreBundle::class])
         ];
     }
 

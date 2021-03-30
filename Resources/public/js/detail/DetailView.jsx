@@ -24,10 +24,6 @@ export default class DetailView extends Component {
 
   }
 
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
-
   render() {
     let sections = [];
     let compSections = this.props.component.sections;

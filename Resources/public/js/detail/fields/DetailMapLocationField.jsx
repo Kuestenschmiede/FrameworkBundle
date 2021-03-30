@@ -12,7 +12,7 @@
  */
 
 import React, {Component} from "react";
-const MapController = React.lazy(() => import('../../../../../../MapsBundle/Resources/public/js/components/c4g-maps.jsx'));
+import {MapController} from "../../../../../../MapsBundle/Resources/public/js/components/c4g-maps.jsx";
 
 export default class DetailMapLocationField extends Component {
   constructor(props) {
@@ -50,10 +50,6 @@ export default class DetailMapLocationField extends Component {
         {map}
       </div>
     );
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
   }
 
   componentDidMount() {

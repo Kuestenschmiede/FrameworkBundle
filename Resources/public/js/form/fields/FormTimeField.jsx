@@ -94,7 +94,7 @@ export default class FormTimeField extends Component {
     return (
       <div className={'c4g-form-field form-group'}>
         <label className={this.props.field.required ? 'c4g-required' : ''}>{label}</label>
-        <input type={'text'}
+        <input type={'time'}
                className={className + " form-control"}
                required={this.props.field.required}
                defaultValue={this.convertTimeToString(this.props.data[this.props.field.name])}

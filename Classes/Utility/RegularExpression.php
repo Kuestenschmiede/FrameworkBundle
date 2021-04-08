@@ -22,7 +22,7 @@ class RegularExpression
     const NUMBER_COMMA_SEP = '[-]?[1-9](\d*)((,)(\d{3}))*$';  //Whole numbers, allowing commas as thousand separators.
     const HEX_DEC_ID = '^[0-9A-Fa-f]*$'; //Hexadecimal IDs, e.g. 00A51B.
     const POSTAL = '^[0-9]{5}$';  //Zip Codes
-    const EMAIL = '^\w+(\.\w+)?@\w+([.-]*\w+)*\.\w{2,6}$'; //EMail Addresses
+    const EMAIL = '^[\w\-+]+(\.[\w\-+]+)?@\w+([.-]*\w+)*\.\w{2,6}$'; //EMail Addresses
     const PHONE = '^(\+|00|0)[1-9 ][0-9 \/\-\(\)\.]{7,}$'; //Phone numbers with brackets, slashes and so on
     const NAME = '^[\p{L}]{1}[- \p{L}]*[\p{L}]{1}$'; //Names, allows special letters (ä, á, etc.) as well as whitespaces and (-) unless they are at the end or beginning.
     const URL = '^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'; //URL

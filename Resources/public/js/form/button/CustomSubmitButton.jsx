@@ -57,6 +57,7 @@ export default class CustomSubmitButton extends Component {
               redirectUrl += data.alias;
             }
           }
+          this.props.form.storePosition();
           window.location = redirectUrl;
         } else {
           this.props.form.setErrorTexts(data.fields)

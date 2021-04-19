@@ -15,6 +15,7 @@ namespace con4gis\FrameworkBundle\Classes\TileFields;
 class TextTileField extends TileField
 {
     protected $itemProp = '';
+    private $format = '';
 
     const TYPE = 'text';
     const SCHEMA_PROPERTY_NAME = 'https://schema.org/name';
@@ -23,6 +24,7 @@ class TextTileField extends TileField
     {
         $config = parent::getConfiguration();
         $config['itemProp'] = $this->itemProp;
+        $config['format'] = $this->format;
 
         return $config;
     }
@@ -44,5 +46,21 @@ class TextTileField extends TileField
         $this->itemProp = $itemProp;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormat(): string
+    {
+        return $this->format;
+    }
+
+    /**
+     * @param string $format
+     */
+    public function setFormat(string $format): void
+    {
+        $this->format = $format;
     }
 }

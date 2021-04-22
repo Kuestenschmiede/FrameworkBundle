@@ -149,7 +149,7 @@ export default class TileView extends Component {
         </InfiniteScroll>
       </Suspense>;
     } else {
-      return <React.Fragment>
+      const list = <React.Fragment>
         <div className={"c4g-tile-headline-wrapper"}>{headline}</div>
         <Suspense fallback={<div style={{textAlign: "center", margin: "auto"}}><img
           src="bundles/con4gisframework/img/preloader-image.svg" className="preloader-image" alt=""/></div>}>
@@ -178,6 +178,13 @@ export default class TileView extends Component {
           </InfiniteScroll>
         </Suspense>
       </React.Fragment>;
+      if (this.props.component.listWrapper) {
+        return <div id={this.props.component.wrapperId} className={this.props.component.wrapperClass}>
+          {list}
+        </div>;
+      } else {
+        return {list};
+      }
     }
   }
 

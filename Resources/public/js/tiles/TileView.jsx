@@ -183,7 +183,7 @@ export default class TileView extends Component {
           {list}
         </div>;
       } else {
-        return {list};
+        return list;
       }
     }
   }

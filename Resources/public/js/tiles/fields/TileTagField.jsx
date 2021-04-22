@@ -34,7 +34,9 @@ export default class TileTagField extends Component {
             imageAlt: item.image.alt,
             title: item.name,
             wrapperClass: this.props.field.class + ' ' + tagName,
-            class: this.props.field.innerClass + ' ' + tagName
+            class: this.props.field.innerClass + ' ' + tagName,
+            height: item.image.height,
+            width: item.image.width
           };
           index += 1;
           tagElements.push(<TileImageField key={id + index} field={tagField} data={[]}/>);

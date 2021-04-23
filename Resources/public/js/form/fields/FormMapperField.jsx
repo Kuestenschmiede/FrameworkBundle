@@ -36,6 +36,7 @@ const FormDateField = React.lazy(() => import("./FormDateField.jsx"));
 const FormDateRangeField = React.lazy(() => import("./FormDateRangeField.jsx"));
 const FormMultiCheckboxWithImageLabelField = React.lazy(() => import("./FormMultiCheckboxWithImageLabelField.jsx"));
 const FormTimeField = React.lazy(() => import("./FormTimeField.jsx"));
+const FormNumberRangeField = React.lazy(() => import("./FormNumberRangeField.jsx"));
 
 export default class FormMapperField extends Component {
 
@@ -95,6 +96,8 @@ export default class FormMapperField extends Component {
         return <FormCKEditorField {...this.props}/>;
       case "wrapper":
         return <FormWrapperField  {...this.props}/>;
+      case "number-range":
+        return <FormNumberRangeField  {...this.props}/>;
       default:
         return null;
     }

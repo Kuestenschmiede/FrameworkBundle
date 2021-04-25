@@ -28,12 +28,29 @@ export default class TileImageField extends Component {
       if (this.props.field.itemProp) {
         itemProp = this.props.field.itemProp;
       }
+      let height, width;
+      if (this.props.data[this.props.field.name]) {
+        if (this.props.data[this.props.field.name].height) {
+          height = this.props.data[this.props.field.name].height;
+        }
+        if (this.props.data[this.props.field.name].width) {
+          width = this.props.data[this.props.field.name].width;
+        }
+      }
+      if (!height && this.props.field.height) {
+        height = this.props.field.height;
+      }
+      if (!width && this.props.field.width) {
+        width = this.props.field.width;
+      }
       if (this.props.link) {
         return (
           <div className={this.props.field.wrapperClass}>
             {label}
             <a href={this.props.field.linkClass}>
               <img className={this.props.field.class}
+                   height={height}
+                   width={width}
                    itemProp={itemProp} loading={"lazy"}
                    src={this.props.field.imageSource || (this.props.data[this.props.field.name] && this.props.data[this.props.field.name].src)}
                    alt={this.props.field.imageAlt || (this.props.data[this.props.field.name] && this.props.data[this.props.field.name].alt)}
@@ -48,6 +65,8 @@ export default class TileImageField extends Component {
             {label}
             <img className={this.props.field.class}
                  itemProp={itemProp} loading={"lazy"}
+                 height={height}
+                 width={width}
                  src={this.props.field.imageSource || (this.props.data[this.props.field.name] && this.props.data[this.props.field.name].src)}
                  alt={this.props.field.imageAlt || (this.props.data[this.props.field.name] && this.props.data[this.props.field.name].alt)}
                  title={this.props.field.title || this.props.field.imageAlt || (this.props.data[this.props.field.name] && this.props.data[this.props.field.name].alt)}

@@ -22,6 +22,7 @@ class Form implements FormInterface
     private $renderAsForm = true;
     private $buttonWrapperClass = 'c4g-panel-buttons';
     private $hidden = false;
+    private $preservePosition = false;
 
     /**
      * If true, a div with the container class and a div with the row class will be generated into the form.
@@ -44,6 +45,7 @@ class Form implements FormInterface
             'buttonWrapperClass' => $this->buttonWrapperClass,
             'containerRow' => $this->containerRow,
             'hidden' => $this->hidden,
+            'preservePosition' => $this->preservePosition,
         ];
     }
 
@@ -189,5 +191,21 @@ class Form implements FormInterface
     public function setButtonWrapperClass(string $buttonWrapperClass): void
     {
         $this->buttonWrapperClass = $buttonWrapperClass;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPreservePosition(): bool
+    {
+        return $this->preservePosition;
+    }
+
+    /**
+     * @param bool $preservePosition
+     */
+    public function setPreservePosition(bool $preservePosition): void
+    {
+        $this->preservePosition = $preservePosition;
     }
 }

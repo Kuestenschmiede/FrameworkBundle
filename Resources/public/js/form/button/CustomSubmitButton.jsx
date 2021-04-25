@@ -57,6 +57,7 @@ export default class CustomSubmitButton extends Component {
               redirectUrl += data.alias;
             }
           }
+          this.props.form.storePosition();
           window.location = redirectUrl;
         } else {
           this.props.form.setErrorTexts(data.fields)
@@ -119,46 +120,48 @@ export default class CustomSubmitButton extends Component {
     return true;
   }
   checkZipcode (data) {
-    if (data.geox && data.geoy && data.locationZip) {
-      const mapController = this.props.form.mapControllerRef;
-      let url = mapController.data.geosearch.url + "reverse.php?key=";
-      url += mapController.data.geosearch.reverseKey;
-      url += "&lon=" + data.geox;
-      url += "&lat=" + data.geoy;
-      url += "&format=json";
-      jQuery.ajax({
-        dataType: "json",
-        url: url
-      }).done((response) => {
-        if (response && response.address && response.address.postcode) {
-          if(response.address.postcode === data.locationZip) {
-            this.submitData(data)
+    try {
+      if (data.geox && data.geoy && data.locationZip) {
+        const mapController = this.props.form.mapControllerRef;
+        let url = mapController.data.geosearch.url + "reverse.php?key=";
+        url += mapController.data.geosearch.reverseKey;
+        url += "&lon=" + data.geox;
+        url += "&lat=" + data.geoy;
+        url += "&format=json";
+        jQuery.ajax({
+          dataType: "json",
+          url: url
+        }).done((response) => {
+          if (response && response.address && response.address.postcode) {
+            if (response.address.postcode === data.locationZip) {
+              this.submitData(data)
+            } else {
+              const fieldNode = $("#locationZip");
+              fieldNode.focus();
+              fieldNode.keyup(function () {
+                $(this).removeClass("field-invalid");
+                $(this).off("keyup");
+              })
+              fieldNode.addClass("field-invalid");
+              const ah = new AlertHandler();
+              let title = this.props.languageRefs.CHECK_POSITION;
+              let content = this.props.languageRefs.POSITION_OUT_OF_RANGE;
+              ah.showErrorDialog(title, content);
+            }
+          } else {
+            // show error hint
+            this.submitData(data);
           }
-          else {
-            const fieldNode = $("#locationZip");
-            fieldNode.focus();
-            fieldNode.keyup(function(){
-              $(this).removeClass("field-invalid");
-              $(this).off("keyup");
-            })
-            fieldNode.addClass("field-invalid");
-            const ah = new AlertHandler();
-            let title = this.props.languageRefs.CHECK_POSITION;
-            let content = this.props.languageRefs.POSITION_OUT_OF_RANGE;
-            ah.showErrorDialog(title, content);
-          }
-        } else {
-          // show error hint
+
+        }).fail(() => {
           this.submitData(data);
-        }
 
-      }).fail(()=> {
-        this.submitData(data);
-
-      })
-      return false;
-    }
-    else {
+        })
+        return false;
+      } else {
+        return true;
+      }
+    } catch (e) {
       return true;
     }
   }

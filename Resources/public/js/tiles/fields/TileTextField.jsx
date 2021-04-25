@@ -16,6 +16,12 @@ import React, {Component} from "react";
 export default class TileTextField extends Component {
   constructor(props) {
     super(props);
+
+    this.format = this.format.bind(this);
+  }
+
+  format(value) {
+    return this.props.field.format.replace(/%s/g, value);
   }
 
   render() {
@@ -30,11 +36,15 @@ export default class TileTextField extends Component {
       if (this.props.field.itemProp) {
         itemProp = this.props.field.itemProp;
       }
+      let value = this.props.data[this.props.field.name];
+      if (typeof this.props.field.format === 'string' && this.props.field.format !== '') {
+        value = this.format(value);
+      }
       return (
           <div className={this.props.field.wrapperClass}>
               {label}
             <span className={this.props.field.class} itemProp={itemProp}>
-              {this.props.data[this.props.field.name]}
+              {value}
             </span>
           </div>
       );

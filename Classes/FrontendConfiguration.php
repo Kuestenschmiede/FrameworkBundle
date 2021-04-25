@@ -97,6 +97,9 @@ class FrontendConfiguration implements JsonSerializable
             'conditionalTileClassField' => $list->getConditionalTileClassField(),
             'conditionalTileClassValue' => $list->getConditionalTileClassValue(),
             'classAfterFilter' => $list->getClassAfterFilter(),
+            'listWrapper' => $list->isListWrapper(),
+            'wrapperId' => $list->getWrapperId(),
+            'wrapperClass' => $list->getWrapperClass(),
         ];
 
         $this->configuration['components'][$list->getName()] = $configuration;

@@ -81,10 +81,15 @@ export default class FormDatepickerField extends Component {
       locale = this.createDeLocale();
     }
 
+    let customElement = (<input type="text" name={this.props.field.name} placeholder={this.props.field.placeholderText} autoComplete="off"
+                                className={className + " react-datepicker-ignore-onclickoutside"} value=""
+                                aria-label={this.props.field.placeholderText} />);
+
     return (
       <label>
         {label}
-        <DatePicker selected={startDate}
+        <DatePicker customInput={customElement}
+                    selected={startDate}
                     onChange={this.handleChange}
                     onChangeRaw={this.handleChangeRaw}
                     name={this.props.field.name}
@@ -106,7 +111,7 @@ export default class FormDatepickerField extends Component {
                     shouldCloseOnSelect
                     dropdownMode={"scroll"}
         />
-        {description}
+      {description}
       </label>
     );
   }

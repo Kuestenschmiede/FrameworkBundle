@@ -22,6 +22,7 @@ class DetailTextField extends DetailField
     {
         $config = parent::getConfiguration();
         $config['format'] = $this->format;
+
         return $config;
     }
 

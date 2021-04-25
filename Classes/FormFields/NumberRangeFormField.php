@@ -12,7 +12,6 @@
  */
 namespace con4gis\FrameworkBundle\Classes\FormFields;
 
-
 class NumberRangeFormField extends FormField
 {
     private $value = '';

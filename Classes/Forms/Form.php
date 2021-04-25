@@ -24,7 +24,6 @@ class Form implements FormInterface
     private $hidden = false;
     private $preservePosition = false;
 
-
     /**
      * If true, a div with the container class and a div with the row class will be generated into the form.
      * @var bool
@@ -46,7 +45,7 @@ class Form implements FormInterface
             'buttonWrapperClass' => $this->buttonWrapperClass,
             'containerRow' => $this->containerRow,
             'hidden' => $this->hidden,
-            'preservePosition' => $this->preservePosition
+            'preservePosition' => $this->preservePosition,
         ];
     }
 
@@ -193,7 +192,7 @@ class Form implements FormInterface
     {
         $this->buttonWrapperClass = $buttonWrapperClass;
     }
-    
+
     /**
      * @return bool
      */
@@ -201,7 +200,7 @@ class Form implements FormInterface
     {
         return $this->preservePosition;
     }
-    
+
     /**
      * @param bool $preservePosition
      */

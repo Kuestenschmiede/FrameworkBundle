@@ -1,6 +1,5 @@
 <?php
 
-
 namespace con4gis\FrameworkBundle\Classes\Conditions;
 
 use con4gis\FrameworkBundle\Classes\ConfigurationInterface;
@@ -14,7 +13,7 @@ class FieldValueCondition implements ConfigurationInterface
     {
         return [
             'field' => $this->field,
-            'value' => $this->value
+            'value' => $this->value,
         ];
     }
 

@@ -17,6 +17,9 @@ trait AutoItemTrait
         }
         $this->alias = Input::get('item') ? urlencode(Input::get('item')) : '';
         $this->pageUrl = Environment::get('base').Environment::get('request');
+        if (strpos($this->pageUrl, "?") !== false) {
+            $this->pageUrl = str_replace(substr($this->pageUrl, strpos($this->pageUrl, "?")), "", $this->pageUrl);
+        }
         if ($this->alias !== '') {
             $this->pageUrl = str_replace('/'.$this->alias, '', $this->pageUrl);
         }

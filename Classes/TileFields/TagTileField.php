@@ -16,8 +16,29 @@ class TagTileField extends TileField
 {
     const TYPE = 'tag';
 
+    protected $linkUrl = '';
+
     public function getConfiguration(): array
     {
-        return parent::getConfiguration();
+        $result = parent::getConfiguration();
+        $result['inkUrl'] = $this->linkUrl;
+
+        return $result;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLinkUrl(): string
+    {
+        return $this->linkUrl;
+    }
+
+    /**
+     * @param string $linkUrl
+     */
+    public function setLinkUrl(string $linkUrl): void
+    {
+        $this->linkUrl = $linkUrl;
     }
 }

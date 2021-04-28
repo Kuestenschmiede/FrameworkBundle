@@ -24,7 +24,7 @@ class PageUrlService
             $this->pageUrl = str_replace(substr($this->pageUrl, strpos($this->pageUrl, "?")), "", $this->pageUrl);
         }
         if ($this->alias !== '') {
-            $this->basePageUrl = str_replace('/'.$this->alias, '', $this->pageUrl);
+            $this->basePageUrl = str_replace('/' . $this->alias, '', $this->pageUrl);
         } else {
             $this->basePageUrl = $this->pageUrl;
         }
@@ -61,11 +61,11 @@ class PageUrlService
     public function getPageUrlForAlias(string $alias): string
     {
         if ($this->alias !== '') {
-            return str_replace('/'.$this->alias, '/'.$alias, $this->pageUrl);
-        } else if (C4GUtils::endsWith($this->pageUrl, '.html')) {
+            return str_replace('/' . $this->alias, '/' . $alias, $this->pageUrl);
+        } elseif (C4GUtils::endsWith($this->pageUrl, '.html')) {
             return str_replace('.html', "/$alias.html", $this->pageUrl);
         } else {
-            return $this->pageUrl."/$alias";
+            return $this->pageUrl . "/$alias";
         }
     }
 }

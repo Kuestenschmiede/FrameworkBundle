@@ -25,24 +25,24 @@ class TileList
     protected $filterData = [];
     protected $loadingText = '';
     protected $updated = false;
-    
+
     /**
      * If true, the list and headline are wrapped in an additional div
      * @var bool
      */
     protected $listWrapper = false;
-    
+
     /**
      * CSS ID for the list wrapper
      * @var string
      */
-    protected $wrapperId = "";
-    
+    protected $wrapperId = '';
+
     /**
      * CSS class for the list wrapper
      * @var string
      */
-    protected $wrapperClass = "list-wrapper";
+    protected $wrapperClass = 'list-wrapper';
 
     /**
      * The selected layout type. Currently "list" and "grid" are supported.
@@ -622,7 +622,7 @@ class TileList
     {
         $this->classAfterFilter = $classAfterFilter;
     }
-    
+
     /**
      * @return bool
      */
@@ -630,7 +630,7 @@ class TileList
     {
         return $this->listWrapper;
     }
-    
+
     /**
      * @param bool $listWrapper
      */
@@ -638,7 +638,7 @@ class TileList
     {
         $this->listWrapper = $listWrapper;
     }
-    
+
     /**
      * @return string
      */
@@ -646,7 +646,7 @@ class TileList
     {
         return $this->wrapperId;
     }
-    
+
     /**
      * @param string $wrapperId
      */
@@ -654,7 +654,7 @@ class TileList
     {
         $this->wrapperId = $wrapperId;
     }
-    
+
     /**
      * @return string
      */
@@ -662,7 +662,7 @@ class TileList
     {
         return $this->wrapperClass;
     }
-    
+
     /**
      * @param string $wrapperClass
      */

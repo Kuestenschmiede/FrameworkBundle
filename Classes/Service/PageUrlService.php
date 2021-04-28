@@ -19,9 +19,9 @@ class PageUrlService
             Input::setGet('item', Input::get('auto_item'));
         }
         $this->alias = Input::get('item') ? urlencode(Input::get('item')) : '';
-        $this->pageUrl = Environment::get('base').Environment::get('request');
-        if (strpos($this->pageUrl, "?") !== false) {
-            $this->pageUrl = str_replace(substr($this->pageUrl, strpos($this->pageUrl, "?")), "", $this->pageUrl);
+        $this->pageUrl = Environment::get('base') . Environment::get('request');
+        if (strpos($this->pageUrl, '?') !== false) {
+            $this->pageUrl = str_replace(substr($this->pageUrl, strpos($this->pageUrl, '?')), '', $this->pageUrl);
         }
         if ($this->alias !== '') {
             $this->basePageUrl = str_replace('/' . $this->alias, '', $this->pageUrl);
@@ -64,8 +64,8 @@ class PageUrlService
             return str_replace('/' . $this->alias, '/' . $alias, $this->pageUrl);
         } elseif (C4GUtils::endsWith($this->pageUrl, '.html')) {
             return str_replace('.html', "/$alias.html", $this->pageUrl);
-        } else {
-            return $this->pageUrl . "/$alias";
         }
+
+        return $this->pageUrl . "/$alias";
     }
 }

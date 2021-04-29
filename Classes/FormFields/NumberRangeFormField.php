@@ -48,7 +48,9 @@ class NumberRangeFormField extends FormField
 
         $value = $parameters[$this->name];
         if ($value === '') {
-            return !$this->required;
+            return false;
+        } elseif ($value < $this->min || $value > $this->max) {
+            return false;
         }
 
         return true;

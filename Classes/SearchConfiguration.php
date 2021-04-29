@@ -35,7 +35,17 @@ class SearchConfiguration
     {
         foreach ($data as $key => $row) {
             if (is_array($row)) {
-                $this->addData($row, $fields);
+                if ($row[0]['value'] && $row[0]['label']) {
+                    foreach ($row as $value) {
+                        if ($value['label']) {
+                            // options format
+                            $content = $value['label'];
+                            $this->html .= "<div>$content</div>";
+                        }
+                    }
+                } else {
+                    $this->addData($row, $fields);
+                }
             } elseif (in_array($key, $fields, true)) {
                 $this->html .= "<div>$row</div>";
             }

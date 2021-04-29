@@ -14,6 +14,7 @@
 
 import React, {Component} from "react";
 const TileTextField = React.lazy(() => import("./TileTextField.jsx"));
+const TileReferenceField = React.lazy(() => import("./TileReferenceField.jsx"));
 const TilePostalCityField = React.lazy(() => import("./TilePostalCityField.jsx"));
 const TileStreetField = React.lazy(() => import("./TileStreetField.jsx"));
 const TileHeadlineField = React.lazy(() => import("./TileHeadlineField.jsx"));
@@ -44,6 +45,8 @@ export default class TileMapperField extends Component {
         return <TileAddressField {...this.props}/>;
       case "text":
         return <TileTextField {...this.props}/>;
+      case "reference":
+        return <TileReferenceField {...this.props}/>;
       case "postalCity":
         return <TilePostalCityField {...this.props}/>;
       case "street":

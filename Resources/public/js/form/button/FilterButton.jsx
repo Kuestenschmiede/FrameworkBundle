@@ -44,8 +44,17 @@ export default class FilterButton extends Component {
       if (body !== '') {
         body += '&';
       }
-      body += element + '=' + form.props.component.data[element];
-      formData[element] = form.props.component.data[element];
+      if (typeof form.props.component.data[element] === 'object' && form.props.component.data[element] !== null) {
+        try {
+          body += element + '=' + form.props.component.data[element].value;
+          formData[element] = form.props.component.data[element].value;
+        } catch (e) {
+          console.error(e);
+        }
+      } else {
+        body += element + '=' + form.props.component.data[element];
+        formData[element] = form.props.component.data[element];
+      }
     });
     form.props.setFilterDataFunction(this.props.button.targetComponent, formData, initial);
     this.props.form.activeButton = null;

@@ -156,7 +156,7 @@ export default class TableView extends Component {
     return (
       <div className={""}>
         <MuiThemeProvider theme={this.getMuiTheme()}>
-          <MUIDataTable data={this.props.data} columns={columns}
+          <MUIDataTable data={this.props.data.filter(element => element != null)} columns={columns}
                         options={options} key={0} ref={(node) => this.datatable = node}
                         title={this.props.component.headline}
                         responsive

@@ -118,21 +118,12 @@ export class PostActionButton extends Component {
 
   onRequestDone(json) {
     try {
-      if (json.success.rowData) {
         this.showDynamicModal(
           json.success.title,
           json.success.message,
           json.success.confirmButtonText,
           this.updateRow.bind(this, json.success.rowData)
         );
-      } else {
-        this.showDynamicModal(
-          json.success.title,
-          json.success.message,
-          json.success.confirmButtonText,
-          this.resetModal
-        );
-      }
     } catch (e) {
       this.resetModal();
     }

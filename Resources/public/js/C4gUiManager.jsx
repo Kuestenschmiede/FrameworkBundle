@@ -216,7 +216,11 @@ export class C4gUiManager extends Component {
     let components = this.state.components;
     components[component].data.rows.forEach(function (element, index) {
       if (element.id === id) {
-        components[component].data.rows[index] = rowData;
+        if (rowData == null || Object.keys(rowData).length === 0) {
+          components[component].data.rows.splice(index, 1);
+        } else {
+          components[component].data.rows[index] = rowData;
+        }
       }
     }, this);
     this.setState({components: components});

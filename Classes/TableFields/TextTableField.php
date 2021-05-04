@@ -14,13 +14,32 @@ namespace con4gis\FrameworkBundle\Classes\TableFields;
 
 class TextTableField extends TableField
 {
+    private $format = '';
+
     const TYPE = 'text';
 
     public function getConfiguration(): array
     {
         $conf = parent::getConfiguration();
+        $conf['format'] = $this->format;
         $conf['type'] = self::TYPE;
 
         return $conf;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormat(): string
+    {
+        return $this->format;
+    }
+
+    /**
+     * @param string $format
+     */
+    public function setFormat(string $format): void
+    {
+        $this->format = $format;
     }
 }

@@ -230,6 +230,10 @@ export default class TableView extends Component {
     this.resetSelection();
   }
 
+  format(value, format) {
+    return format.replace(/%s/g, value);
+  }
+
   resetSelection() {
     // delete selected row
     this.datatable.selectRowDelete();
@@ -246,7 +250,13 @@ export default class TableView extends Component {
       let column;
       switch (fields[i].type) {
         case "text":
-          columns.push(fields[i]);
+          column = fields[i];
+          if (fields[i].format !== '') {
+            column.options.customBodyRender = (value, tableMeta, updateValue) => {
+              return this.format(value, fields[i].format);
+            };
+          }
+          columns.push(column);
           break;
         case "reference":
           column = fields[i];

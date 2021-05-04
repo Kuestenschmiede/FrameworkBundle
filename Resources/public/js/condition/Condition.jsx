@@ -17,6 +17,26 @@ export default class Condition extends Component {
 
   constructor(props) {
     super(props);
+
+    this.isConditionMet = this.isConditionMet.bind(this);
+  }
+
+  isConditionMet(condition){
+    if (condition.type === 'or' && condition.conditions.length > 1) {
+      let met = false;
+      condition.conditions.forEach(function(element) {
+        if (this.isConditionMet(element)) {
+          met = true;
+        }
+      }, this);
+      return met;
+    } else if (condition.field && condition.value) {
+      if (String(this.props.data[condition.field]) !== String(condition.value)) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   render() {
@@ -24,10 +44,8 @@ export default class Condition extends Component {
 
     try {
       this.props.conditions.forEach(function(condition) {
-        if (condition.field && condition.value) {
-          if (String(this.props.data[condition.field]) !== String(condition.value)) {
-            render = false;
-          }
+        if (this.isConditionMet(condition) === false) {
+          render = false;
         }
       }, this);
     } catch (e) {}

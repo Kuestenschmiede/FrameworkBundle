@@ -45,6 +45,13 @@ class SelectFormField extends FormField
      */
     protected $dynamicFieldlistAdditionalFields = [];
 
+    /**
+     * Instantly redirects to this url when a new value has been selected.
+     * Add {value} as placeholder for the selected value.
+     * @var string
+     */
+    protected $instantRedirectUrl = '';
+
     const TYPE = 'select';
 
     public function getConfiguration() : array
@@ -61,6 +68,7 @@ class SelectFormField extends FormField
         $config['dynamicFieldlist'] = $this->dynamicFieldlist;
         $config['dynamicFieldlistUrl'] = $this->dynamicFieldlistUrl;
         $config['dynamicFieldlistAdditionalFields'] = $this->dynamicFieldlistAdditionalFields;
+        $config['instantRedirectUrl'] = $this->instantRedirectUrl;
 
         return $config;
     }
@@ -300,5 +308,21 @@ class SelectFormField extends FormField
         $this->dynamicFieldlistAdditionalFields = $dynamicFieldlistAdditionalFields;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getInstantRedirectUrl(): string
+    {
+        return $this->instantRedirectUrl;
+    }
+
+    /**
+     * @param string $instantRedirectUrl
+     */
+    public function setInstantRedirectUrl(string $instantRedirectUrl): void
+    {
+        $this->instantRedirectUrl = $instantRedirectUrl;
     }
 }

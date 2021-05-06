@@ -21,6 +21,9 @@ export default class FormSelectField extends Component {
 
   handleChange(data, action) {
     this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: data});
+    if (this.props.field.instantRedirectUrl) {
+      window.location = this.props.field.instantRedirectUrl.replace('{value}', data.value);
+    }
     // check if form fields should be loaded
     if (this.props.field.dynamicFieldlist) {
       let postData = {[this.props.field.name]: data};
@@ -167,7 +170,7 @@ export default class FormSelectField extends Component {
   }
 
   componentDidMount() {
-    if (this.props.data[this.props.field.name]) {
+    if (!this.props.field.instantRedirectUrl && this.props.data[this.props.field.name]) {
       this.handleChange(this.props.data[this.props.field.name], "");
     }
   }

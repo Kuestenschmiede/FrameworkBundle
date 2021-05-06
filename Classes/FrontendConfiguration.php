@@ -100,6 +100,7 @@ class FrontendConfiguration implements JsonSerializable
             'listWrapper' => $list->isListWrapper(),
             'wrapperId' => $list->getWrapperId(),
             'wrapperClass' => $list->getWrapperClass(),
+            'showSpinner' => $list->isShowSpinner(),
         ];
 
         $this->configuration['components'][$list->getName()] = $configuration;

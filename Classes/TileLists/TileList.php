@@ -115,6 +115,8 @@ class TileList
 
     private $checkAsyncWhileUpdate = false;
 
+    private $showSpinner = true;
+
     public function __construct(string $name = 'tiles')
     {
         $this->name = $name;
@@ -669,5 +671,21 @@ class TileList
     public function setWrapperClass(string $wrapperClass): void
     {
         $this->wrapperClass = $wrapperClass;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isShowSpinner(): bool
+    {
+        return $this->showSpinner;
+    }
+
+    /**
+     * @param bool $showSpinner
+     */
+    public function setShowSpinner(bool $showSpinner): void
+    {
+        $this->showSpinner = $showSpinner;
     }
 }

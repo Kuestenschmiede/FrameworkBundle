@@ -112,9 +112,9 @@ export default class TileView extends Component {
       dataLength: this.props.data.length,
       next: this.fetchMoreData,
       hasMore: this.state.asyncLoading,
-      loader: <div className={"preloader-image-wrapper"}
+      loader: this.props.showSpinner ? <div className={"preloader-image-wrapper"}
                    style={{textAlign: "center", margin: "auto"}}>{this.props.component.loadingText ||
-      <img src="bundles/con4gisframework/img/preloader-image.svg" className="preloader-image" alt=""/>}</div>,
+      <img src="bundles/con4gisframework/img/preloader-image.svg" className="preloader-image" alt=""/>}</div> : null,
       className: className,
       scrollThreshold: this.props.component.scrollThreshold
     };

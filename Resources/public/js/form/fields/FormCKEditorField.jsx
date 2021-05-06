@@ -9,7 +9,7 @@
  */
 
 import React, {Component} from "react";
-import CKEditor from '@ckeditor/ckeditor5-react';
+import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import deLang from '@ckeditor/ckeditor5-build-classic/build/translations/de.js'
 
@@ -48,7 +48,7 @@ export default class FormCKEditorField extends Component {
           <CKEditor
             editor={ ClassicEditor }
             data={this.props.data[this.props.field.name]}
-            onInit={ editor => {
+            onReady={ editor => {
               this.editor = editor;
             } }
             onChange={ ( event, editor ) => {

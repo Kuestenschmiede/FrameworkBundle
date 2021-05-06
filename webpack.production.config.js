@@ -10,7 +10,6 @@
 
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const webpack = require("webpack");
 var path = require('path');
 var config = {
   entry: {
@@ -24,7 +23,7 @@ var config = {
     publicPath: "bundles/con4gisframework/build/"
   },
   resolve: {
-    modules: ['node_modules', 'Resources/public/js'],
+    roots: ['node_modules', 'Resources/public/js'],
     extensions: ['.jsx', '.js']
   },
   optimization: {
@@ -39,9 +38,7 @@ var config = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules(?!\/ol)/,
-        use: [{
-          loader: "babel-loader",
-        }],
+        loader: "babel-loader",
         include: [
           path.resolve('.'),
           path.resolve('./Resources/public/js/'),
@@ -49,6 +46,9 @@ var config = {
           path.resolve('./../MapsBundle/Resources/public/js'),
           path.resolve('./../MapsBundle/Resources/public/js/components')
         ],
+        options: {
+          extends: path.resolve('.babelrc')
+        }
       },
       {
         test: /\.css$/i,
@@ -67,16 +67,6 @@ var config = {
         loader: 'file-loader'
       }
     ]
-  },
-  optimization: {
-    minimize: true,
-    removeAvailableModules: true,
-    flagIncludedChunks: true,
-    usedExports: true,
-    concatenateModules: true,
-    sideEffects: false,
-    chunkIds: "named",
-    moduleIds: "named"
   }
 };
 

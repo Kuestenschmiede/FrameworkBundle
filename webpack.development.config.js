@@ -35,16 +35,17 @@ var config = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules(?!\/ol)/,
-        use: [{
-          loader: "babel-loader",
-        }],
+        loader: "babel-loader",
         include: [
           path.resolve('.'),
           path.resolve('./Resources/public/js/'),
           path.resolve('./Resources/public/js/*'),
           path.resolve('./../MapsBundle/Resources/public/js'),
           path.resolve('./../MapsBundle/Resources/public/js/*')
-        ]
+        ],
+        options: {
+          extends: path.resolve('.babelrc')
+        }
       },
       {
         test: /\.css$/i,

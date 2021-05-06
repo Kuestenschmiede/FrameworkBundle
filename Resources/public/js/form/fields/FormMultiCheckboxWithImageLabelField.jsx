@@ -35,6 +35,8 @@ export default class FormMultiCheckboxWithImageLabelField extends Component {
                      alt={this.props.field.options[element].alt}
                      title={this.props.field.options[element].alt}
                      className={"c4g-img-fluid"}
+                     width="100%"
+                     height="100%"
                 />
                 <input type="checkbox" name={this.props.field.name}
                        value={element} required={this.props.field.required}

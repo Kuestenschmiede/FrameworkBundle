@@ -23,7 +23,7 @@ export default class ListTypeTileTagLinkField extends Component {
         this.props.data[this.props.field.name].icons.forEach((item, index) => {
             icons.push(
                 <div className={"item "+item.class} key={index}>
-                  <img className={"entry-content img-fluid"} loading={"lazy"} src={item.imageSource} alt={item.imageAlt} title={item.imageAlt} />
+                  <img className={"entry-content img-fluid"} loading={"lazy"} src={item.imageSource} alt={item.imageAlt} title={item.imageAlt} width="100%" height="100%" />
                   <a href={item.linkHref} rel={"noreferrer noopener"}>{item.linkLabel}</a>
                 </div>
             );

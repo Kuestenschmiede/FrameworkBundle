@@ -9,7 +9,7 @@
  */
 
 
-import React, {Component, Suspense} from "react";
+import React, {Component, Suspense, lazy} from "react";
 import {getLanguage} from "./i18n";
 
 const TableView = React.lazy(() => import("./table/TableView.jsx"));

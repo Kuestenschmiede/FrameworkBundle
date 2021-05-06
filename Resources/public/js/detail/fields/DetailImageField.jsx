@@ -26,9 +26,9 @@ export default class DetailImageField extends Component {
       let altName = this.props.data[this.props.field.name].alt;
       let imageNode = null;
       if (this.props.field.withPopover && this.props.field.popoverField && this.props.data[this.props.field.popoverField]) {
-        imageNode = <img className={"img-fluid"} src={src} alt={altName} data-toggle={"tooltip"} data-content={this.props.data[this.props.field.popoverField]} title={this.props.data[this.props.field.popoverField]}/>;
+        imageNode = <img className={"img-fluid"} src={src} alt={altName} data-toggle={"tooltip"} width="100%" height="100%" data-content={this.props.data[this.props.field.popoverField]} title={this.props.data[this.props.field.popoverField]}/>;
       } else {
-        imageNode = <img className={"img-fluid"} src={src} alt={altName} title={altName} />;
+        imageNode = <img className={"img-fluid"} src={src} alt={altName} title={altName} width="100%" height="100%"/>;
       }
 
       if (this.props.field.addWrappingDiv) {

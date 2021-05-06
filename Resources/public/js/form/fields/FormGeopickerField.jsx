@@ -8,9 +8,9 @@
  * @link https://www.con4gis.org
  */
 
-import React, {Component} from "react";
+import React, {Component, lazy} from "react";
 import {MapController} from "../../../../../../MapsBundle/Resources/public/js/components/c4g-maps.jsx";
-//const MapController = React.lazy(() => import("../../../../../../MapBundle/Resources/public/js/components/c4g-maps.jsx"));
+//const MapController = React.lazy(() => import("../../../../../../MapsBundle/Resources/public/js/components/c4g-maps.jsx"));
 
 export default class FormGeopickerField extends Component {
 

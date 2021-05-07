@@ -28,7 +28,7 @@ export default class DetailFancyboxImageGallery extends Component {
         <div className={"detail-view__image-gallery-inner"}>
           {imageData.map((value, index) => {
             return <a key={index} data-fancybox={"gallery_" + this.props.field.name} href={value.src} className={this.props.field.name + "-item" + (index === 0 ? " first" : "")}>
-              <img className={"img-fluid"} src={value.src} alt={value.alt} width="100%" height="100%" />
+              <img className={"img-fluid"} src={value.src} alt={value.alt} width={value.width} height={value.height} />
             </a>;
           })}
         </div>

@@ -24,11 +24,13 @@ export default class DetailImageField extends Component {
       }
       let src = this.props.data[this.props.field.name].src;
       let altName = this.props.data[this.props.field.name].alt;
+      let width = this.props.data[this.props.field.name].width;
+      let height = this.props.data[this.props.field.name].height;
       let imageNode = null;
       if (this.props.field.withPopover && this.props.field.popoverField && this.props.data[this.props.field.popoverField]) {
-        imageNode = <img className={"img-fluid"} src={src} alt={altName} data-toggle={"tooltip"} width="100%" height="100%" data-content={this.props.data[this.props.field.popoverField]} title={this.props.data[this.props.field.popoverField]}/>;
+        imageNode = <img className={"img-fluid"} src={src} alt={altName} data-toggle={"tooltip"} width={width} height={height} data-content={this.props.data[this.props.field.popoverField]} title={this.props.data[this.props.field.popoverField]}/>;
       } else {
-        imageNode = <img className={"img-fluid"} src={src} alt={altName} title={altName} width="100%" height="100%"/>;
+        imageNode = <img className={"img-fluid"} src={src} alt={altName} title={altName} width={width} height={height}/>;
       }
 
       if (this.props.field.addWrappingDiv) {

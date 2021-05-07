@@ -1,14 +1,11 @@
 /*
- * This file is part of con4gis,
- * the gis-kit for Contao CMS.
- *
- * @package   	con4gis
- * @version        7
- * @author  	    con4gis contributors (see "authors.txt")
- * @license 	    LGPL-3.0-or-later
- * @copyright 	Küstenschmiede GmbH Software & Design
- * @link              https://www.con4gis.org
- *
+ * This file is part of con4gis, the gis-kit for Contao CMS.
+ * @package con4gis
+ * @version 8
+ * @author con4gis contributors (see "authors.txt")
+ * @license LGPL-3.0-or-later
+ * @copyright (c) 2010-2021, by Küstenschmiede GmbH Software & Design
+ * @link https://www.con4gis.org
  */
 
 import React, {Component} from "react";
@@ -26,7 +23,7 @@ export default class ListTypeTileTagLinkField extends Component {
         this.props.data[this.props.field.name].icons.forEach((item, index) => {
             icons.push(
                 <div className={"item "+item.class} key={index}>
-                  <img className={"entry-content img-fluid"} loading={"lazy"} src={item.imageSource} alt={item.imageAlt} title={item.imageAlt} />
+                  <img className={"entry-content img-fluid"} loading={"lazy"} src={item.imageSource} alt={item.imageAlt} title={item.imageAlt} width="100%" height="100%" />
                   <a href={item.linkHref} rel={"noreferrer noopener"}>{item.linkLabel}</a>
                 </div>
             );

@@ -1,5 +1,15 @@
+/*
+ * This file is part of con4gis, the gis-kit for Contao CMS.
+ * @package con4gis
+ * @version 8
+ * @author con4gis contributors (see "authors.txt")
+ * @license LGPL-3.0-or-later
+ * @copyright (c) 2010-2021, by Küstenschmiede GmbH Software & Design
+ * @link https://www.con4gis.org
+ */
+
 import React, {Component} from "react";
-import CKEditor from '@ckeditor/ckeditor5-react';
+import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import deLang from '@ckeditor/ckeditor5-build-classic/build/translations/de.js'
 
@@ -38,7 +48,7 @@ export default class FormCKEditorField extends Component {
           <CKEditor
             editor={ ClassicEditor }
             data={this.props.data[this.props.field.name]}
-            onInit={ editor => {
+            onReady={ editor => {
               this.editor = editor;
             } }
             onChange={ ( event, editor ) => {

@@ -28,7 +28,7 @@ export default class FilterButton extends Component {
     event.stopPropagation();
 
     this.setFilter(form);
-    if (form.props.component.toggleableLayout) {
+    if (form.props.component.toggleableLayout && form.state.toggled) {
       form.toggleForm();
     }
   }

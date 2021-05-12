@@ -43,8 +43,8 @@ class DetailImageField extends DetailField
         $conf['addWrappingDiv'] = $this->addWrappingDiv;
         $conf['wrappingDivClass'] = $this->wrappingDivClass;
         $conf['renderAsFigure'] = $this->renderAsFigure;
-        $conf['width'] =  $this->srcFieldName && getimagesize($this->srcFieldName) ? getimagesize($this->srcFieldName)[0] : '100%';
-        $conf['height'] =  $this->srcFieldName && getimagesize($this->srcFieldName) ? getimagesize($this->srcFieldName)[1] : '100%';
+        $conf['width'] = $this->srcFieldName && getimagesize($this->srcFieldName) ? getimagesize($this->srcFieldName)[0] : '100%';
+        $conf['height'] = $this->srcFieldName && getimagesize($this->srcFieldName) ? getimagesize($this->srcFieldName)[1] : '100%';
 
         return $conf;
     }

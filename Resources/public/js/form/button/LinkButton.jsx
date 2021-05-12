@@ -9,7 +9,7 @@
  */
 
 import React, {Component} from "react";
-import {AlertHandler} from "../../../../../../CoreBundle/Resources/public/js/AlertHandler.js";
+import {AlertHandler} from "../../../../../../CoreBundle/Resources/public/vendor/js/AlertHandler.js";
 
 export default class LinkButton extends Component {
   constructor(props) {

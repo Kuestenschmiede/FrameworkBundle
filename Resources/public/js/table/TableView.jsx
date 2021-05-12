@@ -14,7 +14,7 @@ import {TableButton} from "./button/TableButton.jsx";
 import {ModalDetailTableButton} from "./button/ModalDetailTableButton.jsx";
 import {PostActionButton} from "./button/PostActionButton.jsx";
 import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles';
-import {AlertHandler} from "../../../../../CoreBundle/Resources/public/js/AlertHandler.js";
+import {AlertHandler} from "../../../../../CoreBundle/Resources/public/vendor/js/AlertHandler.js";
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'

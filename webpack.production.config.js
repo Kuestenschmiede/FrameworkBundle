@@ -43,6 +43,8 @@ var config = {
           path.resolve('.'),
           path.resolve('./Resources/public/js/'),
           path.resolve('./Resources/public/js/*'),
+          path.resolve('./../CoreBundle/Resources/public/vendor/js'),
+          path.resolve('./../CoreBundle/Resources/public/vendor/js/*'),
           path.resolve('./../MapsBundle/Resources/public/js'),
           path.resolve('./../MapsBundle/Resources/public/js/components')
         ],

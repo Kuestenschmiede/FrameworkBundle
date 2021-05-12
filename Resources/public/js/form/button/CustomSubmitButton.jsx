@@ -10,7 +10,7 @@
 
 import React, {Component} from "react";
 import hasConditions from "../../util/conditions";
-import {AlertHandler} from "../../../../../../CoreBundle/Resources/public/js/AlertHandler.js";
+import {AlertHandler} from "../../../../../../CoreBundle/Resources/public/vendor/js/AlertHandler.js";
 
 export default class CustomSubmitButton extends Component {
   constructor(props) {

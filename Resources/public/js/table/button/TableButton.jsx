@@ -9,7 +9,7 @@
  */
 
 import React, {Component, Suspense} from "react";
-import {AlertHandler} from "../../../../../../CoreBundle/Resources/public/js/AlertHandler.js";
+import {AlertHandler} from "../../../../../../CoreBundle/Resources/public/vendor/js/AlertHandler.js";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 

@@ -36,7 +36,7 @@ export default class DetailContactField extends Component {
         this.props.field.withSocialMedia
     ) {
       if (this.props.field.label) {
-        label = <h3>{this.props.field.label}</h3>;
+        label = <h2>{this.props.field.label}</h2>;
       }
     }
 
@@ -71,7 +71,7 @@ export default class DetailContactField extends Component {
     if (this.props.field.addressFieldnamePrefix) {
       let addressData = this.createAddressData();
       address = <div>
-        <h4 className={"entry-content name"}>{addressData.name}</h4>
+        <h3 className={"entry-content name"}>{addressData.name}</h3>
         <span className={"entry-content additionalName"}>{addressData.additionalName}</span>
         <div className={"street"}>
           <span className={"street"}>{addressData.street}</span>

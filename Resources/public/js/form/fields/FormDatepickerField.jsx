@@ -127,7 +127,7 @@ export default class FormDatepickerField extends Component {
       "Oktober",
       "November",
       "Dezember",
-    ]
+    ];
     const days = [
       'So',
       'Mo',
@@ -136,7 +136,7 @@ export default class FormDatepickerField extends Component {
       'Do',
       'Fr',
       'Sa'
-    ]
+    ];
 
     const locale = {
       localize: {

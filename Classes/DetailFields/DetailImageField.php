@@ -1,14 +1,12 @@
 <?php
-/**
- * This file is part of con4gis,
- * the gis-kit for Contao CMS.
- *
- * @package   	con4gis
- * @version        6
- * @author  	    con4gis contributors (see "authors.txt")
- * @license 	    LGPL-3.0-or-later
- * @copyright 	Küstenschmiede GmbH Software & Design
- * @link              https://www.con4gis.org
+/*
+ * This file is part of con4gis, the gis-kit for Contao CMS.
+ * @package con4gis
+ * @version 8
+ * @author con4gis contributors (see "authors.txt")
+ * @license LGPL-3.0-or-later
+ * @copyright (c) 2010-2021, by Küstenschmiede GmbH Software & Design
+ * @link https://www.con4gis.org
  */
 namespace con4gis\FrameworkBundle\Classes\DetailFields;
 
@@ -45,6 +43,8 @@ class DetailImageField extends DetailField
         $conf['addWrappingDiv'] = $this->addWrappingDiv;
         $conf['wrappingDivClass'] = $this->wrappingDivClass;
         $conf['renderAsFigure'] = $this->renderAsFigure;
+        $conf['width'] = $this->srcFieldName && getimagesize($this->srcFieldName) ? getimagesize($this->srcFieldName)[0] : '100%';
+        $conf['height'] = $this->srcFieldName && getimagesize($this->srcFieldName) ? getimagesize($this->srcFieldName)[1] : '100%';
 
         return $conf;
     }

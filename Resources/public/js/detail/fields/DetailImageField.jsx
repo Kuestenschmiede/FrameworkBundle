@@ -1,14 +1,11 @@
 /*
- * This file is part of con4gis,
- * the gis-kit for Contao CMS.
- *
- * @package   	con4gis
- * @version        7
- * @author  	    con4gis contributors (see "authors.txt")
- * @license 	    LGPL-3.0-or-later
- * @copyright 	Küstenschmiede GmbH Software & Design
- * @link              https://www.con4gis.org
- *
+ * This file is part of con4gis, the gis-kit for Contao CMS.
+ * @package con4gis
+ * @version 8
+ * @author con4gis contributors (see "authors.txt")
+ * @license LGPL-3.0-or-later
+ * @copyright (c) 2010-2021, by Küstenschmiede GmbH Software & Design
+ * @link https://www.con4gis.org
  */
 
 import React, {Component} from "react";
@@ -27,11 +24,13 @@ export default class DetailImageField extends Component {
       }
       let src = this.props.data[this.props.field.name].src;
       let altName = this.props.data[this.props.field.name].alt;
+      let width = this.props.data[this.props.field.name].width;
+      let height = this.props.data[this.props.field.name].height;
       let imageNode = null;
       if (this.props.field.withPopover && this.props.field.popoverField && this.props.data[this.props.field.popoverField]) {
-        imageNode = <img className={"img-fluid"} src={src} alt={altName} data-toggle={"tooltip"} data-content={this.props.data[this.props.field.popoverField]} title={this.props.data[this.props.field.popoverField]}/>;
+        imageNode = <img className={"img-fluid"} src={src} alt={altName} data-toggle={"tooltip"} width={width} height={height} data-content={this.props.data[this.props.field.popoverField]} title={this.props.data[this.props.field.popoverField]}/>;
       } else {
-        imageNode = <img className={"img-fluid"} src={src} alt={altName} title={altName} />;
+        imageNode = <img className={"img-fluid"} src={src} alt={altName} title={altName} width={width} height={height}/>;
       }
 
       if (this.props.field.addWrappingDiv) {

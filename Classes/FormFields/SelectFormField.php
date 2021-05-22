@@ -1,14 +1,12 @@
 <?php
-/**
- * This file is part of con4gis,
- * the gis-kit for Contao CMS.
- *
- * @package    con4gis
- * @version    7
- * @author     con4gis contributors (see "authors.txt")
- * @license    LGPL-3.0-or-later
- * @copyright  Küstenschmiede GmbH Software & Design
- * @link       https://www.con4gis.org
+/*
+ * This file is part of con4gis, the gis-kit for Contao CMS.
+ * @package con4gis
+ * @version 8
+ * @author con4gis contributors (see "authors.txt")
+ * @license LGPL-3.0-or-later
+ * @copyright (c) 2010-2021, by Küstenschmiede GmbH Software & Design
+ * @link https://www.con4gis.org
  */
 namespace con4gis\FrameworkBundle\Classes\FormFields;
 
@@ -47,6 +45,13 @@ class SelectFormField extends FormField
      */
     protected $dynamicFieldlistAdditionalFields = [];
 
+    /**
+     * Instantly redirects to this url when a new value has been selected.
+     * Add {value} as placeholder for the selected value.
+     * @var string
+     */
+    protected $instantRedirectUrl = '';
+
     const TYPE = 'select';
 
     public function getConfiguration() : array
@@ -63,6 +68,7 @@ class SelectFormField extends FormField
         $config['dynamicFieldlist'] = $this->dynamicFieldlist;
         $config['dynamicFieldlistUrl'] = $this->dynamicFieldlistUrl;
         $config['dynamicFieldlistAdditionalFields'] = $this->dynamicFieldlistAdditionalFields;
+        $config['instantRedirectUrl'] = $this->instantRedirectUrl;
 
         return $config;
     }
@@ -302,5 +308,21 @@ class SelectFormField extends FormField
         $this->dynamicFieldlistAdditionalFields = $dynamicFieldlistAdditionalFields;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getInstantRedirectUrl(): string
+    {
+        return $this->instantRedirectUrl;
+    }
+
+    /**
+     * @param string $instantRedirectUrl
+     */
+    public function setInstantRedirectUrl(string $instantRedirectUrl): void
+    {
+        $this->instantRedirectUrl = $instantRedirectUrl;
     }
 }

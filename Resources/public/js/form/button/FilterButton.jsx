@@ -1,14 +1,11 @@
 /*
- * This file is part of con4gis,
- * the gis-kit for Contao CMS.
- *
- * @package   	con4gis
- * @version        7
- * @author  	    con4gis contributors (see "authors.txt")
- * @license 	    LGPL-3.0-or-later
- * @copyright 	Küstenschmiede GmbH Software & Design
- * @link              https://www.con4gis.org
- *
+ * This file is part of con4gis, the gis-kit for Contao CMS.
+ * @package con4gis
+ * @version 8
+ * @author con4gis contributors (see "authors.txt")
+ * @license LGPL-3.0-or-later
+ * @copyright (c) 2010-2021, by Küstenschmiede GmbH Software & Design
+ * @link https://www.con4gis.org
  */
 
 import React, {Component} from "react";
@@ -31,7 +28,7 @@ export default class FilterButton extends Component {
     event.stopPropagation();
 
     this.setFilter(form);
-    if (form.props.component.toggleableLayout) {
+    if (form.props.component.toggleableLayout && form.state.toggled) {
       form.toggleForm();
     }
   }
@@ -44,7 +41,8 @@ export default class FilterButton extends Component {
       if (body !== '') {
         body += '&';
       }
-      if (typeof form.props.component.data[element] === 'object' && form.props.component.data[element] !== null) {
+      if (typeof form.props.component.data[element] === 'object' && form.props.component.data[element] !== null &&
+        typeof form.props.component.data[element].forEach !== 'function') {
         try {
           body += element + '=' + form.props.component.data[element].value;
           formData[element] = form.props.component.data[element].value;

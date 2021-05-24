@@ -22,10 +22,10 @@
     "con4gis/core": "^4.2",
     "con4gis/maps": "^8.0",
     "ext-json": "*",
-    "contao-components/jquery": "^3.0",
-    "menatwork/contao-multicolumnwizard-bundle": "^3.4",
+    "contao-components/jquery": "^3.6",
+    "menatwork/contao-multicolumnwizard-bundle": "^3.4.11",
     "terminal42/notification_center": "^1.5",
-    "guzzlehttp/guzzle": "^6.2"
+    "guzzlehttp/guzzle": "^6.5"
   },
   "conflict": {
     "contao/core": "*",

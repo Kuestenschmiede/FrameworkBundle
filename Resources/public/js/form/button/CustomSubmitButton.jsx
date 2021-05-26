@@ -143,7 +143,7 @@ export default class CustomSubmitButton extends Component {
               const ah = new AlertHandler();
               let title = this.props.languageRefs.CHECK_POSITION;
               let content = this.props.languageRefs.POSITION_OUT_OF_RANGE;
-              ah.showErrorDialog(title, content);
+              ah.showConfirmDialog(title, content, ()=> {this.submitData(data)}, ()=> {}, this.props.languageRefs.POSITION_OUT_OF_RANGE_CONFIRM, this.props.languageRefs.POSITION_OUT_OF_RANGe_CANCEL);
             }
           } else {
             // show error hint

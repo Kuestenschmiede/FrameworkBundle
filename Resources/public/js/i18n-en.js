@@ -27,6 +27,8 @@ let langConstantsEnglish = {
   WEEKDAYS: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
   CHECK_POSITION: "Check position",
   POSITION_OUT_OF_RANGE: "The specified location is outside the specified postal code area.",
+  POSITION_OUT_OF_RANGE_CONFIRM: "Continue saving",
+  POSITION_OUT_OF_RANGE_CANCEL: "Cancel",
   ADD_GEOLOCATION: "Add geolocation",
   SAVE_WITH_POSITION:"Save with position",
   SAVE_WITHOUT_POSITION: "Save without position",

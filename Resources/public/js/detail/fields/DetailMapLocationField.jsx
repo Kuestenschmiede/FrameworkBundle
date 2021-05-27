@@ -9,8 +9,8 @@
  */
 
 import React, {Component} from "react";
-import {MapController} from "../../../../../../MapsBundle/Resources/public/js/components/c4g-maps.jsx";
-//const MapController = React.lazy(() => import("../../../../../../MapsBundle/Resources/public/js/components/c4g-maps.jsx"));
+import MapController from "../../../../../../MapsBundle/Resources/public/js/components/c4g-maps.jsx";
+// const MapController = React.lazy(() => import("../../../../../../MapsBundle/Resources/public/js/components/c4g-maps.jsx"));
 
 export default class DetailMapLocationField extends Component {
   constructor(props) {

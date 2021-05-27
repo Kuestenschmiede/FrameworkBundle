@@ -9,8 +9,8 @@
  */
 
 import React, {Component, lazy} from "react";
-import {MapController} from "../../../../../../MapsBundle/Resources/public/js/components/c4g-maps.jsx";
-//const MapController = React.lazy(() => import("../../../../../../MapsBundle/Resources/public/js/components/c4g-maps.jsx"));
+import MapController from "../../../../../../MapsBundle/Resources/public/js/components/c4g-maps.jsx";
+// const MapController = React.lazy(() => import("../../../../../../MapsBundle/Resources/public/js/components/c4g-maps.jsx"));
 
 export default class FormGeopickerField extends Component {
 

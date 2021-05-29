@@ -188,8 +188,8 @@ export default class DetailOSMOpeningHoursField extends Component {
     var first = firstDay.getDate();
 
     var lastDay = new Date();
-    lastDay.setHours(23);
-    lastDay.setMinutes(59);
+    lastDay.setHours(24);
+    lastDay.setMinutes(0);
     var last = lastDay.getDate() + 6;
     var firstday = new Date(firstDay.setDate(first));
     var lastday = new Date(lastDay.setDate(last));

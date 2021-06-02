@@ -49,7 +49,19 @@ export default class TileTagField extends Component {
             width: item.image.width
           };
           index += 1;
-          tagElements.push(<TileImageField key={id + index} field={tagField} data={[]}/>);
+          let linkField = this.props.field.linkField;
+          if (item[linkField]) {
+            let link = item[linkField];
+            if (link.indexOf("https://") === -1) {
+              link = "https://" + link;
+            }
+            tagElements.push(<a key={id + index} href={link}>
+              <TileImageField key={id + index} field={tagField} data={[]}/>
+            </a>);
+          } else {
+            tagElements.push(<TileImageField key={id + index} field={tagField} data={[]}/>);
+          }
+
         }
       });
     } else {

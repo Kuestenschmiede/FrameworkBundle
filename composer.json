@@ -19,7 +19,7 @@
   ],
   "require": {
     "contao/core-bundle": "^4.9",
-    "con4gis/core": "^4.2",
+    "con4gis/core": "^5.0",
     "con4gis/maps": "^8.0",
     "ext-json": "*",
     "contao-components/jquery": "^3.6",

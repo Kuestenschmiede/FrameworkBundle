@@ -175,7 +175,10 @@ export default class FormSelectField extends Component {
   }
 
   componentDidMount() {
-    if (!this.props.field.instantRedirectUrl && this.props.data[this.props.field.name]) {
+    let hasData = !!this.props.data[this.props.field.name];
+    let defaultOption = this.props.field.selected;
+    let hasDefaultValue = this.props.field.options[defaultOption] && !!(this.props.field.options[defaultOption].value);
+    if (!this.props.field.instantRedirectUrl && (hasData || hasDefaultValue)) {
       this.handleChange(this.props.data[this.props.field.name], "");
     }
   }

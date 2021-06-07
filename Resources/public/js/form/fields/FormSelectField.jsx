@@ -97,6 +97,11 @@ export default class FormSelectField extends Component {
             defaultValue = {value: this.props.field.options[element].value, label: this.props.field.options[element].label};
           }
         });
+        if (!defaultValue && this.props.field.selected) {
+          // set default value for when no value is saved yet
+          let defaultOption = this.props.field.selected;
+          defaultValue = {value: this.props.field.options[defaultOption].value, label: this.props.field.options[defaultOption].label};
+        }
       }
 
       let hint = "";

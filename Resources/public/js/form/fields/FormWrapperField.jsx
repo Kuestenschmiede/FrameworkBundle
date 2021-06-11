@@ -36,7 +36,7 @@ export default class FormWrapperField extends Component {
     }
 
     return (
-      <div className={this.props.field.className}>
+      <div className={this.props.field.className} id={this.props.field.cssId}>
         <h4 className={"panel-title"}>{this.props.field.label}</h4>
         <div className={"panel-description"}>{this.props.field.description}</div>
         {hr}

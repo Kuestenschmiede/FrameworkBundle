@@ -16,10 +16,13 @@ class TagTileField extends TileField
 
     protected $linkUrl = '';
 
+    protected $linkField = '';
+
     public function getConfiguration(): array
     {
         $result = parent::getConfiguration();
         $result['inkUrl'] = $this->linkUrl;
+        $result['linkField'] = $this->linkField;
 
         return $result;
     }
@@ -38,5 +41,21 @@ class TagTileField extends TileField
     public function setLinkUrl(string $linkUrl): void
     {
         $this->linkUrl = $linkUrl;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLinkField(): string
+    {
+        return $this->linkField;
+    }
+
+    /**
+     * @param string $linkField
+     */
+    public function setLinkField(string $linkField): void
+    {
+        $this->linkField = $linkField;
     }
 }

@@ -26,11 +26,14 @@ class WrapperFormField extends FormField
      */
     private $innerWrapper = false;
 
+    private $cssId = '';
+
     public function getConfiguration(): array
     {
         $conf = parent::getConfiguration();
         $conf['wrappedFields'] = $this->wrappedFields;
         $conf['innerWrapper'] = $this->innerWrapper;
+        $conf['cssId'] = $this->cssId;
 
         return $conf;
     }
@@ -65,5 +68,21 @@ class WrapperFormField extends FormField
     public function setInnerWrapper(bool $innerWrapper): void
     {
         $this->innerWrapper = $innerWrapper;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCssId(): string
+    {
+        return $this->cssId;
+    }
+
+    /**
+     * @param string $cssId
+     */
+    public function setCssId(string $cssId): void
+    {
+        $this->cssId = $cssId;
     }
 }

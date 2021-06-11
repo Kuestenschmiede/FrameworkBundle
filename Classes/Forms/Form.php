@@ -21,6 +21,8 @@ class Form implements FormInterface
     private $buttonWrapperClass = 'c4g-panel-buttons';
     private $hidden = false;
     private $preservePosition = false;
+    private $scrollSpy = false;
+    private $scrollSpyTarget = '';
 
     /**
      * If true, a div with the container class and a div with the row class will be generated into the form.
@@ -44,6 +46,8 @@ class Form implements FormInterface
             'containerRow' => $this->containerRow,
             'hidden' => $this->hidden,
             'preservePosition' => $this->preservePosition,
+            'scrollSpy' => $this->scrollSpy,
+            'scrollSpyTarget' => $this->scrollSpyTarget,
         ];
     }
 
@@ -205,5 +209,37 @@ class Form implements FormInterface
     public function setPreservePosition(bool $preservePosition): void
     {
         $this->preservePosition = $preservePosition;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isScrollSpy(): bool
+    {
+        return $this->scrollSpy;
+    }
+
+    /**
+     * @param bool $scrollSpy
+     */
+    public function setScrollSpy(bool $scrollSpy): void
+    {
+        $this->scrollSpy = $scrollSpy;
+    }
+
+    /**
+     * @return string
+     */
+    public function getScrollSpyTarget(): string
+    {
+        return $this->scrollSpyTarget;
+    }
+
+    /**
+     * @param string $scrollSpyTarget
+     */
+    public function setScrollSpyTarget(string $scrollSpyTarget): void
+    {
+        $this->scrollSpyTarget = $scrollSpyTarget;
     }
 }

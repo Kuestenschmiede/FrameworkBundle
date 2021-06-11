@@ -78,6 +78,20 @@ export default class FormView extends Component {
       }
     });
 
+    let className = "form-view";
+    if (this.props.component.class) {
+      className = this.props.component.class;
+    }
+
+    const formContent = <React.Fragment>
+      {headline}
+      {fieldContent}
+      <div className={this.props.component.buttonWrapperClass}>
+        {loadingAnimation}
+        {buttons}
+      </div>
+    </React.Fragment>;
+
     if (this.props.component.toggleableLayout) {
       let formClass = this.props.component.toggleableBaseClass + '-form';
       if (this.props.component.class) {
@@ -102,80 +116,83 @@ export default class FormView extends Component {
             <form className={formClass}
                   onSubmit={(event) => this.submitForm(event)}
                   method={this.props.component.method}>
-              {headline}
-              {fieldContent}
-              <div className={this.props.component.buttonWrapperClass}>
-                {loadingAnimation}
-                {buttons}
-              </div>
+              {formContent}
             </form>
           </div>
         </div>
       </div>;
     } else if (this.props.component.containerRow) {
       if (this.props.component.renderAsForm) {
-
         return (
-          <form className={this.props.component.class || "form-view"}
+          <form className={className}
                 onSubmit={(event) => this.submitForm(event)}
                 method={this.props.component.method}>
             <div className={"container"}>
               <div className={"row"}>
-                {headline}
-                {fieldContent}
-                <div className={this.props.component.buttonWrapperClass}>
-                  {loadingAnimation}
-                  {buttons}
-                </div>
-
+                {formContent}
               </div>
-            </div>
-          </form>
-        );
-      }
-      else {
-        return (
-          <div className={this.props.component.class || "form-view"}
-               method={this.props.component.method}>
-            <div className={"container"}>
-              <div className={"row"}>
-                {headline}
-                {fieldContent}
-                <div className={this.props.component.buttonWrapperClass}>
-                  {loadingAnimation}
-                  {buttons}
-                </div>
-
-              </div>
-            </div>
-          </div>
-        );
-      }
-    } else {
-      if (this.props.component.renderAsForm) {
-        return (
-          <form className={this.props.component.class || "form-view"} onSubmit={(event) => this.submitForm(event)}
-                method={this.props.component.method}>
-            {headline}
-            {fieldContent}
-            <div className={this.props.component.buttonWrapperClass}>
-              {loadingAnimation}
-              {buttons}
             </div>
           </form>
         );
       } else {
-        return (
-          <div className={this.props.component.class || "form-view"}
-               method={this.props.component.method}>
-            {headline}
-            {fieldContent}
-            <div className={this.props.component.buttonWrapperClass}>
-              {loadingAnimation}
-              {buttons}
+        if (this.props.component.scrollSpy) {
+          return (
+            <div className={className}
+                 method={this.props.component.method}
+                  data-spy={"scroll"}
+                  data-target={this.props.component.scrollSpyTarget}
+                  data-offset={"0"}>
+              <div className={"container"}>
+                <div className={"row"}>
+                  {formContent}
+                </div>
+              </div>
             </div>
-          </div>
+          );
+        } else {
+          return (
+            <div className={className}
+                 method={this.props.component.method}>
+              <div className={"container"}>
+                <div className={"row"}>
+                  {formContent}
+                </div>
+              </div>
+            </div>
+          );
+        }
+      }
+    } else {
+      if (this.props.component.renderAsForm) {
+        return (
+          <form className={className} onSubmit={(event) => this.submitForm(event)}
+                method={this.props.component.method}>
+            {formContent}
+          </form>
         );
+      } else {
+        if (this.props.component.scrollSpy) {
+          return (
+            <div className={className}
+                 method={this.props.component.method}
+                 data-spy={"scroll"}
+                 data-target={this.props.component.scrollSpyTarget}
+                 data-offset={"0"}>
+              <div className={"container"}>
+                <div className={"row"}>
+                  {formContent}
+                </div>
+              </div>
+            </div>
+          );
+        } else {
+          return (
+            <div className={className}
+                 method={this.props.component.method}>
+              {formContent}
+            </div>
+          );
+        }
       }
     }
   }

@@ -97,6 +97,11 @@ export default class FormSelectField extends Component {
             defaultValue = {value: this.props.field.options[element].value, label: this.props.field.options[element].label};
           }
         });
+        if (!defaultValue && this.props.field.selected) {
+          // set default value for when no value is saved yet
+          let defaultOption = this.props.field.selected;
+          defaultValue = {value: this.props.field.options[defaultOption].value, label: this.props.field.options[defaultOption].label};
+        }
       }
 
       let hint = "";
@@ -170,7 +175,10 @@ export default class FormSelectField extends Component {
   }
 
   componentDidMount() {
-    if (!this.props.field.instantRedirectUrl && this.props.data[this.props.field.name]) {
+    let hasData = !!this.props.data[this.props.field.name];
+    let defaultOption = this.props.field.selected;
+    let hasDefaultValue = this.props.field.options[defaultOption] && !!(this.props.field.options[defaultOption].value);
+    if (!this.props.field.instantRedirectUrl && (hasData || hasDefaultValue)) {
       this.handleChange(this.props.data[this.props.field.name], "");
     }
   }

@@ -23,7 +23,8 @@ export default class DetailVideoPreviewField extends Component {
       && (data.videoPreviewImage !== null);
 
     this.state = {
-      hasPreviewImage: initialHasPreviewImage
+      hasPreviewImage: initialHasPreviewImage,
+      reloading: false,
     };
   }
 
@@ -59,14 +60,31 @@ export default class DetailVideoPreviewField extends Component {
           </a>
         </div>;
     }
-    
-    return (
-      <div className={this.props.field.class}>
-        <div className="embed-responsive embed-responsive-16by9">
-          {content}
+
+    if (window.klaroConfig && klaro) {
+      let manager = klaro.getManager();
+      if ((data.videoType === "youtube" && manager.getConsent('youtubeVideo'))
+        || (data.videoType === "vimeo" && manager.getConsent('vimeoVideo'))) {
+        return (
+          <div className={this.props.field.class}>
+            <div className="embed-responsive embed-responsive-16by9">
+              {content}
+            </div>
+          </div>
+        );
+      } else {
+        // no consent given, display nothing
+        return null;
+      }
+    } else {
+      return (
+        <div className={this.props.field.class}>
+          <div className="embed-responsive embed-responsive-16by9">
+            {content}
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 
   parseVideoId(videoUrl) {
@@ -81,6 +99,16 @@ export default class DetailVideoPreviewField extends Component {
     }
     if (videoUrl.startsWith("https://www.youtube-nocookie.com/embed/")) {
       return videoUrl.replace("https://www.youtube-nocookie.com/embed/", "");
+    }
+  }
+
+  componentDidMount() {
+    if (window.klaroConfig && klaro) {
+      let manager = klaro.getManager();
+      manager.watch({update: (objManager, name, data) => {
+          this.setState({reloading: !this.state.reloading});
+        }
+      });
     }
   }
 }

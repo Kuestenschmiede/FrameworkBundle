@@ -25,8 +25,8 @@ class WrapperFormField extends FormField
      * @var bool
      */
     private $innerWrapper = false;
-    
-    private $cssId = "";
+
+    private $cssId = '';
 
     public function getConfiguration(): array
     {
@@ -69,7 +69,7 @@ class WrapperFormField extends FormField
     {
         $this->innerWrapper = $innerWrapper;
     }
-    
+
     /**
      * @return string
      */
@@ -77,7 +77,7 @@ class WrapperFormField extends FormField
     {
         return $this->cssId;
     }
-    
+
     /**
      * @param string $cssId
      */

@@ -22,7 +22,7 @@ class Form implements FormInterface
     private $hidden = false;
     private $preservePosition = false;
     private $scrollSpy = false;
-    private $scrollSpyTarget = "";
+    private $scrollSpyTarget = '';
 
     /**
      * If true, a div with the container class and a div with the row class will be generated into the form.
@@ -47,7 +47,7 @@ class Form implements FormInterface
             'hidden' => $this->hidden,
             'preservePosition' => $this->preservePosition,
             'scrollSpy' => $this->scrollSpy,
-            'scrollSpyTarget' => $this->scrollSpyTarget
+            'scrollSpyTarget' => $this->scrollSpyTarget,
         ];
     }
 
@@ -210,7 +210,7 @@ class Form implements FormInterface
     {
         $this->preservePosition = $preservePosition;
     }
-    
+
     /**
      * @return bool
      */
@@ -218,7 +218,7 @@ class Form implements FormInterface
     {
         return $this->scrollSpy;
     }
-    
+
     /**
      * @param bool $scrollSpy
      */
@@ -226,7 +226,7 @@ class Form implements FormInterface
     {
         $this->scrollSpy = $scrollSpy;
     }
-    
+
     /**
      * @return string
      */
@@ -234,7 +234,7 @@ class Form implements FormInterface
     {
         return $this->scrollSpyTarget;
     }
-    
+
     /**
      * @param string $scrollSpyTarget
      */

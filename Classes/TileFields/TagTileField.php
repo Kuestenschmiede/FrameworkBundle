@@ -15,7 +15,7 @@ class TagTileField extends TileField
     const TYPE = 'tag';
 
     protected $linkUrl = '';
-    
+
     protected $linkField = '';
 
     public function getConfiguration(): array
@@ -42,7 +42,7 @@ class TagTileField extends TileField
     {
         $this->linkUrl = $linkUrl;
     }
-    
+
     /**
      * @return string
      */
@@ -50,7 +50,7 @@ class TagTileField extends TileField
     {
         return $this->linkField;
     }
-    
+
     /**
      * @param string $linkField
      */

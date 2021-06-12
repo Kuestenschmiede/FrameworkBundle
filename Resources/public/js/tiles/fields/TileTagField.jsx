@@ -55,7 +55,7 @@ export default class TileTagField extends Component {
             if ((link.indexOf("http://") === -1)  && (link.indexOf("https://") === -1)) {
               link = "https://" + link;
             }
-            tagElements.push(<a key={id + index} href={link}>
+            tagElements.push(<a key={id + index} href={link} rel={"noreferrer noopener"}>
               <TileImageField key={id + index} field={tagField} data={[]}/>
             </a>);
           } else {

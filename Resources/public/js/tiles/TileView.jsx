@@ -75,8 +75,8 @@ export default class TileView extends Component {
 
     let textFilter = null;
     if (this.props.component.withTextFilter) {
-      textFilter = <div className={"c4g-list-filter-wrapper"}>
-        <input className={"c4g-list-filter-input"} type="text" placeholder={"Suchbegriff eingeben"} onInput={this.applyTextFilter} defaultValue={this.state.textFilterContent}/>
+      textFilter = <div className={"detail-view__list-filter-wrapper"}>
+        <input className={"detail-view__list-filter-input"} type="text" placeholder={"Suchbegriff eingeben"} onInput={this.applyTextFilter} defaultValue={this.state.textFilterContent}/>
       </div>
     }
 

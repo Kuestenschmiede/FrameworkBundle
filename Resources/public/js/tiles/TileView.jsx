@@ -27,7 +27,8 @@ export default class TileView extends Component {
 
     this.state = {
       asyncLoading: props.component.asyncUrl !== '',
-      filterWasReset: false
+      filterWasReset: false,
+      textFilterContent: ""
     };
 
     this.asyncUrl = this.props.component.asyncUrl;
@@ -42,6 +43,7 @@ export default class TileView extends Component {
     }
     
     this.fetchMoreData = this.fetchMoreData.bind(this);
+    this.applyTextFilter = this.applyTextFilter.bind(this);
   }
 
   render() {
@@ -71,6 +73,13 @@ export default class TileView extends Component {
       }
     }
 
+    let textFilter = null;
+    if (this.props.component.withTextFilter) {
+      textFilter = <div className={"c4g-list-filter-wrapper"}>
+        <input className={"c4g-list-filter-input"} type="text" placeholder={"Suchbegriff eingeben"} onInput={this.applyTextFilter} defaultValue={this.state.textFilterContent}/>
+      </div>
+    }
+
     if (this.props.data.length === 0) {
       if (!this.props.updated && this.props.textBeforeUpdate) {
         return <div className="container">
@@ -92,8 +101,6 @@ export default class TileView extends Component {
             </div>
           </div>
         </div>;
-      } else {
-        return null;
       }
     }
 
@@ -148,6 +155,7 @@ export default class TileView extends Component {
     } else {
       const list = <React.Fragment>
         <div className={"c4g-tile-headline-wrapper"}>{headline}</div>
+        {textFilter}
         <Suspense fallback={<div style={{textAlign: "center", margin: "auto"}}><img
           src="bundles/con4gisframework/img/preloader-image.svg" className="preloader-image" alt=""/></div>}>
           <InfiniteScroll {...scrollProps}>
@@ -421,5 +429,35 @@ export default class TileView extends Component {
     });
 
     return resultData;
+  }
+
+  applyTextFilter(event) {
+    let searchString = event.target.value;
+    const currentData = this.initialData;
+    const filterFields = this.props.component.textFilterFields;
+    let filteredData = [];
+    currentData.forEach((value, index, array) => {
+      for (let key in filterFields) {
+        if (filterFields.hasOwnProperty(key)) {
+          let field = filterFields[key];
+          if (value[field].indexOf(searchString) !== -1) {
+            if (!filteredData.includes(value)) {
+              filteredData.push(value);
+            }
+            // exit loop
+            break;
+          }
+        }
+      }
+    });
+
+    this.setState({textFilterContent: searchString});
+    this.props.setFunction(this.props.name, filteredData, []);
+  }
+
+  componentDidMount() {
+    if (this.props.component.withTextFilter) {
+      this.initialData = JSON.parse(JSON.stringify(this.props.data));
+    }
   }
 }

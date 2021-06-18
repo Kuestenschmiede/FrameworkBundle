@@ -114,6 +114,14 @@ class TileList
     private $checkAsyncWhileUpdate = false;
 
     private $showSpinner = true;
+    
+    private $withTextFilter = false;
+    
+    /**
+     * The data fields which should be searched in the textFilter.
+     * @var array
+     */
+    private $textFilterFields = [];
 
     public function __construct(string $name = 'tiles')
     {
@@ -685,5 +693,37 @@ class TileList
     public function setShowSpinner(bool $showSpinner): void
     {
         $this->showSpinner = $showSpinner;
+    }
+    
+    /**
+     * @return bool
+     */
+    public function isWithTextFilter(): bool
+    {
+        return $this->withTextFilter;
+    }
+    
+    /**
+     * @param bool $withTextFilter
+     */
+    public function setWithTextFilter(bool $withTextFilter): void
+    {
+        $this->withTextFilter = $withTextFilter;
+    }
+    
+    /**
+     * @return array
+     */
+    public function getTextFilterFields(): array
+    {
+        return $this->textFilterFields;
+    }
+    
+    /**
+     * @param array $textFilterFields
+     */
+    public function setTextFilterFields(array $textFilterFields): void
+    {
+        $this->textFilterFields = $textFilterFields;
     }
 }

@@ -440,7 +440,7 @@ export default class TileView extends Component {
       for (let key in filterFields) {
         if (filterFields.hasOwnProperty(key)) {
           let field = filterFields[key];
-          if (value[field].indexOf(searchString) !== -1) {
+          if (value[field].toUpperCase().indexOf(searchString.toUpperCase()) !== -1) {
             if (!filteredData.includes(value)) {
               filteredData.push(value);
             }

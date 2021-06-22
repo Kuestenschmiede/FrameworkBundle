@@ -16,7 +16,7 @@ interface ModelInterface
 
     public static function insert(array $data) : ?ModelInterface;
 
-    public function update() : bool;
+    public function update($wasPublished) : bool;
 
     public function wasChangedAndCommitted(): bool;
 

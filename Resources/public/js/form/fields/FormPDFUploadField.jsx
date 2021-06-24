@@ -11,6 +11,7 @@
 import React, {Component} from "react";
 import checkIfFieldIsRendered from "../../util/conditions";
 import Swal from "sweetalert2";
+import {Document, Page} from "react-pdf/dist/esm/entry.webpack";
 
 export default class FormPDFUploadField extends Component {
 
@@ -61,10 +62,10 @@ export default class FormPDFUploadField extends Component {
     reader.onload = () => {
       const data = reader.result;
       const base64 = data.replace(/^[^,]*,/, '');
-
       const fileInfo = {
         name: fileName,
-        data: base64
+        data: base64,
+        raw: data
       }
       if (this.props.field.setChangedFlag) {
         fileInfo.changed = true;
@@ -119,12 +120,26 @@ export default class FormPDFUploadField extends Component {
     if (this.props.data[fieldName] && this.props.data[fieldName].name) {
       fileLabel = this.props.data[fieldName].name;
     }
+    let filePreview = null;
+    if (this.props.form.props.component.data[fieldName] && this.props.form.props.component.data[fieldName].raw) {
+      filePreview = <Document className={"c4g-pdf-preview"} file={this.props.form.props.component.data[fieldName].raw}>
+        <Page pageNumber={1} />
+      </Document>
+    } else if (this.props.form.props.component.data[fieldName] && this.props.form.props.component.data[fieldName].path) {
+      let path = this.props.form.props.component.data[fieldName].path;
+      path = "/" + path;
+      filePreview = <Document className={"c4g-pdf-preview"} file={path}>
+        <Page pageNumber={1} />
+      </Document>
+    }
+
     return (
       <div>
         {label}
         <div className={className + " file-label"}>{fileLabel}</div>
         <input className={"form-control-file"} ref={input => this.inputElement = input} type={"file"} accept=".pdf" onChange={this.onSelectFile} id={fieldName}
                name={fieldName + (this.props.field.max > 1 ? "[]" : "")} style={{display: "none"}}/>
+        {filePreview}
         <input type="button" value={this.props.languageRefs.CHOOSE_FILE} onClick={(e) => {
           e.preventDefault();
           this.inputElement.click();

@@ -57,7 +57,15 @@ export default class CustomSubmitButton extends Component {
           this.props.form.storePosition();
           window.location = redirectUrl;
         } else {
-          this.props.form.setErrorTexts(data.fields)
+          this.props.form.setErrorTexts(data.fields);
+          // call hook function for failed submit
+          if (window.c4gHooks && window.c4gHooks.submitFailed) {
+            for (let i = 0; i < window.c4gHooks.submitFailed.length; i++) {
+              if (typeof window.c4gHooks.submitFailed[i] === "function") {
+                window.c4gHooks.submitFailed[i](data.fields, this.props.data);
+              }
+            }
+          }
         }
       }
     });

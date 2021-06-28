@@ -224,7 +224,7 @@ export default class FormView extends Component {
       if (scrollValue) {
         window.setTimeout(() => {
           document.documentElement.scrollTop = parseInt(scrollValue);
-        }, 3000);
+        }, 1000);
       }
       // clear entry to avoid errors
       storage.removeItem("formPosition");

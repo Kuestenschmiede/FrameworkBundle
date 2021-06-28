@@ -80,11 +80,13 @@ export default class FormDatepickerField extends Component {
 
     let customElement = (<input type="text" name={this.props.field.name} placeholder={this.props.field.placeholderText} autoComplete="off"
                                 className={className + " react-datepicker-ignore-onclickoutside"} value=""
-                                aria-label={this.props.field.placeholderText} />);
+                                aria-label={this.props.field.placeholderText} id={this.props.field.name}/>);
 
     return (
-      <label>
-        {label}
+      <React.Fragment>
+        <label className={this.props.field.required ? "c4g-required" : null}>
+          {label}
+        </label>
         <DatePicker customInput={customElement}
                     selected={startDate}
                     onChange={this.handleChange}
@@ -93,7 +95,7 @@ export default class FormDatepickerField extends Component {
                     isClearable
                     placeholderText={this.props.field.placeholderText}
                     required={this.props.field.required}
-                    className={className}
+          // className={className}
                     dateFormat={this.props.field.dateFormat}
                     showTimeSelect={this.props.field.showTimeSelect}
                     showMonthDropdown={!this.props.field.showTimeSelectOnly}
@@ -107,9 +109,11 @@ export default class FormDatepickerField extends Component {
                     autoComplete={"off"}
                     shouldCloseOnSelect
                     dropdownMode={"scroll"}
+                    id={this.props.field.name}
         />
-      {description}
-      </label>
+        {description}
+
+      </React.Fragment>
     );
   }
 

@@ -41,9 +41,9 @@ export default class CustomSubmitButton extends Component {
       }
     }
   }
-  submitData(data) {
+  submitData(requestData) {
     this.props.form.setLoading(true);
-    jQuery.post(this.props.button.url, data).done((data) => {
+    jQuery.post(this.props.button.url, requestData).done((data) => {
       this.props.form.setLoading(false);
       if (this.props.button.redirectUrl) {
         if (data.success) {
@@ -59,13 +59,7 @@ export default class CustomSubmitButton extends Component {
         } else {
           this.props.form.setErrorTexts(data.fields);
           // call hook function for failed submit
-          if (window.c4gHooks && window.c4gHooks.submitFailed) {
-            for (let i = 0; i < window.c4gHooks.submitFailed.length; i++) {
-              if (typeof window.c4gHooks.submitFailed[i] === "function") {
-                window.c4gHooks.submitFailed[i](data.fields, this.props.data);
-              }
-            }
-          }
+          this.callSubmitFailed(requestData, data.fields);
         }
       }
     });
@@ -108,10 +102,11 @@ export default class CustomSubmitButton extends Component {
               const fieldNode = $("#" + field.name);
               fieldNode.focus();
               fieldNode.keyup(function(){
-                $(this).removeClass("field-invalid");
+                $(this).removeClass("is-invalid");
                 $(this).off("keyup");
               })
-              fieldNode.addClass("field-invalid");
+              fieldNode.addClass("is-invalid");
+              this.callSubmitFailed(data, [field]);
               return false;
             }
           }
@@ -124,6 +119,17 @@ export default class CustomSubmitButton extends Component {
 
     return true;
   }
+
+  callSubmitFailed(data, fields) {
+    if (window.c4gHooks && window.c4gHooks.submitFailed) {
+      for (let i = 0; i < window.c4gHooks.submitFailed.length; i++) {
+        if (typeof window.c4gHooks.submitFailed[i] === "function") {
+          window.c4gHooks.submitFailed[i](fields, data);
+        }
+      }
+    }
+  }
+
   checkZipcode (data) {
     try {
       if (data.geox && data.geoy && data.locationZip) {
@@ -144,10 +150,10 @@ export default class CustomSubmitButton extends Component {
               const fieldNode = $("#locationZip");
               fieldNode.focus();
               fieldNode.keyup(function () {
-                $(this).removeClass("field-invalid");
+                $(this).removeClass("is-invalid");
                 $(this).off("keyup");
               })
-              fieldNode.addClass("field-invalid");
+              fieldNode.addClass("is-invalid");
               const ah = new AlertHandler();
               let title = this.props.languageRefs.CHECK_POSITION;
               let content = this.props.languageRefs.POSITION_OUT_OF_RANGE;

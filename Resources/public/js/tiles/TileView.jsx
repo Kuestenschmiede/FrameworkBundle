@@ -355,14 +355,15 @@ export default class TileView extends Component {
       let url = this.asyncUrl.replace("{offset}", this.props.data.length);
       url = new URL(url, window.location.protocol + window.location.hostname);
       if (typeof this.props.component.filterData !== 'undefined' && Object.keys(this.props.component.filterData).length !== 0) {
-        if (this.positionActive && this.props.component.filterData.sorting === "distance") {
-          let params = this.props.component.filterData;
+        let filterParams = this.props.component.filterData;
+        filterParams = this.transformSelectOptions(filterParams);
+        if (this.positionActive && filterParams.sorting === "distance") {
           if (this.position) {
-            params.pos = this.position;
+            filterParams.pos = this.position;
           }
-          url.search = new URLSearchParams(params).toString();
+          url.search = new URLSearchParams(filterParams).toString();
         } else {
-          url.search = new URLSearchParams(this.props.component.filterData).toString();
+          url.search = new URLSearchParams(filterParams).toString();
         }
       }
       fetch(url.href)
@@ -398,6 +399,25 @@ export default class TileView extends Component {
           }
         );
     }
+  }
+
+  transformSelectOptions(data) {
+    let result = {};
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        let entry = data[key];
+        if (entry.length && entry.length > 0 && entry[0].value) {
+          let tmpEntry = [];
+          for (let i = 0; i < entry.length; i++) {
+            tmpEntry.push(entry[i].value);
+          }
+          entry = tmpEntry;
+        }
+        result[key] = entry;
+      }
+    }
+
+    return result;
   }
 
   addDistances(data) {
@@ -440,7 +460,7 @@ export default class TileView extends Component {
       for (let key in filterFields) {
         if (filterFields.hasOwnProperty(key)) {
           let field = filterFields[key];
-          if (value[field].indexOf(searchString) !== -1) {
+          if (value[field].toUpperCase().indexOf(searchString.toUpperCase()) !== -1) {
             if (!filteredData.includes(value)) {
               filteredData.push(value);
             }

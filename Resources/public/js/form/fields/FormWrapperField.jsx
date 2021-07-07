@@ -16,6 +16,10 @@ export default class FormWrapperField extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      altDescription: false
+    };
+    this.setAltDescription = this.setAltDescription.bind(this);
   }
 
   render() {
@@ -34,11 +38,11 @@ export default class FormWrapperField extends Component {
     if ((this.props.parentNode === this.props.form) && this.props.field.innerWrapper) {
       return null;
     }
-
+    let description = this.state.altDescription || this.props.field.description;
     return (
       <div className={this.props.field.className} id={this.props.field.cssId}>
         <h4 className={"panel-title"}>{this.props.field.label}</h4>
-        <div className={"panel-description"}>{this.props.field.description}</div>
+        <div className={"panel-description"}>{description}</div>
         {hr}
         {
           wrappedFields.map((item, id) => {
@@ -49,5 +53,10 @@ export default class FormWrapperField extends Component {
         }
       </div>
     );
+  }
+  setAltDescription(description) {
+    this.setState({
+      altDescription: description
+    });
   }
 }

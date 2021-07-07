@@ -25,7 +25,9 @@ export default class FormGeopickerField extends Component {
     this.state = {
       initial: true
     };
-
+    if (this.props.parentNode.setAltDescription) {
+      this.props.parentNode.setAltDescription(this.props.field.description);
+    }
   }
 
   render() {

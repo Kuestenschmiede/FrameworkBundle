@@ -33,7 +33,7 @@
     "@babel/runtime": "^7.14.6",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^3.0.0",
-    "css-loader": "^5.2.6",
+    "css-loader": "^5.2.7",
     "echo-loader": "0.0.1",
     "file-loader": "^6.2.0",
     "gulp": "^4.0.2",
@@ -50,7 +50,7 @@
     "svg-inline-loader": "^0.8.2",
     "terser-webpack-plugin": "^5.1.4",
     "url-loader": "^4.1.1",
-    "webpack": "^5.43.0",
+    "webpack": "^5.44.0",
     "webpack-cli": "^4.7.0"
   },
   "dependencies": {
@@ -76,7 +76,7 @@
     "react-dom": "^17.0.2",
     "react-image-crop": "^8.6.12",
     "react-infinite-scroll-component": "^6.1.0",
-    "react-pdf": "^5.3.1",
+    "react-pdf": "^5.3.2",
     "react-responsive-carousel": "^3.2.19",
     "react-select": "^4.3.1",
     "react-sortable-tree": "^2.8.0",

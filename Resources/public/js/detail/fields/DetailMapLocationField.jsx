@@ -8,17 +8,21 @@
  * @link https://www.con4gis.org
  */
 
-import React, {Component} from "react";
-import MapController from "../../../../../../MapsBundle/Resources/public/js/components/c4g-maps.jsx";
-// const MapController = React.lazy(() => import("../../../../../../MapsBundle/Resources/public/js/components/c4g-maps.jsx"));
+import React, {Component, Suspense} from "react";
+import ReactDOM from "react-dom";
+
+const MapController = React.lazy(() => import("../../../../../../MapsBundle/Resources/public/js/components/c4g-maps.jsx"));
 
 export default class DetailMapLocationField extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      initial: true
+      initial: true,
+      showMap: false
     };
+    this.myRef = React.createRef();
   }
+
 
   render() {
     let map = null;
@@ -29,7 +33,11 @@ export default class DetailMapLocationField extends Component {
     if (!this.state.initial) {
       let geox = this.props.data[geoxField];
       let geoy = this.props.data[geoyField];
-      map = <MapController mapData={mapData}/>;
+
+      if (this.state.showMap) {
+        map = <Suspense fallback={<div>loading...</div>}><MapController mapData={mapData}/></Suspense>;
+      }
+
       var anotherHookFunction = function(layerController) {
         let map = layerController.mapController.map;
         setTimeout(function() {
@@ -43,7 +51,7 @@ export default class DetailMapLocationField extends Component {
       window.c4gMapsHooks.layer_loaded.push(anotherHookFunction);
     }
     return (
-      <div className={"detail-field-map" + (this.props.field.class ? " " + this.props.field.class : "")}>
+      <div className={"detail-field-map" + (this.props.field.class ? " " + this.props.field.class : "")} ref={this.myRef}>
         <div id={"c4g_map_" + mapData.mapId} className={"c4g_map"}></div>
         {map}
       </div>
@@ -54,6 +62,22 @@ export default class DetailMapLocationField extends Component {
     if (this.state.initial) {
       this.setState({initial: false});
     }
+    console.log("component did mount");
+    this.observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio > 0) {
+          console.log("intersection detected");
+          this.observer.unobserve(this.myRef.current);
+          this.setState({
+            showMap: true
+          });
+        }
+      });
+    });
+    this.observer.observe(this.myRef.current);
+  }
+  componentWillUnmount() {
+    this.observer.unobserve(this.myRef.current);
   }
 
 }

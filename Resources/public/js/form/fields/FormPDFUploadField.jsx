@@ -18,10 +18,13 @@ export default class FormPDFUploadField extends Component {
   constructor(props) {
     super(props);
 
+    this.inputRef = null;
+
     this.allowedFileTypes = ["application/pdf"];
     this.onSelectFile = this.onSelectFile.bind(this);
     this.checkFileSize = this.checkFileSize.bind(this);
     this.processPdf = this.processPdf.bind(this);
+    this.unsetFile = this.unsetFile.bind(this);
   }
 
   onSelectFile(e) {
@@ -143,10 +146,24 @@ export default class FormPDFUploadField extends Component {
         <input type="button" value={this.props.languageRefs.CHOOSE_FILE} onClick={(e) => {
           e.preventDefault();
           this.inputElement.click();
-        }} className={className + "btn btn-outline-primary"}/>
-       {description}
+        }} className={className + "btn btn-outline-primary"} ref={(node) => {this.inputRef = node;}}/>
+        {description}
+        {filePreview && (
+          <button onClick={this.unsetFile} title={this.props.languageRefs.CLICK_TO_REMOVE_FILE}
+                  className={"btn btn-primary remove-file " + this.props.field.name}>{this.props.languageRefs.REMOVE_FILE}</button>
+        )}
       </div>
     );
+  }
+
+  unsetFile() {
+    let data = this.props.data;
+    data[this.props.field.name] = null;
+    if (this.inputRef !== null) {
+      // clear file selection
+      this.inputRef.value = "";
+    }
+    this.props.form.props.updateFunction(this.props.form.props.name, data);
   }
 
 }

@@ -98,7 +98,20 @@ export default class CustomSubmitButton extends Component {
         if (fields.hasOwnProperty(fieldId)) {
           const field = fields[fieldId];
           if (field.required && hasConditions(field, data)) {
-            if (!data[field.name]) {
+            let invalid = false;
+            if (field.type === "number") {
+              if (data[field.name] === null
+                || typeof data[field.name] === "undefined"
+                || data[field.name] === ""
+              ) {
+                invalid = true;
+              }
+            } else {
+              if (!data[field.name]) {
+                invalid = true;
+              }
+            }
+            if (invalid) {
               const fieldNode = $("#" + field.name);
               fieldNode.focus();
               fieldNode.keyup(function(){

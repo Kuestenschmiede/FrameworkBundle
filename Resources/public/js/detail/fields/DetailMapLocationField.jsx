@@ -21,38 +21,41 @@ export default class DetailMapLocationField extends Component {
       showMap: false
     };
     this.myRef = React.createRef();
+    this.mapData = this.props.field.asyncMapData ? null : this.props.detail.props.component.mapData;
   }
-
 
   render() {
     let map = null;
-    let mapData = this.props.detail.props.component.mapData;
-    mapData.mapDiv = "c4g_map";
-    let geoxField = this.props.field.geoxField;
-    let geoyField = this.props.field.geoyField;
-    if (!this.state.initial) {
-      let geox = this.props.data[geoxField];
-      let geoy = this.props.data[geoyField];
+    let mapData = this.mapData;
+    if (mapData !== null) {
+      mapData.mapDiv = "c4g_map";
+      let geoxField = this.props.field.geoxField;
+      let geoyField = this.props.field.geoyField;
+      if (!this.state.initial) {
+        let geox = this.props.data[geoxField];
+        let geoy = this.props.data[geoyField];
 
-      if (this.state.showMap) {
-        map = <Suspense fallback={<div>loading...</div>}><MapController mapData={mapData}/></Suspense>;
+        if (this.state.showMap) {
+          map = <Suspense fallback={<div>loading...</div>}><MapController mapData={mapData}/></Suspense>;
+        }
+
+        var anotherHookFunction = function(layerController) {
+          let map = layerController.mapController.map;
+          setTimeout(function() {
+            map.updateSize();
+            map.render();
+          }, 1000);
+        };
+        window.c4gMapsHooks = window.c4gMapsHooks || {};
+        window.c4gMapsHooks.hook_layer = window.c4gMapsHooks.hook_layer || [];
+        window.c4gMapsHooks.layer_loaded = window.c4gMapsHooks.layer_loaded || [];
+        window.c4gMapsHooks.layer_loaded.push(anotherHookFunction);
       }
-
-      var anotherHookFunction = function(layerController) {
-        let map = layerController.mapController.map;
-        setTimeout(function() {
-          map.updateSize();
-          map.render();
-        }, 1000);
-      };
-      window.c4gMapsHooks = window.c4gMapsHooks || {};
-      window.c4gMapsHooks.hook_layer = window.c4gMapsHooks.hook_layer || [];
-      window.c4gMapsHooks.layer_loaded = window.c4gMapsHooks.layer_loaded || [];
-      window.c4gMapsHooks.layer_loaded.push(anotherHookFunction);
     }
+
     return (
       <div className={"detail-field-map" + (this.props.field.class ? " " + this.props.field.class : "")} ref={this.myRef}>
-        <div id={"c4g_map_" + mapData.mapId} className={"c4g_map"}></div>
+        <div id={"c4g_map_" + (mapData !== null ? mapData.mapId : 0)} className={"c4g_map"}></div>
         {map}
       </div>
     );
@@ -60,13 +63,20 @@ export default class DetailMapLocationField extends Component {
 
   componentDidMount() {
     if (this.state.initial) {
-      this.setState({initial: false});
+      if (this.props.field.asyncMapData) {
+        fetch(this.props.field.asyncMapDataUrl)
+          .then(response => response.json())
+          .then(data => {
+            this.mapData = data;
+            this.setState({initial: false});
+          });
+      } else {
+        this.setState({initial: false});
+      }
     }
-    console.log("component did mount");
     this.observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.intersectionRatio > 0) {
-          console.log("intersection detected");
           this.observer.unobserve(this.myRef.current);
           this.setState({
             showMap: true

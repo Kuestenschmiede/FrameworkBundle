@@ -406,7 +406,7 @@ export default class TileView extends Component {
     for (let key in data) {
       if (data.hasOwnProperty(key)) {
         let entry = data[key];
-        if (entry.length && entry.length > 0 && entry[0].value) {
+        if (entry && entry.length && entry.length > 0 && entry[0].value) {
           let tmpEntry = [];
           for (let i = 0; i < entry.length; i++) {
             tmpEntry.push(entry[i].value);

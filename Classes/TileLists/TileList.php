@@ -114,9 +114,9 @@ class TileList
     private $checkAsyncWhileUpdate = false;
 
     private $showSpinner = true;
-    
+
     private $withTextFilter = false;
-    
+
     /**
      * The data fields which should be searched in the textFilter.
      * @var array
@@ -694,7 +694,7 @@ class TileList
     {
         $this->showSpinner = $showSpinner;
     }
-    
+
     /**
      * @return bool
      */
@@ -702,7 +702,7 @@ class TileList
     {
         return $this->withTextFilter;
     }
-    
+
     /**
      * @param bool $withTextFilter
      */
@@ -710,7 +710,7 @@ class TileList
     {
         $this->withTextFilter = $withTextFilter;
     }
-    
+
     /**
      * @return array
      */
@@ -718,7 +718,7 @@ class TileList
     {
         return $this->textFilterFields;
     }
-    
+
     /**
      * @param array $textFilterFields
      */

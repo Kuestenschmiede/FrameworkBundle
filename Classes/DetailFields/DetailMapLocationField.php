@@ -17,11 +17,16 @@ class DetailMapLocationField extends DetailField
     private $geoxField = '';
     private $geoyField = '';
 
+    private $asyncMapData = false;
+    private $asyncMapDataUrl = ''; // path to route to load the mapData from
+
     public function getConfiguration()
     {
         $conf = parent::getConfiguration();
         $conf['geoxField'] = $this->geoxField;
         $conf['geoyField'] = $this->geoyField;
+        $conf['asyncMapData'] = $this->asyncMapData;
+        $conf['asyncMapDataUrl'] = $this->asyncMapDataUrl;
 
         return $conf;
     }
@@ -56,5 +61,37 @@ class DetailMapLocationField extends DetailField
     public function setGeoyField(string $geoyField): void
     {
         $this->geoyField = $geoyField;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAsyncMapData(): bool
+    {
+        return $this->asyncMapData;
+    }
+
+    /**
+     * @param bool $asyncMapData
+     */
+    public function setAsyncMapData(bool $asyncMapData): void
+    {
+        $this->asyncMapData = $asyncMapData;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAsyncMapDataUrl(): string
+    {
+        return $this->asyncMapDataUrl;
+    }
+
+    /**
+     * @param string $asyncMapDataUrl
+     */
+    public function setAsyncMapDataUrl(string $asyncMapDataUrl): void
+    {
+        $this->asyncMapDataUrl = $asyncMapDataUrl;
     }
 }

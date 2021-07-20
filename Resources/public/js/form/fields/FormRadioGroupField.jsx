@@ -21,7 +21,7 @@ export default class FormRadioGroupField extends Component {
 
     let label = null;
     if (this.props.field.label) {
-      label = (<span key={'label'}>{this.props.field.label}</span>);
+      label = (<span className={'custom-label'} key={'label'}>{this.props.field.label}</span>);
     }
     let options = [];
 

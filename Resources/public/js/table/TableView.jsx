@@ -280,6 +280,9 @@ export default class TableView extends Component {
         case "datetime":
           column = fields[i];
           column.options.customBodyRender = (value, tableMeta, updateValue) => {
+            if (value === null) {
+              return "";
+            }
             let date = new Date(value * 1000);
             let day = date.getDate();
             if (day < 10) {

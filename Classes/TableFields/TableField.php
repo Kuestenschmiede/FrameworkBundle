@@ -17,9 +17,11 @@ abstract class TableField implements ConfigurationInterface
     protected $name = '';
     protected $headline = '';
     protected $filterable = true;
+    protected $filterType = 'dropdown';
     protected $sortable = false;
     protected $sortSequence = 'asc';
     protected $width = 200;
+    protected $display = true;
 
     protected $allowedSequences = ['asc', 'desc'];
 
@@ -34,6 +36,8 @@ abstract class TableField implements ConfigurationInterface
                 'filter' => $this->filterable,
                 'sort' => $this->sortable,
                 'width' => $this->width,
+                'display' => $this->display,
+                'filterType' => $this->filterType,
             ],
             'type' => static::TYPE,
         ];
@@ -144,5 +148,37 @@ abstract class TableField implements ConfigurationInterface
     public function setWidth(int $width): void
     {
         $this->width = $width;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDisplay(): bool
+    {
+        return $this->display;
+    }
+
+    /**
+     * @param bool $display
+     */
+    public function setDisplay(bool $display): void
+    {
+        $this->display = $display;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFilterType(): string
+    {
+        return $this->filterType;
+    }
+
+    /**
+     * @param string $filterType
+     */
+    public function setFilterType(string $filterType): void
+    {
+        $this->filterType = $filterType;
     }
 }

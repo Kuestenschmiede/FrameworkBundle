@@ -75,6 +75,17 @@ export default class DetailMapLocationField extends Component {
         this.setState({initial: false});
       }
     }
+    this.observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio > 0) {
+          this.observer.unobserve(this.myRef.current);
+          this.setState({
+            showMap: true
+          });
+        }
+      });
+    });
+    this.observer.observe(this.myRef.current);
   }
   componentWillUnmount() {
     this.observer.unobserve(this.myRef.current);

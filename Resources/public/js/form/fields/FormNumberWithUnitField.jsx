@@ -43,7 +43,7 @@ export default class FormNumberWithUnitField extends Component {
   }
 
   handleChange(data) {
-    this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: data}, this.props.field.name);
+    this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: data}, this.props.field);
   }
 
   handleChangeDummy(data) {

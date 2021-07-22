@@ -27,6 +27,7 @@ export default class FormWrapperField extends Component {
     let fields = this.props.fields;
     for (let i = 0; i < fields.length; i++) {
       if (this.props.field.wrappedFields.includes(fields[i].name)) {
+        fields[i].wrapperName = this.props.field.cssId;
         wrappedFields.push(fields[i]);
       }
     }

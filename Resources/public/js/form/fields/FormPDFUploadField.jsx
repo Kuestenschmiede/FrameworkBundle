@@ -75,7 +75,7 @@ export default class FormPDFUploadField extends Component {
       }
       let formData = this.props.form.props.component.data;
       formData[this.props.field.name] = fileInfo;
-      this.props.form.props.updateFunction(this.props.form.props.name, formData, this.props.field.name);
+      this.props.form.props.updateFunction(this.props.form.props.name, formData, this.props.field);
     }
 
     reader.readAsDataURL(file);
@@ -163,7 +163,7 @@ export default class FormPDFUploadField extends Component {
       // clear file selection
       this.inputRef.value = "";
     }
-    this.props.form.props.updateFunction(this.props.form.props.name, data, this.props.field.name);
+    this.props.form.props.updateFunction(this.props.form.props.name, data, this.props.field);
   }
 
 }

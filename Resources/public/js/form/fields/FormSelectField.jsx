@@ -20,7 +20,7 @@ export default class FormSelectField extends Component {
   }
 
   handleChange(data, action) {
-    this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: data});
+    this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: data}, this.props.field.name);
     if (this.props.field.instantRedirectUrl) {
       window.location = this.props.field.instantRedirectUrl.replace('{value}', data.value);
     }

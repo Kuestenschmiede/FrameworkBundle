@@ -236,6 +236,6 @@ export default class FormCroppedFileUploadField extends Component {
       // clear file selection
       this.inputRef.value = "";
     }
-    this.props.form.props.updateFunction(this.props.form.props.name, data);
+    this.props.form.props.updateFunction(this.props.form.props.name, data, this.props.field.name);
   }
 }

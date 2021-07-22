@@ -24,9 +24,9 @@ export default class FormDatepickerField extends Component {
 
   handleChange(date, event) {
     if (date !== null) {
-      this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: (date.getTime() / 1000)});
+      this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: (date.getTime() / 1000)}, this.props.field.name);
     } else {
-      this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: ''});
+      this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: ''}, this.props.field.name);
     }
     event.preventDefault(); // needed to close the picker
   }

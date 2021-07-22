@@ -43,12 +43,12 @@ export default class FormDateField extends Component {
       let month = parseInt(values[1]) - 1;
       let year = parseInt(values[2]);
       let date = new Date(year, month, day);
-      this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: date.valueOf() / 1000});
+      this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: date.valueOf() / 1000}, this.props.field.name);
       if (day !== date.getDate()) {
           event.target.value = this.convertDateToString(date);
       }
     } else if (dateString === '') {
-      this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: null});
+      this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: null}, this.props.field.name);
     }
   }
 

@@ -53,7 +53,7 @@ export default class FormCKEditorField extends Component {
             } }
             onChange={ ( event, editor ) => {
               const data = editor.getData();
-              this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: data});
+              this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: data}, this.props.field.name);
             } }
             onBlur={ ( event, editor ) => {
 

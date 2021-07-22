@@ -27,7 +27,7 @@ export default class FormPostalField extends Component {
       if (this.props.field.createValidationProperty) {
         newState[this.props.field.name + "_valid"] = "1";
       }
-      this.props.form.props.updateFunction(this.props.form.props.name, newState);
+      this.props.form.props.updateFunction(this.props.form.props.name, newState, this.props.field.name);
       if (this.props.field.dynamicFieldlist) {
         let postData = {[this.props.field.name]: event.target.value};
         if (this.props.field.dynamicFieldlistAdditionalFields
@@ -52,7 +52,7 @@ export default class FormPostalField extends Component {
       if (this.props.field.createValidationProperty) {
         let newState = {};
         newState[this.props.field.name + "_valid"] = false;
-        this.props.form.props.updateFunction(this.props.form.props.name, newState);
+        this.props.form.props.updateFunction(this.props.form.props.name, newState, this.props.field.name);
       }
     }
   }
@@ -101,7 +101,7 @@ export default class FormPostalField extends Component {
       let valid = this.validatePostal(this.props.data[this.props.field.name]);
       let newState = {};
       newState[this.props.field.name + "_valid"] = valid ? "1" : false;
-      this.props.form.props.updateFunction(this.props.form.props.name, newState);
+      this.props.form.props.updateFunction(this.props.form.props.name, newState, this.props.field.name);
     }
   }
 

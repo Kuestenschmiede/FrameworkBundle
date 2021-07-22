@@ -18,7 +18,7 @@ export default class FormTextAreaField extends Component {
   }
 
   handleChange(event) {
-    this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: event.target.value});
+    this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: event.target.value}, this.props.field.name);
   }
 
   render() {

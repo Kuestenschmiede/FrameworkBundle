@@ -19,7 +19,7 @@ export default class FormTextField extends Component {
   }
 
   handleChange(event) {
-    this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: event.target.value});
+    this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: event.target.value}, this.props.field.name);
     if (this.props.field.dynamicFieldlist) {
       let postData = {[this.props.field.name]: event.target.value};
       if (this.props.field.dynamicFieldlistAdditionalFields

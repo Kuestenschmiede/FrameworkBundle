@@ -235,7 +235,7 @@ export default class FormAsynchronousCroppedFileUploadField extends Component {
         )}
         {src && (
           <button onClick={this.unsetImage} title={this.props.languageRefs.CLICK_TO_REMOVE_IMAGE}
-                  className={"btn btn-primary remove-image " + this.props.field.name}>{this.props.languageRefs.REMOVE_IMAGE}</button>
+                  className={"btn btn-primary btn-remove remove-image " + this.props.field.name}>{this.props.languageRefs.REMOVE_IMAGE}</button>
         )}
       </React.Fragment>
     );

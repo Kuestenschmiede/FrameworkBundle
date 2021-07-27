@@ -150,7 +150,7 @@ export default class FormPDFUploadField extends Component {
         {description}
         {filePreview && (
           <button onClick={this.unsetFile} title={this.props.languageRefs.CLICK_TO_REMOVE_FILE}
-                  className={"btn btn-primary remove-file " + this.props.field.name}>{this.props.languageRefs.REMOVE_FILE}</button>
+                  className={"btn btn-primary btn-remove remove-file " + this.props.field.name}>{this.props.languageRefs.REMOVE_FILE}</button>
         )}
       </div>
     );

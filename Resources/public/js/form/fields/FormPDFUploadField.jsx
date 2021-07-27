@@ -137,7 +137,7 @@ export default class FormPDFUploadField extends Component {
     }
 
     return (
-      <div>
+      <div className={"c4g-form-field"}>
         {label}
         <div className={className + " file-label"}>{fileLabel}</div>
         <input className={"form-control-file"} ref={input => this.inputElement = input} type={"file"} accept=".pdf" onChange={this.onSelectFile} id={fieldName}

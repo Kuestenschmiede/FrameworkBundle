@@ -16,6 +16,9 @@ export function hasConditions(field) {
       if (field.conditionField.length > 0) {
         if (field.conditionField.length === field.conditionValue.length) {
           return true;
+        } else if (field.conditionValue.length > 1 && field.conditionField.length === 1) {
+          // multiple values for one condition field (or condition)
+          return true;
         }
       }
     }
@@ -25,19 +28,41 @@ export function hasConditions(field) {
 
 export function checkConditions(field, data) {
   let render = true;
-  field.conditionField.forEach(function(element, index) {
-    if (typeof data[element] === 'undefined') {
-      render = false;
-    } else if (data[element] !== null && !data[element].value &&
-      (String(data[element]) !== String(field.conditionValue[index]))) {
-      render = false;
-    } else if (data[element] && data[element].value &&
-      (String(data[element].value) !== String(field.conditionValue[index]))) {
-      render = false;
-    } else if (data[element] === null && field.conditionValue[index] !== null) {
-      render = false;
+  if (field.conditionField.length === field.conditionValue.length) {
+    field.conditionField.forEach(function(element, index) {
+      if (typeof data[element] === 'undefined') {
+        render = false;
+      } else if (data[element] !== null && !data[element].value &&
+        (String(data[element]) !== String(field.conditionValue[index]))) {
+        render = false;
+      } else if (data[element] && data[element].value &&
+        (String(data[element].value) !== String(field.conditionValue[index]))) {
+        render = false;
+      } else if (data[element] === null && field.conditionValue[index] !== null) {
+        render = false;
+      }
+    }, this);
+  } else if (field.conditionValue.length > 1 && field.conditionField.length === 1) {
+    let element = field.conditionField[0];
+    render = false;
+    for (let key in field.conditionValue) {
+      if (field.conditionValue.hasOwnProperty(key)) {
+        let condValue = field.conditionValue[key];
+        if (!!data[element] && data[element].value) {
+          // data[element] is a select field
+          if (data[element].value === condValue) {
+            render = true;
+          }
+        } else if (data[element] === condValue) {
+          render = true;
+        }
+        if (render) {
+          break;
+        }
+      }
     }
-  }, this);
+  }
+
 
   return render;
 }

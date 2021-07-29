@@ -83,7 +83,7 @@ export default class FormDatepickerField extends Component {
                                 aria-label={this.props.field.placeholderText} id={this.props.field.name}/>);
 
     return (
-      <React.Fragment>
+      <div className={"c4g-form-field " + this.props.field.name}>
         <label className={this.props.field.required ? "c4g-required" : null}>
           {label}
         </label>
@@ -111,9 +111,8 @@ export default class FormDatepickerField extends Component {
                     dropdownMode={"scroll"}
                     id={this.props.field.name}
         />
-        {description}
-
-      </React.Fragment>
+        <small className={"field-description form-text text-muted"}>{description}</small>
+      </div>
     );
   }
 

@@ -9,6 +9,7 @@
  */
 
 import React, {Component} from "react";
+import checkIfFieldIsRendered from "../../util/conditions";
 
 export default class FormTextAreaField extends Component {
   constructor(props) {
@@ -22,7 +23,10 @@ export default class FormTextAreaField extends Component {
   }
 
   render() {
-
+    // check condition
+    if (!checkIfFieldIsRendered(this.props.field, this.props.data)) {
+      return null;
+    }
     let label = null;
     if (this.props.field.label) {
       label = (<React.Fragment>

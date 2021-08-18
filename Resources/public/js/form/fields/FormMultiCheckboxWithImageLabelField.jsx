@@ -89,6 +89,6 @@ export default class FormMultiCheckboxWithImageLabelField extends Component {
       }
     }
 
-    this.props.form.props.updateFunction(this.props.form.props.name, data);
+    this.props.form.props.updateFunction(this.props.form.props.name, data, this.props.field);
   }
 }

@@ -39,6 +39,7 @@ let langConstantsGerman = {
   CLICK_TO_REMOVE_FILE: "Hier klicken um die Datei zu entfernen.",
   REMOVE_IMAGE: "Bild entfernen",
   REMOVE_FILE: "Datei entfernen",
+  REMOVE_PDF: "",
   NO_FILE_SELECTED: "Keine Datei ausgewählt",
   CHOOSE_FILE: "Datei auswählen",
   TABLE_NO_MATCH: "Keine Einträge gefunden",

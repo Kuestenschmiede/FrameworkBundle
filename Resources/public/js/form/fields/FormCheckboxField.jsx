@@ -50,6 +50,14 @@ export default class FormCheckboxField extends Component {
     event.stopPropagation();
     let data = this.props.data;
     data[this.props.field.name] = event.target.checked ? "1" : "";
-    this.props.form.props.updateFunction(this.props.form.props.name, data);
+    this.props.form.props.updateFunction(this.props.form.props.name, data, this.props.field);
+  }
+
+  componentDidMount() {
+    if (!this.props.data[this.props.field.name] && this.props.field.checked) {
+      let data = this.props.data;
+      data[this.props.field.name] = "1";
+      this.props.form.props.updateFunction(this.props.form.props.name, data, this.props.field);
+    }
   }
 }

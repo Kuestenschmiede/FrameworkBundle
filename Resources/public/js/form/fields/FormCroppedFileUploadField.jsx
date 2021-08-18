@@ -116,7 +116,7 @@ export default class FormCroppedFileUploadField extends Component {
     };
     let data = this.props.data;
     data[this.props.field.name] = imageData;
-    this.props.form.props.updateFunction(this.props.form.props.name, data);
+    this.props.form.props.updateFunction(this.props.form.props.name, data, this.props.field);
   };
 
   onCropChange = (crop, percentCrop) => {
@@ -217,7 +217,7 @@ export default class FormCroppedFileUploadField extends Component {
         )}
         {src && (
           <button onClick={this.unsetImage} title={this.props.languageRefs.CLICK_TO_REMOVE_IMAGE}
-                  className={"btn btn-primary remove-image " + this.props.field.name}>{this.props.languageRefs.REMOVE_IMAGE}</button>
+                  className={"btn btn-primary btn-remove remove-image " + this.props.field.name}>{this.props.languageRefs.REMOVE_IMAGE}</button>
         )}
       </React.Fragment>
     );
@@ -236,6 +236,6 @@ export default class FormCroppedFileUploadField extends Component {
       // clear file selection
       this.inputRef.value = "";
     }
-    this.props.form.props.updateFunction(this.props.form.props.name, data);
+    this.props.form.props.updateFunction(this.props.form.props.name, data, this.props.field);
   }
 }

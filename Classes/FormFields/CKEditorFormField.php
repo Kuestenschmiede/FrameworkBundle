@@ -19,7 +19,7 @@ class CKEditorFormField extends FormField
     protected $bulletedListLabel = '';
     protected $language = 'de';
 
-    private $allowedTags = ['<h2>', '<h3>', '<p>', '<ul>', '<li>', '<ol>', '<strong>', '<i>'];
+    private $allowedTags = ['<h2>', '<h3>', '<p>', '<ul>', '<li>', '<ol>', '<strong>', '<i>', '<br>'];
 
     const TYPE = 'ckeditor';
 

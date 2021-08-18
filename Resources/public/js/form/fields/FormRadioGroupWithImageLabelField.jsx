@@ -63,7 +63,7 @@ export default class FormRadioGroupWithImageLabelField extends Component {
   checkRadioButton(event) {
     let value = event.target.value;
     this.props.data[this.props.field.name] = value;
-    this.props.form.props.updateFunction(this.props.form.props.name, this.props.data);
+    this.props.form.props.updateFunction(this.props.form.props.name, this.props.data, this.props.field);
   }
 
   componentDidMount() {
@@ -74,7 +74,7 @@ export default class FormRadioGroupWithImageLabelField extends Component {
       if (defaultChecked) {
         let value = document.getElementById(this.props.field.name + '_' + index).value;
         this.props.data[this.props.field.name] = value;
-        this.props.form.props.updateFunction(this.props.form.props.name, this.props.data);
+        this.props.form.props.updateFunction(this.props.form.props.name, this.props.data, this.props.field);
       }
     });
 

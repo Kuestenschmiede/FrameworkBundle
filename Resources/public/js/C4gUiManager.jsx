@@ -110,7 +110,7 @@ export class C4gUiManager extends Component {
     this.setState({components: comps});
   }
 
-  updateData(component, data) {
+  updateData(component, data, field) {
     let components = this.state.components;
     if (typeof data.forEach === 'function') {
       data.forEach(function(value, index) {
@@ -130,7 +130,16 @@ export class C4gUiManager extends Component {
       }, this);
     }
 
-    this.setState({components: components});
+    this.setState({components: components}, () => {
+      if (window.c4gHooks && window.c4gHooks.fieldChanged) {
+        for (let i = 0; i < window.c4gHooks.fieldChanged.length; i++) {
+          if (typeof window.c4gHooks.fieldChanged[i] === "function") {
+            window.c4gHooks.fieldChanged[i](field, data);
+          }
+        }
+      }
+    });
+
   }
 
   setData(component, data, filterData, opt_asyncLoading) {

@@ -133,7 +133,7 @@ export default class FormAsynchronousCroppedFileUploadField extends Component {
     };
     let data = this.props.data;
     data[this.props.field.name] = imageData;
-    this.props.form.props.updateFunction(this.props.form.props.name, data);
+    this.props.form.props.updateFunction(this.props.form.props.name, data, this.props.field);
     // Ajax upload here
     jQuery.post(this.props.field.uploadUrl, {'image': imageData, 'childId': data.uuid}).done((data) => {});
   };
@@ -235,7 +235,7 @@ export default class FormAsynchronousCroppedFileUploadField extends Component {
         )}
         {src && (
           <button onClick={this.unsetImage} title={this.props.languageRefs.CLICK_TO_REMOVE_IMAGE}
-                  className={"btn btn-primary remove-image " + this.props.field.name}>{this.props.languageRefs.REMOVE_IMAGE}</button>
+                  className={"btn btn-primary btn-remove remove-image " + this.props.field.name}>{this.props.languageRefs.REMOVE_IMAGE}</button>
         )}
       </React.Fragment>
     );
@@ -253,7 +253,7 @@ export default class FormAsynchronousCroppedFileUploadField extends Component {
     if (this.inputRef) {
       this.inputRef.value = "";
     }
-    this.props.form.props.updateFunction(this.props.form.props.name, data);
+    this.props.form.props.updateFunction(this.props.form.props.name, data, this.props.field);
     let requestData = {uuid: data.uuid, fieldName: this.props.field.name};
     jQuery.post(this.props.field.removeImageUrl, requestData)
       .done((data) => {});

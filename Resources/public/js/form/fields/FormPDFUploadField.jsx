@@ -75,7 +75,7 @@ export default class FormPDFUploadField extends Component {
       }
       let formData = this.props.form.props.component.data;
       formData[this.props.field.name] = fileInfo;
-      this.props.form.props.updateFunction(this.props.form.props.name, formData);
+      this.props.form.props.updateFunction(this.props.form.props.name, formData, this.props.field);
     }
 
     reader.readAsDataURL(file);
@@ -127,17 +127,22 @@ export default class FormPDFUploadField extends Component {
     if (this.props.form.props.component.data[fieldName] && this.props.form.props.component.data[fieldName].raw) {
       filePreview = <Document className={"c4g-pdf-preview"} file={this.props.form.props.component.data[fieldName].raw}>
         <Page pageNumber={1} />
+        <button onClick={this.unsetFile} title={this.props.languageRefs.CLICK_TO_REMOVE_FILE}
+                className={"btn btn-remove-rounded remove-file " + this.props.field.name}>{this.props.languageRefs.REMOVE_PDF}</button>
       </Document>
     } else if (this.props.form.props.component.data[fieldName] && this.props.form.props.component.data[fieldName].path) {
       let path = this.props.form.props.component.data[fieldName].path;
       path = "/" + path;
       filePreview = <Document className={"c4g-pdf-preview"} file={path}>
         <Page pageNumber={1} />
+
+            <button onClick={this.unsetFile} title={this.props.languageRefs.CLICK_TO_REMOVE_FILE}
+                    className={"btn btn-remove-rounded remove-file " + this.props.field.name}>{this.props.languageRefs.REMOVE_PDF}</button>
       </Document>
     }
 
     return (
-      <div>
+      <div className={"c4g-form-field"}>
         {label}
         <div className={className + " file-label"}>{fileLabel}</div>
         <input className={"form-control-file"} ref={input => this.inputElement = input} type={"file"} accept=".pdf" onChange={this.onSelectFile} id={fieldName}
@@ -148,10 +153,6 @@ export default class FormPDFUploadField extends Component {
           this.inputElement.click();
         }} className={className + "btn btn-outline-primary"} ref={(node) => {this.inputRef = node;}}/>
         {description}
-        {filePreview && (
-          <button onClick={this.unsetFile} title={this.props.languageRefs.CLICK_TO_REMOVE_FILE}
-                  className={"btn btn-primary remove-file " + this.props.field.name}>{this.props.languageRefs.REMOVE_FILE}</button>
-        )}
       </div>
     );
   }
@@ -163,7 +164,7 @@ export default class FormPDFUploadField extends Component {
       // clear file selection
       this.inputRef.value = "";
     }
-    this.props.form.props.updateFunction(this.props.form.props.name, data);
+    this.props.form.props.updateFunction(this.props.form.props.name, data, this.props.field);
   }
 
 }

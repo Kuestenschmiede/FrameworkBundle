@@ -26,7 +26,7 @@ export default class FormNumberRangeField extends Component {
   onChange(event) {
     let value = event.target.value;
     this.setState({value: value});
-    this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: value});
+    this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: value}, this.props.field);
   }
 
   format(value) {

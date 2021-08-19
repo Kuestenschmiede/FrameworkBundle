@@ -328,6 +328,7 @@ export default class TableView extends Component {
             label: fields[i].label,
             options: {
               sort: false,
+              viewColumns: false,
               filter: false,
               customBodyRender: (value, tableMeta, updateValue) => {
                 if (fields[i].method === "POST") {

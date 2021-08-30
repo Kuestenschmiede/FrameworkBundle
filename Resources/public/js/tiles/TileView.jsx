@@ -339,7 +339,7 @@ export default class TileView extends Component {
         }
       }
     }
-    this.positionActive = geolocationActive() && getPos;
+    this.positionActive = getPos && geolocationActive();
   }
 
   fetchMoreData() {

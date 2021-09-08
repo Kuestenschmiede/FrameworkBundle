@@ -37,9 +37,11 @@ export default class TileView extends Component {
 
     this.position = [];
 
-    this.checkPosition();
-    if (this.positionActive) {
-      this.addDistances(props.data);
+    if (props.data && props.data.length > 0) {
+      this.checkPosition();
+      if (this.positionActive) {
+        this.addDistances(props.data);
+      }
     }
     
     this.fetchMoreData = this.fetchMoreData.bind(this);
@@ -357,9 +359,20 @@ export default class TileView extends Component {
       if (typeof this.props.component.filterData !== 'undefined' && Object.keys(this.props.component.filterData).length !== 0) {
         let filterParams = this.props.component.filterData;
         filterParams = this.transformSelectOptions(filterParams);
-        if (this.positionActive && filterParams.sorting === "distance") {
-          if (this.position) {
+        if (filterParams.sorting === "distance") {
+          if (this.positionActive && this.position) {
             filterParams.pos = this.position;
+          }
+          else {
+            this.checkPosition();
+            if (this.positionActive) {
+              const setPosition = (position) => {
+                this.position = [position.coords.longitude, position.coords.latitude];
+                this.fetchMoreData();
+              }
+              getGeolocation(setPosition);
+              return;
+            }
           }
           url.search = new URLSearchParams(filterParams).toString();
         } else {

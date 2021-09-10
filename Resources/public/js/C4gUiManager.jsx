@@ -310,4 +310,8 @@ export class C4gUiManager extends Component {
       }, 750);
     }
   }
+
+  componentWillUnmount() {
+    this.setState({components: {}});
+  }
 }

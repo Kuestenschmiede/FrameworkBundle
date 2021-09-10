@@ -347,7 +347,8 @@ export default class TileView extends Component {
   fetchMoreData() {
     let loadData;
     if (this.props.component.onlySearchWithParam) {
-      loadData = this.props.component.filterData[this.props.component.onlySearchWithParam] !== "";
+      let param = this.props.component.filterData[this.props.component.onlySearchWithParam];
+      loadData = param && (param !== "");
     } else {
       loadData = true;
     }

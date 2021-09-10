@@ -19,12 +19,12 @@
   ],
   "require": {
     "contao/core-bundle": "^4.9",
-    "con4gis/core": "^5.0.7",
-    "con4gis/maps": "^8.0.19",
+    "con4gis/core": "^5.0.9",
+    "con4gis/maps": "^8.0.25",
     "ext-json": "*",
     "contao-components/jquery": "^3.6",
-    "menatwork/contao-multicolumnwizard-bundle": "^3.4.11",
-    "terminal42/notification_center": "^1.5.18",
+    "menatwork/contao-multicolumnwizard-bundle": "^3.5.2",
+    "terminal42/notification_center": "^1.6.0",
     "guzzlehttp/guzzle": "^6.5.5"
   },
   "conflict": {

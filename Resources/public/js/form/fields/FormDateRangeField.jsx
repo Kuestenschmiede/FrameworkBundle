@@ -21,7 +21,7 @@ export default class FormDateRangeField extends Component {
 
   render() {
     // check condition
-    if (!checkIfFieldIsRendered(this.props.field, this.props.data)) {
+    if (!checkIfFieldIsRendered(this.props.field, this.props.data, this.props.fields)) {
       return null;
     }
 

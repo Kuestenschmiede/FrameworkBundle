@@ -18,14 +18,20 @@ export default class CustomSubmitButton extends Component {
 
     this.clickButton = this.clickButton.bind(this);
     this.submitCallback = this.submitCallback.bind(this);
+
+    this.state = {
+      active: true
+    };
   }
 
   clickButton(event) {
-    if (this.props.form.props.component.renderAsForm) {
-      this.props.form.activeButton = this;
-    } else {
-      this.submitCallback(this.props.form, event)
-    }
+    this.setState({active: false}, () => {
+      if (this.props.form.props.component.renderAsForm) {
+        this.props.form.activeButton = this;
+      } else {
+        this.submitCallback(this.props.form, event);
+      }
+    });
   }
 
   submitCallback(form, event) {
@@ -62,6 +68,7 @@ export default class CustomSubmitButton extends Component {
           this.callSubmitFailed(requestData, data.fields);
         }
       }
+      this.setState({active: true});
     });
 
   }
@@ -97,7 +104,7 @@ export default class CustomSubmitButton extends Component {
       for (let fieldId in fields) {
         if (fields.hasOwnProperty(fieldId)) {
           const field = fields[fieldId];
-          if (field.required && hasConditions(field, data)) {
+          if (field.required && hasConditions(field, data, this.props.form.props.component.fields)) {
             let invalid = false;
             if (field.type === "number") {
               if (data[field.name] === null
@@ -117,7 +124,7 @@ export default class CustomSubmitButton extends Component {
               fieldNode.keyup(function(){
                 $(this).removeClass("is-invalid");
                 $(this).off("keyup");
-              })
+              });
               fieldNode.addClass("is-invalid");
               this.callSubmitFailed(data, [field]);
               return false;
@@ -141,6 +148,7 @@ export default class CustomSubmitButton extends Component {
         }
       }
     }
+    this.setState({active: true});
   }
 
   checkZipcode (data) {
@@ -158,14 +166,14 @@ export default class CustomSubmitButton extends Component {
         }).done((response) => {
           if (response && response.address && response.address.postcode) {
             if (response.address.postcode === data.locationZip) {
-              this.submitData(data)
+              this.submitData(data);
             } else {
               const fieldNode = $("#locationZip");
               fieldNode.focus();
               fieldNode.keyup(function () {
                 $(this).removeClass("is-invalid");
                 $(this).off("keyup");
-              })
+              });
               fieldNode.addClass("is-invalid");
               const ah = new AlertHandler();
               let title = this.props.languageRefs.CHECK_POSITION;
@@ -180,7 +188,7 @@ export default class CustomSubmitButton extends Component {
         }).fail(() => {
           this.submitData(data);
 
-        })
+        });
         return false;
       } else {
         return true;
@@ -189,6 +197,7 @@ export default class CustomSubmitButton extends Component {
       return true;
     }
   }
+
   addPosition(data, mapController) { // add a position when none is provided but address is
     let city = data.locationCity;
     let street = data.locationStreet;
@@ -211,7 +220,7 @@ export default class CustomSubmitButton extends Component {
         let textConfirm = this.props.languageRefs.SAVE_WITH_POSITION;
         let textCancel = this.props.languageRefs.SAVE_WITHOUT_POSITION;
         const confirmCallback = () => {
-          let data = this.props.form.props.component.data
+          let data = this.props.form.props.component.data;
           data.geoy = result.lat;
           data.geox = result.lon;
           if (this.validateData(data)) {
@@ -219,7 +228,7 @@ export default class CustomSubmitButton extends Component {
           }
         };
         const cancelCallback = () => {
-          let data = this.props.form.props.component.data
+          let data = this.props.form.props.component.data;
           if (this.validateData(data)) {
             this.submitData(data);
           }
@@ -238,6 +247,7 @@ export default class CustomSubmitButton extends Component {
       }
     });
   }
+
   addAddress (data, mapController) { //add an address when none is provided but position is
     let url = mapController.data.geosearch.url + "reverse.php?key=";
     url += mapController.data.geosearch.reverseKey;
@@ -303,9 +313,16 @@ export default class CustomSubmitButton extends Component {
   }
 
   render() {
-    return (
-      <button className={this.props.button.className + " btn btn-primary mr-3"} type="submit" onClick={this.clickButton}>{this.props.button.caption}</button>
-    );
+    if (this.state.active) {
+      return (
+        <button className={this.props.button.className + " btn btn-primary mr-3"} type="submit" onClick={this.clickButton}>{this.props.button.caption}</button>
+      );
+    } else {
+      return (
+        <button className={this.props.button.className + " btn btn-primary mr-3"} type="submit" onClick={this.clickButton} disabled={true}>{this.props.button.caption}</button>
+      );
+    }
+
   }
 
   geopickerFieldExists() {

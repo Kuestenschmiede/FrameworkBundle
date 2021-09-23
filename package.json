@@ -18,6 +18,12 @@
   "bugs": {
     "url": "https://github.com/Kuestenschmiede/FrameworkBundle/issues"
   },
+  "browser": {
+    "fs": false,
+    "http": false,
+    "https": false,
+    "url": false
+  },
   "homepage": "https://github.com/Kuestenschmiede/FrameworkBundle#readme",
   "devDependencies": {
     "@babel/core": "^7.15.5",

@@ -67,9 +67,28 @@ export function checkConditions(field, data) {
   return render;
 }
 
-export default function checkIfFieldIsRendered(field, data) {
+export default function checkIfFieldIsRendered(field, data, fields) {
   if (hasConditions(field)) {
-    return checkConditions(field, data);
+    // get field this field depends upon
+    let dependentField = null;
+    fields.forEach((element, index) => {
+      if (field.conditionField.length === 1) {
+        if (element.name === field.conditionField[0]) {
+          dependentField = element;
+        }
+      }
+    });
+    if (dependentField !== null) {
+      let isDependentFieldRendered = true;
+      if (hasConditions(dependentField)) {
+        isDependentFieldRendered = checkConditions(dependentField, data);
+        return isDependentFieldRendered && checkConditions(field, data);
+      } else {
+        return checkConditions(field, data);
+      }
+    } else {
+      return checkConditions(field, data);
+    }
   } else {
     return true;
   }

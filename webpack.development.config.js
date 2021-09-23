@@ -25,7 +25,14 @@ var config = {
   devtool: "inline-source-map",
   resolve: {
     modules: ['node_modules', 'Resources/public/js'],
-    extensions: ['.jsx', '.js']
+    extensions: ['.jsx', '.js'],
+    fallback: {
+      "http": false,
+      "https": false,
+      "buffer": false,
+      "url": false,
+      "fs": false
+    },
   },
   plugins: [
     new CleanWebpackPlugin()

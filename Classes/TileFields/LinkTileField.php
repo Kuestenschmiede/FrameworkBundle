@@ -16,6 +16,7 @@ class LinkTileField extends TileField
     protected $linkText = '';
     protected $hrefName = '';
     protected $linkTextName = '';
+    protected $newTab = false;
 
     const TYPE = 'link';
     const DEFAULT_LINK_ICON_CLASS = 'fas fa-external-link-alt';
@@ -27,6 +28,7 @@ class LinkTileField extends TileField
         $config['linkText'] = $this->linkText;
         $config['hrefName'] = $this->hrefName;
         $config['linkTextName'] = $this->linkTextName;
+        $config['newTab'] = $this->newTab;
 
         return $config;
     }
@@ -105,5 +107,21 @@ class LinkTileField extends TileField
         $this->linkTextName = $linkTextName;
 
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNewTab(): bool
+    {
+        return $this->newTab;
+    }
+
+    /**
+     * @param bool $newTab
+     */
+    public function setNewTab(bool $newTab = true): void
+    {
+        $this->newTab = $newTab;
     }
 }

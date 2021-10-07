@@ -28,8 +28,15 @@ export default class Condition extends Component {
       }, this);
       return met;
     } else if (condition.field && condition.value) {
-      if (String(this.props.data[condition.field]) !== String(condition.value)) {
-        return false;
+      if (condition.not !== true) {
+        if (String(this.props.data[condition.field]) !== String(condition.value)) {
+          return false;
+        }
+      } else {
+        console.log('okay');
+        if (String(this.props.data[condition.field]) === String(condition.value)) {
+          return false;
+        }
       }
     }
 

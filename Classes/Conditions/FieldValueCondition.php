@@ -15,8 +15,14 @@ use con4gis\FrameworkBundle\Classes\ConfigurationInterface;
 
 class FieldValueCondition implements ConfigurationInterface
 {
-    private $field = '';
-    private $value = '';
+    private $field;
+    private $value;
+
+    public function __construct(string $field = '', string $value = '')
+    {
+        $this->field = $field;
+        $this->value = $value;
+    }
 
     public function getConfiguration(): array
     {

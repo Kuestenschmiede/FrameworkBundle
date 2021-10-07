@@ -10,10 +10,13 @@
  */
 namespace con4gis\FrameworkBundle\Classes\TileFields;
 
+use con4gis\FrameworkBundle\Classes\ConfigurationInterface;
+
 class TextTileField extends TileField
 {
     protected $itemProp = '';
     private $format = '';
+    private $conditions = [];
 
     const TYPE = 'text';
     const SCHEMA_PROPERTY_NAME = 'https://schema.org/name';
@@ -23,6 +26,14 @@ class TextTileField extends TileField
         $config = parent::getConfiguration();
         $config['itemProp'] = $this->itemProp;
         $config['format'] = $this->format;
+
+        if (!empty($this->conditions)) {
+            $conditions = [];
+            foreach ($this->conditions as $condition) {
+                $conditions[] = $condition->getConfiguration();
+            }
+            $config['conditions'] = $conditions;
+        }
 
         return $config;
     }
@@ -60,5 +71,10 @@ class TextTileField extends TileField
     public function setFormat(string $format): void
     {
         $this->format = $format;
+    }
+
+    public function addCondition(ConfigurationInterface $condition)
+    {
+        $this->conditions[] = $condition;
     }
 }

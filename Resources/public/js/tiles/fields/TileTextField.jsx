@@ -10,6 +10,8 @@
 
 import React, {Component} from "react";
 
+const Condition = React.lazy(() => import("../../condition/Condition.jsx"));
+
 export default class TileTextField extends Component {
   constructor(props) {
     super(props);
@@ -38,12 +40,14 @@ export default class TileTextField extends Component {
         value = this.format(value);
       }
       return (
+        <Condition data={this.props.data} conditions={this.props.field.conditions} test={this.props.field.name}>
           <div className={this.props.field.wrapperClass}>
               {label}
             <span className={this.props.field.class} itemProp={itemProp}>
               {value}
             </span>
           </div>
+        </Condition>
       );
     }
     return ('')

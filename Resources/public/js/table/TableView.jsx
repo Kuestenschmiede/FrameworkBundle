@@ -292,15 +292,20 @@ export default class TableView extends Component {
             if (month < 10) {
               month = '0' + month;
             }
-            let hours = date.getHours() + 1;
+            let hours = date.getHours();
             if (hours < 10) {
               hours = '0' + hours;
             }
-            let minutes = date.getMinutes() + 1;
+            let minutes = date.getMinutes();
             if (minutes < 10) {
               minutes = '0' + minutes;
             }
-            return day + '.' + month + '.' + date.getFullYear() + ' ' + hours + ':' + minutes;
+            let timeString = hours + ':' + minutes;
+            let dateString = day + '.' + month + '.' + date.getFullYear() + ' ';
+            if (timeString !== "00:00") {
+              dateString += timeString;
+            }
+            return dateString;
           };
           columns.push(column);
           break;

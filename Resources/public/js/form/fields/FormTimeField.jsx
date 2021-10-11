@@ -46,6 +46,9 @@ export default class FormTimeField extends Component {
           let minutes = parseInt(parts[1] + parts[2]);
           this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: ((hours * 3600) + (minutes * 60))}, this.props.field);
         }
+      } else if (dateString === '') {
+        // value deleted
+        this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: null}, this.props.field);
       }
     }
   }

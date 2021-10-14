@@ -29,7 +29,12 @@ export default class TileLinkField extends Component {
       return (
           <div className={this.props.field.wrapperClass}>
             {label}
-            <a className={this.props.field.class} href={href} rel={"noreferrer noopener"}>{this.props.data[this.props.field.linkTextName] || this.props.field.linkText || href}</a>
+            <a className={this.props.field.class}
+               href={href}
+               rel={"noreferrer noopener"}
+               target={this.props.field.newTab ? '_blank' : null}>
+              {this.props.data[this.props.field.linkTextName] || this.props.field.linkText || href}
+            </a>
           </div>
       );
     }

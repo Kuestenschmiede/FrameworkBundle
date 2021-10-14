@@ -13,7 +13,7 @@ namespace con4gis\FrameworkBundle\Classes\Conditions;
 
 use con4gis\FrameworkBundle\Classes\ConfigurationInterface;
 
-class FieldValueCondition implements ConfigurationInterface
+class FieldNotValueCondition implements ConfigurationInterface
 {
     private $field;
     private $value;
@@ -29,6 +29,7 @@ class FieldValueCondition implements ConfigurationInterface
         return [
             'field' => $this->field,
             'value' => $this->value,
+            'not' => true,
         ];
     }
 

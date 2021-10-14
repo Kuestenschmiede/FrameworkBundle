@@ -33,7 +33,6 @@ export default class Condition extends Component {
           return false;
         }
       } else {
-        console.log('okay');
         if (String(this.props.data[condition.field]) === String(condition.value)) {
           return false;
         }

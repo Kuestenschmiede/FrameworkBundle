@@ -25,6 +25,9 @@ export default class TileLinkButtonField extends Component {
 
     try {
       let valid = false;
+      if (this.props.field.externalLinkFieldConditionField.length === 0) {
+        return true;
+      }
       if (this.props.field.externalLinkFieldConditionField.length === this.props.field.externalLinkFieldConditionValue.length) {
         this.props.field.externalLinkFieldConditionField.forEach(
           function (element, index) {

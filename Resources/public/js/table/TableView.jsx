@@ -16,8 +16,8 @@ import {PostActionButton} from "./button/PostActionButton.jsx";
 import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles';
 import {AlertHandler} from "../../../../../CoreBundle/Resources/public/vendor/js/AlertHandler.js";
 
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 const MySwal = withReactContent(Swal);
 
 const MUIDataTable = React.lazy(() => import("mui-datatables"));
@@ -32,10 +32,11 @@ export default class TableView extends Component {
       selectedItems: [],
       activeForm: false, // will be set to true when a selection button is clicked,
       activeButton: null, // will be set when a selection button is clicked,
-    }
+    };
 
     this.formData = [];
     this.selectedItems = [];
+    this.datatable = null;
     this.addSelectedItem = this.addSelectedItem.bind(this);
     this.handleButtonClick = this.handleButtonClick.bind(this);
     this.submitForm = this.submitForm.bind(this);
@@ -129,6 +130,7 @@ export default class TableView extends Component {
           {regularButtons}
         </React.Fragment>;
       }
+
     }
     if (this.props.component.checkbox) {
       options["onRowSelectionChange"] = (currentRowsSelected, allRowsSelected, rowsSelected) => {
@@ -149,7 +151,7 @@ export default class TableView extends Component {
     } else {
       options["selectableRows"] = "none";
     }
-
+    options["rowsSelected"] = this.state.selectedItems;
     return (
       <div className={""}>
         <MuiThemeProvider theme={this.getMuiTheme()}>

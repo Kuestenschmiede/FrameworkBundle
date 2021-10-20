@@ -32,6 +32,7 @@ export default class TableView extends Component {
       selectedItems: [],
       activeForm: false, // will be set to true when a selection button is clicked,
       activeButton: null, // will be set when a selection button is clicked,
+      data: JSON.parse(JSON.stringify(this.props.data))
     };
 
     this.formData = [];
@@ -155,7 +156,7 @@ export default class TableView extends Component {
     return (
       <div className={""}>
         <MuiThemeProvider theme={this.getMuiTheme()}>
-          <MUIDataTable data={this.props.data.filter(element => element != null)} columns={columns}
+          <MUIDataTable data={this.state.data.filter(element => element != null)} columns={columns}
                         options={options} key={0} ref={(node) => this.datatable = node}
                         title={this.props.component.headline}
                         responsive
@@ -216,7 +217,7 @@ export default class TableView extends Component {
     // event.preventDefault();
     // get id of selected dataset
     let selectedId = this.state.selectedItems[0];
-    let selectedData = this.props.data[selectedId];
+    let selectedData = this.state.data[selectedId];
     let url = activeButton.form.url;
     this.formData.id = selectedData.id;
     jQuery.post(url, this.formData).done((responseData) => {
@@ -409,5 +410,28 @@ export default class TableView extends Component {
       this.props.component.confirmationYes,
       this.props.component.confirmationNo,
     );
+  }
+
+  componentDidMount() {
+    if (this.props.component.loadDataAsync) {
+      this.loadData();
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.component.loadDataAsync) {
+      if (prevState.data.length < this.state.data.length) {
+        this.loadData();
+      }
+    }
+  }
+
+  loadData() {
+    let url = this.props.component.asyncDataUrl;
+    url += "/" + this.state.data.length;
+    jQuery.get(url).done((responseData) => {
+      let data = this.state.data.concat(responseData);
+      this.setState({data: data});
+    });
   }
 }

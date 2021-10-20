@@ -130,7 +130,8 @@ class FrontendConfiguration implements JsonSerializable
             'confirmationMessage' => $table->getConfirmationMessage(),
             'confirmationYes' => $table->getConfirmationYes(),
             'confirmationNo' => $table->getConfirmationNo(),
-
+            'loadDataAsync' => $table->isLoadDataAsync(),
+            'asyncDataUrl' => $table->getAsyncDataUrl()
         ];
         $tableSelection = $table->getTableSelection();
         if ($tableSelection !== null) {

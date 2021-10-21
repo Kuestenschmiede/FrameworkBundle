@@ -16,8 +16,8 @@ import {PostActionButton} from "./button/PostActionButton.jsx";
 import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles';
 import {AlertHandler} from "../../../../../CoreBundle/Resources/public/vendor/js/AlertHandler.js";
 
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 const MySwal = withReactContent(Swal);
 
 const MUIDataTable = React.lazy(() => import("mui-datatables"));
@@ -32,10 +32,12 @@ export default class TableView extends Component {
       selectedItems: [],
       activeForm: false, // will be set to true when a selection button is clicked,
       activeButton: null, // will be set when a selection button is clicked,
-    }
+      data: JSON.parse(JSON.stringify(this.props.data))
+    };
 
     this.formData = [];
     this.selectedItems = [];
+    this.datatable = null;
     this.addSelectedItem = this.addSelectedItem.bind(this);
     this.handleButtonClick = this.handleButtonClick.bind(this);
     this.submitForm = this.submitForm.bind(this);
@@ -129,6 +131,7 @@ export default class TableView extends Component {
           {regularButtons}
         </React.Fragment>;
       }
+
     }
     if (this.props.component.checkbox) {
       options["onRowSelectionChange"] = (currentRowsSelected, allRowsSelected, rowsSelected) => {
@@ -149,11 +152,11 @@ export default class TableView extends Component {
     } else {
       options["selectableRows"] = "none";
     }
-
+    options["rowsSelected"] = this.state.selectedItems;
     return (
       <div className={""}>
         <MuiThemeProvider theme={this.getMuiTheme()}>
-          <MUIDataTable data={this.props.data.filter(element => element != null)} columns={columns}
+          <MUIDataTable data={this.state.data.filter(element => element != null)} columns={columns}
                         options={options} key={0} ref={(node) => this.datatable = node}
                         title={this.props.component.headline}
                         responsive
@@ -214,7 +217,7 @@ export default class TableView extends Component {
     // event.preventDefault();
     // get id of selected dataset
     let selectedId = this.state.selectedItems[0];
-    let selectedData = this.props.data[selectedId];
+    let selectedData = this.state.data[selectedId];
     let url = activeButton.form.url;
     this.formData.id = selectedData.id;
     jQuery.post(url, this.formData).done((responseData) => {
@@ -407,5 +410,28 @@ export default class TableView extends Component {
       this.props.component.confirmationYes,
       this.props.component.confirmationNo,
     );
+  }
+
+  componentDidMount() {
+    if (this.props.component.loadDataAsync) {
+      this.loadData();
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.component.loadDataAsync) {
+      if (prevState.data.length < this.state.data.length) {
+        this.loadData();
+      }
+    }
+  }
+
+  loadData() {
+    let url = this.props.component.asyncDataUrl;
+    url += "/" + this.state.data.length;
+    jQuery.get(url).done((responseData) => {
+      let data = this.state.data.concat(responseData);
+      this.setState({data: data});
+    });
   }
 }

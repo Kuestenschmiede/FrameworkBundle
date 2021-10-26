@@ -45,9 +45,9 @@ class Table
     protected $confirmationMessage = '';
     protected $confirmationYes = '';
     protected $confirmationNo = '';
-    
+
     protected $loadDataAsync = false;
-    protected $asyncDataUrl = "";
+    protected $asyncDataUrl = '';
 
     /**
      * Table constructor.
@@ -340,7 +340,7 @@ class Table
 
         return $this;
     }
-    
+
     /**
      * @return bool
      */
@@ -348,7 +348,7 @@ class Table
     {
         return $this->loadDataAsync;
     }
-    
+
     /**
      * @param bool $loadDataAsync
      */
@@ -356,7 +356,7 @@ class Table
     {
         $this->loadDataAsync = $loadDataAsync;
     }
-    
+
     /**
      * @return string
      */
@@ -364,7 +364,7 @@ class Table
     {
         return $this->asyncDataUrl;
     }
-    
+
     /**
      * @param string $asyncDataUrl
      */

@@ -52,8 +52,11 @@ export default class TileTagField extends Component {
           let linkField = this.props.field.linkField;
           if (item[linkField]) {
             let link = item[linkField];
-            if ((link.indexOf("http://") === -1)  && (link.indexOf("https://") === -1)) {
-              link = "https://" + link;
+            if (link.indexOf('@') === -1) {
+              // link is no email address
+              if ((link.indexOf("http://") === -1)  && (link.indexOf("https://") === -1)) {
+                link = "https://" + link;
+              }
             }
             tagElements.push(<a key={id + index} href={link} rel={"noreferrer noopener"}>
               <TileImageField key={id + index} field={tagField} data={[]}/>

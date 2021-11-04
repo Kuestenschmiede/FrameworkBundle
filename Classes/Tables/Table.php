@@ -48,6 +48,8 @@ class Table
     
     protected $loadDataAsync = false;
     protected $asyncDataUrl = "";
+    
+    protected $storageKey = "";
 
     /**
      * Table constructor.
@@ -371,5 +373,21 @@ class Table
     public function setAsyncDataUrl(string $asyncDataUrl): void
     {
         $this->asyncDataUrl = $asyncDataUrl;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getStorageKey(): string
+    {
+        return $this->storageKey;
+    }
+    
+    /**
+     * @param string $storageKey
+     */
+    public function setStorageKey(string $storageKey): void
+    {
+        $this->storageKey = $storageKey;
     }
 }

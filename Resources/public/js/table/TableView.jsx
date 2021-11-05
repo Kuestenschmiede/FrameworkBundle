@@ -153,6 +153,11 @@ export default class TableView extends Component {
       options["selectableRows"] = "none";
     }
     options["rowsSelected"] = this.state.selectedItems;
+    options["onTableChange"] = (action, tableState) => {
+      this.persistParamsIntoStorage(tableState);
+    };
+    options["searchOpen"] = !!this.searchOpen;
+
     return (
       <div className={""}>
         <MuiThemeProvider theme={this.getMuiTheme()}>
@@ -416,14 +421,51 @@ export default class TableView extends Component {
     if (this.props.component.loadDataAsync) {
       this.loadData();
     }
+    if (!this.props.component.loadDataAsync) {
+      this.applyParamsFromStorage();
+    }
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.component.loadDataAsync) {
       if (prevState.data.length < this.state.data.length) {
         this.loadData();
+      } else {
+        this.finishedLoading = true;
       }
+    } else {
+      this.finishedLoading = true;
     }
+
+    if (this.props.component.loadDataAsync && this.finishedLoading && !this.paramsRestored) {
+      this.applyParamsFromStorage();
+    }
+  }
+
+  applyParamsFromStorage() {
+    const filters = JSON.parse(window.localStorage.getItem(this.props.component.storageKey + '-filters'));
+    const page = parseInt(window.localStorage.getItem(this.props.component.storageKey + '-page'), 10);
+    const searchText = window.localStorage.getItem(this.props.component.storageKey + '-search');
+    if (filters !== null && page !== null) {
+      if (searchText !== "") {
+        this.searchOpen = true;
+      } else {
+        this.searchOpen = false;
+      }
+      window.setTimeout(() => {
+        this.datatable.setState({
+          filterList: filters,
+          page: page,
+          searchText: searchText
+        }, () => {this.resetSelection(); this.paramsRestored = true;});
+      }, 100);
+    }
+  }
+
+  persistParamsIntoStorage(tableState) {
+    window.localStorage.setItem(this.props.component.storageKey + "-filters", JSON.stringify(tableState.filterList));
+    window.localStorage.setItem(this.props.component.storageKey + "-page", tableState.page);
+    window.localStorage.setItem(this.props.component.storageKey + "-search", tableState.searchText === null ? "" : tableState.searchText);
   }
 
   loadData() {

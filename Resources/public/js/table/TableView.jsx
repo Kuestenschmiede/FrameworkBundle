@@ -157,6 +157,7 @@ export default class TableView extends Component {
       this.persistParamsIntoStorage(tableState);
     };
     options["searchOpen"] = !!this.searchOpen;
+    options["searchAlwaysOpen"] = true;
 
     return (
       <div className={""}>
@@ -447,25 +448,23 @@ export default class TableView extends Component {
     const page = parseInt(window.localStorage.getItem(this.props.component.storageKey + '-page'), 10);
     const searchText = window.localStorage.getItem(this.props.component.storageKey + '-search');
     if (filters !== null && page !== null) {
-      if (searchText !== "") {
-        this.searchOpen = true;
-      } else {
-        this.searchOpen = false;
-      }
+      this.searchOpen = searchText !== "";
       window.setTimeout(() => {
         this.datatable.setState({
           filterList: filters,
           page: page,
           searchText: searchText
         }, () => {this.resetSelection(); this.paramsRestored = true;});
-      }, 100);
+      }, 1000);
     }
   }
 
   persistParamsIntoStorage(tableState) {
-    window.localStorage.setItem(this.props.component.storageKey + "-filters", JSON.stringify(tableState.filterList));
-    window.localStorage.setItem(this.props.component.storageKey + "-page", tableState.page);
-    window.localStorage.setItem(this.props.component.storageKey + "-search", tableState.searchText === null ? "" : tableState.searchText);
+    if (this.finishedLoading) {
+      window.localStorage.setItem(this.props.component.storageKey + "-filters", JSON.stringify(tableState.filterList));
+      window.localStorage.setItem(this.props.component.storageKey + "-page", tableState.page);
+      window.localStorage.setItem(this.props.component.storageKey + "-search", tableState.searchText === null ? "" : tableState.searchText);
+    }
   }
 
   loadData() {

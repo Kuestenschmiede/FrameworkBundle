@@ -444,9 +444,16 @@ export default class TableView extends Component {
   }
 
   applyParamsFromStorage() {
-    const filters = JSON.parse(window.localStorage.getItem(this.props.component.storageKey + '-filters'));
-    const page = parseInt(window.localStorage.getItem(this.props.component.storageKey + '-page'), 10);
-    const searchText = window.localStorage.getItem(this.props.component.storageKey + '-search');
+    let storageKey = this.props.component.storageKey;
+    let url = new URL(window.location);
+    let params = new URLSearchParams(url.search);
+    if (params.has("groupId")) {
+      let groupId = params.get("groupId");
+      storageKey += "-" + groupId;
+    }
+    const filters = JSON.parse(window.localStorage.getItem(storageKey + '-filters'));
+    const page = parseInt(window.localStorage.getItem(storageKey + '-page'), 10);
+    const searchText = window.localStorage.getItem(storageKey + '-search');
     if (filters !== null && page !== null) {
       this.searchOpen = searchText !== "";
       window.setTimeout(() => {
@@ -461,9 +468,16 @@ export default class TableView extends Component {
 
   persistParamsIntoStorage(tableState) {
     if (this.finishedLoading) {
-      window.localStorage.setItem(this.props.component.storageKey + "-filters", JSON.stringify(tableState.filterList));
-      window.localStorage.setItem(this.props.component.storageKey + "-page", tableState.page);
-      window.localStorage.setItem(this.props.component.storageKey + "-search", tableState.searchText === null ? "" : tableState.searchText);
+      let storageKey = this.props.component.storageKey;
+      let url = new URL(window.location);
+      let params = new URLSearchParams(url.search);
+      if (params.has("groupId")) {
+        let groupId = params.get("groupId");
+        storageKey += "-" + groupId;
+      }
+      window.localStorage.setItem(storageKey + "-filters", JSON.stringify(tableState.filterList));
+      window.localStorage.setItem(storageKey + "-page", tableState.page);
+      window.localStorage.setItem(storageKey + "-search", tableState.searchText === null ? "" : tableState.searchText);
     }
   }
 

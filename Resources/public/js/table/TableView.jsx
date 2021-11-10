@@ -153,6 +153,12 @@ export default class TableView extends Component {
       options["selectableRows"] = "none";
     }
     options["rowsSelected"] = this.state.selectedItems;
+    options["onTableChange"] = (action, tableState) => {
+      this.persistParamsIntoStorage(tableState);
+    };
+    options["searchOpen"] = !!this.searchOpen;
+    options["searchAlwaysOpen"] = true;
+
     return (
       <div className={""}>
         <MuiThemeProvider theme={this.getMuiTheme()}>
@@ -416,13 +422,62 @@ export default class TableView extends Component {
     if (this.props.component.loadDataAsync) {
       this.loadData();
     }
+    if (!this.props.component.loadDataAsync) {
+      this.applyParamsFromStorage();
+    }
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.component.loadDataAsync) {
       if (prevState.data.length < this.state.data.length) {
         this.loadData();
+      } else {
+        this.finishedLoading = true;
       }
+    } else {
+      this.finishedLoading = true;
+    }
+
+    if (this.props.component.loadDataAsync && this.finishedLoading && !this.paramsRestored) {
+      this.applyParamsFromStorage();
+    }
+  }
+
+  applyParamsFromStorage() {
+    let storageKey = this.props.component.storageKey;
+    let url = new URL(window.location);
+    let params = new URLSearchParams(url.search);
+    if (params.has("groupId")) {
+      let groupId = params.get("groupId");
+      storageKey += "-" + groupId;
+    }
+    const filters = JSON.parse(window.localStorage.getItem(storageKey + '-filters'));
+    const page = parseInt(window.localStorage.getItem(storageKey + '-page'), 10);
+    const searchText = window.localStorage.getItem(storageKey + '-search');
+    if (filters !== null && page !== null) {
+      this.searchOpen = searchText !== "";
+      window.setTimeout(() => {
+        this.datatable.setState({
+          filterList: filters,
+          page: page,
+          searchText: searchText
+        }, () => {this.resetSelection(); this.paramsRestored = true;});
+      }, 1000);
+    }
+  }
+
+  persistParamsIntoStorage(tableState) {
+    if (this.finishedLoading) {
+      let storageKey = this.props.component.storageKey;
+      let url = new URL(window.location);
+      let params = new URLSearchParams(url.search);
+      if (params.has("groupId")) {
+        let groupId = params.get("groupId");
+        storageKey += "-" + groupId;
+      }
+      window.localStorage.setItem(storageKey + "-filters", JSON.stringify(tableState.filterList));
+      window.localStorage.setItem(storageKey + "-page", tableState.page);
+      window.localStorage.setItem(storageKey + "-search", tableState.searchText === null ? "" : tableState.searchText);
     }
   }
 

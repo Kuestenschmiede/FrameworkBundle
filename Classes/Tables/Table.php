@@ -47,9 +47,9 @@ class Table
     protected $confirmationNo = '';
 
     protected $loadDataAsync = false;
-    protected $asyncDataUrl = "";
-    
-    protected $storageKey = "";
+    protected $asyncDataUrl = '';
+
+    protected $storageKey = '';
 
     /**
      * Table constructor.
@@ -374,7 +374,7 @@ class Table
     {
         $this->asyncDataUrl = $asyncDataUrl;
     }
-    
+
     /**
      * @return string
      */
@@ -382,7 +382,7 @@ class Table
     {
         return $this->storageKey;
     }
-    
+
     /**
      * @param string $storageKey
      */

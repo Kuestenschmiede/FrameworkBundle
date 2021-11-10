@@ -31,15 +31,15 @@ export default class FormRadioGroupWithImageLabelField extends Component {
         options.push(
           <React.Fragment key={index}>
             <div className={this.props.field.name + "_" + element}>
+              <input type="radio" id={this.props.field.name + '_' + index} name={this.props.field.name}
+                     defaultChecked={defaultChecked} value={element} required={this.props.field.required}
+                     onChange={this.checkRadioButton}/>
               <label htmlFor={this.props.field.name + '_' + index}>
                 <img src={this.props.field.options[element].src}
                      alt={this.props.field.options[element].alt}
                      title={this.props.field.options[element].alt}
                 />
               </label>
-              <input type="radio" id={this.props.field.name + '_' + index} name={this.props.field.name}
-                     defaultChecked={defaultChecked} value={element} required={this.props.field.required}
-                      onChange={this.checkRadioButton}/>
             </div>
           </React.Fragment>
         );

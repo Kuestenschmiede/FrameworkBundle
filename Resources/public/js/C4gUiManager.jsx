@@ -290,12 +290,15 @@ export class C4gUiManager extends Component {
     let url = window.location.href;
     let id = url.split('#')[1];
     if (typeof id !== 'undefined') {
-      try {
-        $([document.documentElement, document.body]).animate({
-          scrollTop: $('#'+id).offset().top
-        }, 200);
-        document.getElementById(id).focus();
-      } catch (error) {}
+      window.setTimeout(() =>
+      {
+        try {
+          $([document.documentElement, document.body]).animate({
+            scrollTop: $('#' + id).offset().top
+          }, 200);
+          document.getElementById(id).focus();
+        } catch (error) {}
+      }, 200);
     }
 
     if (typeof reactRenderReady === "function") {

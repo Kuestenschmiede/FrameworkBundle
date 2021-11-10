@@ -23,6 +23,9 @@ class Form implements FormInterface
     private $preservePosition = false;
     private $scrollSpy = false;
     private $scrollSpyTarget = '';
+    private $wrapper = false;
+    private $wrapperClass = '';
+    private $wrapperId = '';
 
     /**
      * If true, a div with the container class and a div with the row class will be generated into the form.
@@ -48,6 +51,9 @@ class Form implements FormInterface
             'preservePosition' => $this->preservePosition,
             'scrollSpy' => $this->scrollSpy,
             'scrollSpyTarget' => $this->scrollSpyTarget,
+            'wrapper' => $this->wrapper,
+            'wrapperClass' => $this->wrapperClass,
+            'wrapperId' => $this->wrapperId,
         ];
     }
 
@@ -241,5 +247,53 @@ class Form implements FormInterface
     public function setScrollSpyTarget(string $scrollSpyTarget): void
     {
         $this->scrollSpyTarget = $scrollSpyTarget;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isWrapper(): bool
+    {
+        return $this->wrapper;
+    }
+
+    /**
+     * @param bool $wrapper
+     */
+    public function setWrapper(bool $wrapper): void
+    {
+        $this->wrapper = $wrapper;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWrapperClass(): string
+    {
+        return $this->wrapperClass;
+    }
+
+    /**
+     * @param string $wrapperClass
+     */
+    public function setWrapperClass(string $wrapperClass): void
+    {
+        $this->wrapperClass = $wrapperClass;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWrapperId(): string
+    {
+        return $this->wrapperId;
+    }
+
+    /**
+     * @param string $wrapperId
+     */
+    public function setWrapperId(string $wrapperId): void
+    {
+        $this->wrapperId = $wrapperId;
     }
 }

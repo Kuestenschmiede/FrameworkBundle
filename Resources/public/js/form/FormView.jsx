@@ -164,12 +164,24 @@ export default class FormView extends Component {
       }
     } else {
       if (this.props.component.renderAsForm) {
-        return (
-          <form className={className} onSubmit={(event) => this.submitForm(event)}
-                method={this.props.component.method}>
-            {formContent}
-          </form>
-        );
+        let form = <form className={className}
+                         onSubmit={(event) => this.submitForm(event)}
+                         method={this.props.component.method}>
+          <div className={"container"}>
+            <div className={"row"}>
+              {formContent}
+            </div>
+          </div>
+        </form>;
+        if (this.props.component.wrapper) {
+          return (
+            <div id={this.props.component.wrapperId} className={this.props.component.wrapperClass}>
+              {form}
+            </div>
+          );
+        } else {
+          return form;
+        }
       } else {
         if (this.props.component.scrollSpy) {
           return (

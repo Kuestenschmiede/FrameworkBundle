@@ -13,18 +13,18 @@ const webpack = require("webpack");
 var path = require('path');
 var config = {
   entry: {
-    'c4g-framework': './Resources/public/js/c4g-framework-entrypoint.js'
+    'c4g-framework': './src/Resources/public/js/c4g-framework-entrypoint.js'
   },
   mode: "development",
   output: {
     filename: '[name].js',
-    path: path.resolve('./Resources/public/build/'),
+    path: path.resolve('./src/Resources/public/build/'),
     chunkFilename: '[name].bundle.js',
     publicPath: "bundles/con4gisframework/build/"
   },
   devtool: "inline-source-map",
   resolve: {
-    modules: ['node_modules', 'Resources/public/js'],
+    modules: ['node_modules', 'src/Resources/public/js'],
     extensions: ['.jsx', '.js'],
     fallback: {
       "http": false,
@@ -45,12 +45,12 @@ var config = {
         loader: "babel-loader",
         include: [
           path.resolve('.'),
-          path.resolve('./Resources/public/js/'),
-          path.resolve('./Resources/public/js/*'),
-          path.resolve('./../CoreBundle/Resources/public/vendor/js'),
-          path.resolve('./../CoreBundle/Resources/public/vendor/js/*'),
-          path.resolve('./../MapsBundle/Resources/public/js'),
-          path.resolve('./../MapsBundle/Resources/public/js/*')
+          path.resolve('./src/Resources/public/js/'),
+          path.resolve('./src/Resources/public/js/*'),
+          path.resolve('./../CoreBundle/src/Resources/public/vendor/js'),
+          path.resolve('./../CoreBundle/src/Resources/public/vendor/js/*'),
+          path.resolve('./../MapsBundle/src/Resources/public/js'),
+          path.resolve('./../MapsBundle/src/Resources/public/js/*')
         ],
         options: {
           extends: path.resolve('.babelrc')

@@ -13,17 +13,17 @@ const TerserPlugin = require('terser-webpack-plugin');
 var path = require('path');
 var config = {
   entry: {
-    'c4g-framework': './Resources/public/js/c4g-framework-entrypoint.js'
+    'c4g-framework': './src/Resources/public/js/c4g-framework-entrypoint.js'
   },
   mode: "production",
   output: {
     filename: '[name].js',
-    path: path.resolve('./Resources/public/build/'),
+    path: path.resolve('./src/Resources/public/build/'),
     chunkFilename: '[name].bundle.[contenthash].js',
     publicPath: "bundles/con4gisframework/build/"
   },
   resolve: {
-    roots: ['node_modules', 'Resources/public/js'],
+    roots: ['node_modules', 'src/Resources/public/js'],
     extensions: ['.jsx', '.js'],
     fallback: {
       "http": false,
@@ -48,11 +48,11 @@ var config = {
         loader: "babel-loader",
         include: [
           path.resolve('.'),
-          path.resolve('./Resources/public/js/'),
-          path.resolve('./Resources/public/js/*'),
-          path.resolve('./../CoreBundle/Resources/public/vendor/js/AlertHandler.js'),
-          path.resolve('./../MapsBundle/Resources/public/js'),
-          path.resolve('./../MapsBundle/Resources/public/js/components')
+          path.resolve('./src/Resources/public/js/'),
+          path.resolve('./src/Resources/public/js/*'),
+          path.resolve('./../CoreBundle/src/Resources/public/vendor/js/AlertHandler.js'),
+          path.resolve('./../MapsBundle/src/Resources/public/js'),
+          path.resolve('./../MapsBundle/src/Resources/public/js/components')
         ],
         options: {
           extends: path.resolve('.babelrc')

@@ -1,2 +1,5 @@
 node_modules/
 Resources/public/build
+src/Resources/public/build
+src/Resources/public/build/*.js
+src/Resources/public/build/*.jsx

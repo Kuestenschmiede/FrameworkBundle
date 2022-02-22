@@ -13,7 +13,7 @@ import FormView from "../form/FormView.jsx";
 import {TableButton} from "./button/TableButton.jsx";
 import {ModalDetailTableButton} from "./button/ModalDetailTableButton.jsx";
 import {PostActionButton} from "./button/PostActionButton.jsx";
-import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles';
+import {createTheme, ThemeProvider} from '@mui/material';
 import {AlertHandler} from "../../../../../../CoreBundle/src/Resources/public/vendor/js/AlertHandler.js";
 
 import Swal from 'sweetalert2';
@@ -46,7 +46,7 @@ export default class TableView extends Component {
     this.fireRequest = this.fireRequest.bind(this);
   }
 
-  getMuiTheme = () => createMuiTheme({
+  getMuiTheme = () => createTheme({
     overrides: {
       MuiPaper: {
         elevation4: {
@@ -161,14 +161,14 @@ export default class TableView extends Component {
 
     return (
       <div className={""}>
-        <MuiThemeProvider theme={this.getMuiTheme()}>
+        <ThemeProvider theme={this.getMuiTheme()}>
           <MUIDataTable data={this.state.data.filter(element => element != null)} columns={columns}
                         options={options} key={0} ref={(node) => this.datatable = node}
                         title={this.props.component.headline}
                         responsive
           >
           </MUIDataTable>
-        </MuiThemeProvider>
+        </ThemeProvider>
       </div>
     );
   }

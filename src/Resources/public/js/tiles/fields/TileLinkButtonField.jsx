@@ -10,6 +10,8 @@
 
 import React, {Component} from "react";
 
+const Condition = React.lazy(() => import("../../condition/Condition.jsx"));
+
 export default class TileLinkButtonField extends Component {
   constructor(props) {
     super(props);
@@ -46,20 +48,6 @@ export default class TileLinkButtonField extends Component {
 
   render() {
     if (this.props.field.href && this.props.field.linkText) {
-      if (this.props.field.conditionField.length === this.props.field.conditionValue.length) {
-        let render = true;
-        this.props.field.conditionField.forEach(
-          function (element, index) {
-            if (String(this.props.data[element]) !== String(this.props.field.conditionValue[index])) {
-              render = false;
-            }
-          },
-          this
-        );
-        if (!render) {
-          return null;
-        }
-      }
       let label = null;
       if (this.props.field.label) {
       label = <span className={"entry-label"}>{this.props.field.label}</span>;
@@ -107,10 +95,12 @@ export default class TileLinkButtonField extends Component {
       }
 
       return (
+        <Condition data={this.props.data} conditions={this.props.field.conditions}>
           <div className={this.props.field.wrapperClass}>
               {label}
               {anchor}
           </div>
+        </Condition>
       );
     }
     return ('');

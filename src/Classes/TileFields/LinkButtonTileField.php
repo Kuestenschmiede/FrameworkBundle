@@ -10,6 +10,9 @@
  */
 namespace con4gis\FrameworkBundle\Classes\TileFields;
 
+use con4gis\FrameworkBundle\Classes\Conditions\FieldValueCondition;
+use con4gis\FrameworkBundle\Classes\ConfigurationInterface;
+
 class LinkButtonTileField extends TileField
 {
     protected $href = '';
@@ -60,6 +63,8 @@ class LinkButtonTileField extends TileField
     protected $externalLinkFieldConditionField = [];
     protected $externalLinkFieldConditionValue = [];
 
+    private $conditions = [];
+
     const TYPE = 'linkbutton';
 
     public function getConfiguration() : array
@@ -70,8 +75,6 @@ class LinkButtonTileField extends TileField
         $config['hrefFields'] = $this->hrefFields;
         $config['buttonClass'] = $this->buttonClass;
         $config['asyncCall'] = $this->asyncCall;
-        $config['conditionField'] = $this->conditionField;
-        $config['conditionValue'] = $this->conditionValue;
         $config['conditionalClasses'] = $this->conditionalClasses;
         $config['externalLinkField'] = $this->externalLinkField;
         $config['externalLinkFieldConditionField'] = $this->externalLinkFieldConditionField;
@@ -79,6 +82,20 @@ class LinkButtonTileField extends TileField
         $config['addDataAttributes'] = $this->addDataAttributes;
         $config['hookAfterClick'] = $this->hookAfterClick;
         $config['hookName'] = $this->hookName;
+
+        if (!empty($this->conditionField && count($this->conditionField) === count($this->conditionValue))) {
+            foreach ($this->conditionField as $key => $field) {
+                $this->addCondition(new FieldValueCondition($this->conditionField[$key], $this->conditionValue[$key]));
+            }
+        }
+
+        if (!empty($this->conditions)) {
+            $conditions = [];
+            foreach ($this->conditions as $condition) {
+                $conditions[] = $condition->getConfiguration();
+            }
+            $config['conditions'] = $conditions;
+        }
 
         return $config;
     }
@@ -173,6 +190,7 @@ class LinkButtonTileField extends TileField
 
     /**
      * @return array
+     * @deprecated
      */
     public function getConditionField(): array
     {
@@ -181,6 +199,7 @@ class LinkButtonTileField extends TileField
 
     /**
      * @param string $conditionField
+     * @deprecated
      */
     public function setConditionField(string $conditionField)
     {
@@ -189,6 +208,7 @@ class LinkButtonTileField extends TileField
 
     /**
      * @return array
+     * @deprecated
      */
     public function getConditionValue(): array
     {
@@ -197,6 +217,7 @@ class LinkButtonTileField extends TileField
 
     /**
      * @param string $conditionValue
+     * @deprecated
      */
     public function setConditionValue(string $conditionValue)
     {
@@ -310,5 +331,10 @@ class LinkButtonTileField extends TileField
     public function setHookName(string $hookName): void
     {
         $this->hookName = $hookName;
+    }
+
+    public function addCondition(ConfigurationInterface $condition)
+    {
+        $this->conditions[] = $condition;
     }
 }

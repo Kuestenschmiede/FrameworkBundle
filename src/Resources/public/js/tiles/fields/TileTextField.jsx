@@ -40,7 +40,7 @@ export default class TileTextField extends Component {
         value = this.format(value);
       }
       return (
-        <Condition data={this.props.data} conditions={this.props.field.conditions} test={this.props.field.name}>
+        <Condition data={this.props.data} conditions={this.props.field.conditions}>
           <div className={this.props.field.wrapperClass}>
               {label}
             <span className={this.props.field.class} itemProp={itemProp}>

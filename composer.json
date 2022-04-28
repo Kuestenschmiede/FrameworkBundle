@@ -20,7 +20,7 @@
   "require": {
     "php": "^7.4 || ^8.0",
     "contao/core-bundle": "^4.9",
-    "con4gis/core": "^v5.0.15",
+    "con4gis/core": "^v6.0",
     "con4gis/maps": "^v8.0.35",
     "ext-json": "*",
     "contao-components/jquery": "^3.6",

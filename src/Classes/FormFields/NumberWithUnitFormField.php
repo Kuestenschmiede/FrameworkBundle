@@ -102,7 +102,7 @@ class NumberWithUnitFormField extends FormField
     }
 
     /**
-     * @param null $min
+     * @param int $min
      * @return NumberWithUnitFormField
      */
     public function setMin($min)
@@ -121,7 +121,7 @@ class NumberWithUnitFormField extends FormField
     }
 
     /**
-     * @param null $max
+     * @param int $max
      * @return NumberWithUnitFormField
      */
     public function setMax($max)

@@ -11,6 +11,8 @@
 import React, {Component} from "react";
 import checkIfFieldIsRendered from "../../util/conditions";
 
+const Condition = React.lazy(() => import("../../condition/Condition.jsx"));
+
 export default class FormNumberField extends Component {
   constructor(props) {
     super(props);
@@ -23,11 +25,6 @@ export default class FormNumberField extends Component {
   }
 
   render() {
-    // check condition
-    if (!checkIfFieldIsRendered(this.props.field, this.props.data, this.props.fields)) {
-      return null;
-    }
-
     let label = null;
     if (this.props.field.label) {
       label = (<React.Fragment>
@@ -40,20 +37,22 @@ export default class FormNumberField extends Component {
     }
     return (
       <React.Fragment>
-        <div className={(this.props.field.className ? this.props.field.className + " " : "") + "c4g-form-field form-group"}>
-          {label}
-          <input type="number"
-                 id={this.props.field.name}
-                 name={this.props.field.name}
-                 required={this.props.field.required}
-                 defaultValue={this.props.data[this.props.field.name] || this.props.field.value}
-                 onChange={this.handleChange}
-                 min={this.props.field.min}
-                 max={this.props.field.max}
-                 step={this.props.field.step}
-                 className={"form-control"}/>
-          {description}
-        </div>
+        <Condition data={this.props.data} conditions={this.props.field.conditions} field={this.props.field.name}>
+          <div className={(this.props.field.className ? this.props.field.className + " " : "") + "c4g-form-field form-group"}>
+            {label}
+            <input type="number"
+                   id={this.props.field.name}
+                   name={this.props.field.name}
+                   required={this.props.field.required}
+                   defaultValue={this.props.data[this.props.field.name] || this.props.field.value}
+                   onChange={this.handleChange}
+                   min={this.props.field.min}
+                   max={this.props.field.max}
+                   step={this.props.field.step}
+                   className={"form-control"}/>
+            {description}
+          </div>
+        </Condition>
       </React.Fragment>
     );
   }

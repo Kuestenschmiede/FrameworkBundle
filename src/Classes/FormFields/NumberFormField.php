@@ -10,6 +10,8 @@
  */
 namespace con4gis\FrameworkBundle\Classes\FormFields;
 
+use con4gis\FrameworkBundle\Classes\Conditions\FieldValueCondition;
+use con4gis\FrameworkBundle\Classes\ConfigurationInterface;
 use con4gis\FrameworkBundle\Classes\Utility\RegularExpression;
 
 class NumberFormField extends FormField
@@ -19,15 +21,33 @@ class NumberFormField extends FormField
     protected $max = null;
     protected $step = null;
 
+    private array $conditions = [];
+
     const TYPE = 'number';
 
     public function getConfiguration() : array
     {
         $config = parent::getConfiguration();
+        unset($config['conditionField']);
+        unset($config['conditionValue']);
         $config['value'] = $this->value;
         $config['min'] = $this->min;
         $config['max'] = $this->max;
         $config['step'] = $this->step;
+
+        if (!empty($this->conditionField && count($this->conditionField) === count($this->conditionValue))) {
+            foreach ($this->conditionField as $key => $field) {
+                $this->addCondition(new FieldValueCondition($this->conditionField[$key], $this->conditionValue[$key]));
+            }
+        }
+
+        if (!empty($this->conditions)) {
+            $conditions = [];
+            foreach ($this->conditions as $condition) {
+                $conditions[] = $condition->getConfiguration();
+            }
+            $config['conditions'] = $conditions;
+        }
 
         return $config;
     }
@@ -139,5 +159,10 @@ class NumberFormField extends FormField
         $this->step = $step;
 
         return $this;
+    }
+
+    public function addCondition(ConfigurationInterface $condition)
+    {
+        $this->conditions[] = $condition;
     }
 }

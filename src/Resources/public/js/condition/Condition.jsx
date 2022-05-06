@@ -27,7 +27,7 @@ export default class Condition extends Component {
         }
       }, this);
       return met;
-    } else if (condition.field && condition.value) {
+    } else if (typeof condition.field !== 'undefined' && typeof condition.value !== 'undefined') {
       if (condition.not !== true) {
         if (String(this.props.data[condition.field]) !== String(condition.value)) {
           return false;

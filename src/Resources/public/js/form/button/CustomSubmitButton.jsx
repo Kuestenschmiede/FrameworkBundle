@@ -104,30 +104,32 @@ export default class CustomSubmitButton extends Component {
       for (let fieldId in fields) {
         if (fields.hasOwnProperty(fieldId)) {
           const field = fields[fieldId];
-          if (field.required && hasConditions(field, data, this.props.form.props.component.fields)) {
-            let invalid = false;
-            if (field.type === "number") {
-              if (data[field.name] === null
-                || typeof data[field.name] === "undefined"
-                || data[field.name] === ""
-              ) {
-                invalid = true;
+          if (field.name) {
+            const fieldNode = $("#" + field.name);
+            if (field.required && fieldNode.length && hasConditions(field, data, this.props.form.props.component.fields)) {
+              let invalid = false;
+              if (field.type === "number") {
+                if (data[field.name] === null
+                  || typeof data[field.name] === "undefined"
+                  || data[field.name] === ""
+                ) {
+                  invalid = true;
+                }
+              } else {
+                if (!data[field.name]) {
+                  invalid = true;
+                }
               }
-            } else {
-              if (!data[field.name]) {
-                invalid = true;
+              if (invalid) {
+                fieldNode.focus();
+                fieldNode.keyup(function () {
+                  $(this).removeClass("is-invalid");
+                  $(this).off("keyup");
+                });
+                fieldNode.addClass("is-invalid");
+                this.callSubmitFailed(data, [field]);
+                return false;
               }
-            }
-            if (invalid) {
-              const fieldNode = $("#" + field.name);
-              fieldNode.focus();
-              fieldNode.keyup(function(){
-                $(this).removeClass("is-invalid");
-                $(this).off("keyup");
-              });
-              fieldNode.addClass("is-invalid");
-              this.callSubmitFailed(data, [field]);
-              return false;
             }
           }
         }

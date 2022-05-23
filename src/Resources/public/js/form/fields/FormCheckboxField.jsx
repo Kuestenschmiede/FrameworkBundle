@@ -11,6 +11,8 @@
 import React, {Component} from "react";
 import checkIfFieldIsRendered from "../../util/conditions";
 
+const Condition = React.lazy(() => import("../../condition/Condition.jsx"));
+
 export default class FormCheckboxField extends Component {
   constructor(props) {
     super(props);
@@ -19,11 +21,6 @@ export default class FormCheckboxField extends Component {
   }
 
   render() {
-    // check condition
-    if (!checkIfFieldIsRendered(this.props.field, this.props.data, this.props.fields)) {
-      return null;
-    }
-
     let label = null;
     if (this.props.field.label) {
       label = (<label htmlFor={this.props.field.name} className={"form-check-label c4g-form-check-label "}>{this.props.field.label}</label>);
@@ -34,14 +31,16 @@ export default class FormCheckboxField extends Component {
     }
     return (
         <React.Fragment>
-          <div className={(this.props.field.className ? this.props.field.className + " " : "") + "c4g-form-field form-group form-check"}>
+          <Condition data={this.props.data} conditions={this.props.field.conditions} field={this.props.field.name}>
+            <div className={(this.props.field.className ? this.props.field.className + " " : "") + "c4g-form-field form-group form-check"}>
 
-            <input type="checkbox" id={this.props.field.name} name={this.props.field.name}
-                   defaultChecked={this.props.data[this.props.field.name] || this.props.field.checked}
-                   required={this.props.field.required} onClick={this.clickCheckbox}
-            className={"form-check-input"}/>
-            {label} {description}
-          </div>
+              <input type="checkbox" id={this.props.field.name} name={this.props.field.name}
+                     defaultChecked={this.props.data[this.props.field.name] || this.props.field.checked}
+                     required={this.props.field.required} onClick={this.clickCheckbox}
+              className={"form-check-input"}/>
+              {label} {description}
+            </div>
+          </Condition>
         </React.Fragment>
     );
   }

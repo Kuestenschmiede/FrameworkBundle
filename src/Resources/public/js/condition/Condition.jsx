@@ -19,6 +19,17 @@ export default class Condition extends Component {
   }
 
   isConditionMet(condition){
+    let fieldValue, conditionValue;
+    if (typeof this.props.data[condition.field] === 'object') {
+      if (typeof this.props.data[condition.field].value !== 'undefined') {
+        fieldValue = String(this.props.data[condition.field].value);
+      } else {
+        fieldValue = null;
+      }
+    } else {
+      fieldValue = String(this.props.data[condition.field]);
+    }
+    conditionValue = String(condition.value);
     if (condition.type === 'or' && condition.conditions.length > 1) {
       let met = false;
       condition.conditions.forEach(function(element) {
@@ -29,11 +40,11 @@ export default class Condition extends Component {
       return met;
     } else if (typeof condition.field !== 'undefined' && typeof condition.value !== 'undefined') {
       if (condition.not !== true) {
-        if (String(this.props.data[condition.field]) !== String(condition.value)) {
+        if (fieldValue !== conditionValue) {
           return false;
         }
       } else {
-        if (String(this.props.data[condition.field]) === String(condition.value)) {
+        if (fieldValue === conditionValue) {
           return false;
         }
       }

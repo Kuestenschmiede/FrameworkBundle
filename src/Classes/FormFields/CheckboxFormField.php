@@ -10,9 +10,14 @@
  */
 namespace con4gis\FrameworkBundle\Classes\FormFields;
 
+use con4gis\FrameworkBundle\Classes\Conditions\FieldValueCondition;
+use con4gis\FrameworkBundle\Classes\ConfigurationInterface;
+
 class CheckboxFormField extends FormField
 {
     protected $checked = true;
+
+    private array $conditions = [];
 
     const TYPE = 'checkbox';
 
@@ -20,6 +25,20 @@ class CheckboxFormField extends FormField
     {
         $config = parent::getConfiguration();
         $config['checked'] = $this->checked;
+
+        if (!empty($this->conditionField && count($this->conditionField) === count($this->conditionValue))) {
+            foreach ($this->conditionField as $key => $field) {
+                $this->addCondition(new FieldValueCondition($this->conditionField[$key], $this->conditionValue[$key]));
+            }
+        }
+
+        if (!empty($this->conditions)) {
+            $conditions = [];
+            foreach ($this->conditions as $condition) {
+                $conditions[] = $condition->getConfiguration();
+            }
+            $config['conditions'] = $conditions;
+        }
 
         return $config;
     }
@@ -46,5 +65,10 @@ class CheckboxFormField extends FormField
         $this->checked = $checked;
 
         return $this;
+    }
+
+    public function addCondition(ConfigurationInterface $condition)
+    {
+        $this->conditions[] = $condition;
     }
 }

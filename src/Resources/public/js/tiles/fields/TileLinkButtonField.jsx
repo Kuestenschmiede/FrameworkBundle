@@ -110,7 +110,7 @@ export default class TileLinkButtonField extends Component {
   executeAsyncCall(href) {
     const scope = this;
 
-    jQuery.post(href).done((data) => {
+    jQuery.post(href, this.props.data).done((data) => {
       if (data.updatedData) {
         let newDataEntry = this.props.data;
         let newData = this.props.list.props.data;

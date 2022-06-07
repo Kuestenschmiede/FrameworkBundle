@@ -110,31 +110,50 @@ export default class TileLinkButtonField extends Component {
   executeAsyncCall(href) {
     const scope = this;
 
-    jQuery.post(href, this.props.data).done((data) => {
-      if (data.updatedData) {
-        let newDataEntry = this.props.data;
-        let newData = this.props.list.props.data;
-        if (data.updateType === "single") {
-          for (let key in data.updatedData) {
-            if (data.updatedData.hasOwnProperty(key)) {
-              newDataEntry[key] = data.updatedData[key];
-            }
-          }
-          for (let i = 0; i < newData.length; i++) {
-            if (newData[i].id === newDataEntry.id) {
-              newData[i] = newDataEntry;
-              break;
-            }
-          }
-        } else if (data.updateType === "all") {
-          newData = data.updatedData;
-        } else {
-          // if nothing set, fall back to all
-          newData = data.updatedData;
-        }
+    let data = new FormData();
+    Object.entries(this.props.data).forEach((entry) => {
+      data.set(entry[0], String(entry[1]));
+    });
 
-        scope.props.list.props.setFunction(scope.props.list.props.name, newData, []);
-      }
+    fetch(href, {
+      method: 'POST',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'include',
+      headers: {
+        'X-Requested-With' : 'XMLHttpRequest'
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: data
+    }).then((response) => {
+      try {
+        response.json().then((json) => {
+          if (json.updatedData) {
+            let newDataEntry = this.props.data;
+            let newData = this.props.list.props.data;
+            if (json.updateType === "single") {
+              for (let key in json.updatedData) {
+                if (json.updatedData.hasOwnProperty(key)) {
+                  newDataEntry[key] = json.updatedData[key];
+                }
+              }
+              for (let i = 0; i < newData.length; i++) {
+                if (newData[i].id === newDataEntry.id) {
+                  newData[i] = newDataEntry;
+                  break;
+                }
+              }
+            } else if (json.updateType === "all") {
+              newData = json.updatedData;
+            } else {
+              // if nothing set, fall back to all
+              newData = json.updatedData;
+            }
+            scope.props.list.props.setFunction(scope.props.list.props.name, newData, []);
+          }
+        });
+      } catch (e) {}
     });
 
     // check for hook that needs to be executed

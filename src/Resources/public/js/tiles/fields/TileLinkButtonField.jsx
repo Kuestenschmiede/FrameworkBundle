@@ -85,9 +85,9 @@ export default class TileLinkButtonField extends Component {
           } else if (this.props.data['image']) {
             image = this.props.data['image'].src;
           }
-          anchor = <a className={anchorClass} data-image={image} data-name={this.props.data['name']} data-moreurl={href} onClick={(event) => {event.preventDefault();this.executeAsyncCall(href);}} href={"#"} rel={"noreferrer noopener"}>{this.props.field.linkText}</a>;
+          anchor = <button type={'button'} className={anchorClass} data-image={image} data-name={this.props.data['name']} data-moreurl={href} onClick={(event) => {event.preventDefault();this.executeAsyncCall(href);}} rel={"noreferrer noopener"}>{this.props.field.linkText}</button>;
         } else {
-          anchor = <a className={anchorClass} onClick={(event) => {event.preventDefault();this.executeAsyncCall(href);}} href={"#"} rel={"noreferrer noopener"}>{this.props.field.linkText}</a>;
+          anchor = <button type={'button'} className={anchorClass} onClick={(event) => {event.preventDefault();this.executeAsyncCall(href);}} rel={"noreferrer noopener"}>{this.props.field.linkText}</button>;
         }
 
       } else {

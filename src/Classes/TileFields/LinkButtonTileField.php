@@ -65,6 +65,8 @@ class LinkButtonTileField extends TileField
 
     private $conditions = [];
 
+    private string $redirectPageOnSuccess = '';
+
     const TYPE = 'linkbutton';
 
     public function getConfiguration() : array
@@ -82,6 +84,7 @@ class LinkButtonTileField extends TileField
         $config['addDataAttributes'] = $this->addDataAttributes;
         $config['hookAfterClick'] = $this->hookAfterClick;
         $config['hookName'] = $this->hookName;
+        $config['redirectPageOnSuccess'] = $this->redirectPageOnSuccess;
 
         if (!empty($this->conditionField && count($this->conditionField) === count($this->conditionValue))) {
             foreach ($this->conditionField as $key => $field) {
@@ -336,5 +339,21 @@ class LinkButtonTileField extends TileField
     public function addCondition(ConfigurationInterface $condition)
     {
         $this->conditions[] = $condition;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRedirectPageOnSuccess(): string
+    {
+        return $this->redirectPageOnSuccess;
+    }
+
+    /**
+     * @param string $redirectPageOnSuccess
+     */
+    public function setRedirectPageOnSuccess(string $redirectPageOnSuccess): void
+    {
+        $this->redirectPageOnSuccess = $redirectPageOnSuccess;
     }
 }

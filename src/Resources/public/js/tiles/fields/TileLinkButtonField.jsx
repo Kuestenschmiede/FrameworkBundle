@@ -129,6 +129,9 @@ export default class TileLinkButtonField extends Component {
     }).then((response) => {
       try {
         response.json().then((json) => {
+          if (String(this.props.field.redirectPageOnSuccess) !== '') {
+            window.location = String(this.props.field.redirectPageOnSuccess);
+          }
           if (json.updatedData) {
             let newDataEntry = this.props.data;
             let newData = this.props.list.props.data;

@@ -58,20 +58,20 @@ abstract class FormField implements ConfigurationInterface
     public function getConfiguration() : array
     {
         return [
-            'name' => $this->name,
-            'label' => $this->label,
-            'description' => $this->description,
-            'descriptionLink' => $this->descriptionLink,
-            'descriptionLinkLabel' => $this->descriptionLinkLabel,
-            'required' => $this->required,
-            'requiredPattern' => $this->patternRequired,
-            'className' => $this->className,
-            'conditionField' => $this->conditionField,
-            'conditionValue' => $this->conditionValue,
-            'wrappingDiv' => $this->wrappingDiv,
-            'wrappingDivClass' => $this->wrappingDivClass,
-            'hintText' => $this->hintText,
-            'type' => $this::TYPE,
+            'name' => $this->name ?: '',
+            'label' => $this->label ?: '',
+            'description' => $this->description ?: '',
+            'descriptionLink' => $this->descriptionLink ?: '',
+            'descriptionLinkLabel' => $this->descriptionLinkLabel ?: '',
+            'required' => $this->required ?: false,
+            'requiredPattern' => $this->patternRequired ?: false,
+            'className' => $this->className ?: '',
+            'conditionField' => $this->conditionField ?: [],
+            'conditionValue' => $this->conditionValue ?: [],
+            'wrappingDiv' => $this->wrappingDiv ?: '',
+            'wrappingDivClass' => $this->wrappingDivClass ?: '',
+            'hintText' => $this->hintText ?: '',
+            'type' => $this::TYPE ?: '',
         ];
     }
 

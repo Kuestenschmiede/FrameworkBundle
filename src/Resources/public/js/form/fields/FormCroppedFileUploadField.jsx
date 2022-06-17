@@ -88,6 +88,7 @@ export default class FormCroppedFileUploadField extends Component {
 
   // If you setState the crop in here you should return false.
   onImageLoaded = image => {
+    console.log('onImageLoaded');
     this.imageRef = image;
     let newCrop = JSON.parse(JSON.stringify(this.state.crop));
     if (this.props.data[this.props.field.name]) {
@@ -103,6 +104,7 @@ export default class FormCroppedFileUploadField extends Component {
   };
 
   async onCropComplete (crop) {
+    console.log('onCropComplete');
     await this.makeClientCrop(crop);
     let imageData = {
       imageData: this.state.src,
@@ -120,10 +122,12 @@ export default class FormCroppedFileUploadField extends Component {
   };
 
   onCropChange = (crop, percentCrop) => {
+    console.log('onCropChange');
     this.setState({ crop: percentCrop });
   };
 
   async makeClientCrop(crop) {
+    console.log('makeClientCrop');
     if (this.imageRef && crop.width && crop.height) {
       const croppedImageUrl = await this.getCroppedImg(
         this.imageRef,
@@ -210,7 +214,9 @@ export default class FormCroppedFileUploadField extends Component {
             onImageLoaded={this.onImageLoaded}
             onComplete={this.onCropComplete}
             onChange={this.onCropChange}
-          />
+          >
+            <img src={src} onLoad={this.onImageLoaded}/>
+          </ReactCrop>
         )}
         {croppedImageUrl && (
           <img alt="Crop" style={{ maxWidth: '100%' }} src={croppedImageUrl} />

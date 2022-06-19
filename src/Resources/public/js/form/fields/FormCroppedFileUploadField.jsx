@@ -72,7 +72,7 @@ export default class FormCroppedFileUploadField extends Component {
               e.target.files[0],
               img => {
                 var base64data = img.toDataURL(imageType);
-                this.setState({ src: base64data, imageName: imageName, scale: 1, rotate: 0 });
+                this.setState({ src: base64data, imageName: imageName, scale: 1, rotate: 0});
               },
               { orientation: true, canvas: true }
           );
@@ -97,8 +97,7 @@ export default class FormCroppedFileUploadField extends Component {
 
   // If you setState the crop in here you should return false.
   onImageLoaded = img => {
-    var image = img.currentTarget;
-    this.imageRef = image;
+    this.imageRef = img.currentTarget;
     let newCrop = JSON.parse(JSON.stringify(this.state.crop));
     if (this.props.data[this.props.field.name]) {
       let importantPart = this.props.data[this.props.field.name].importantPart;
@@ -115,12 +114,13 @@ export default class FormCroppedFileUploadField extends Component {
   async onCropComplete (crop) {
     await this.makeClientCrop(crop);
     let imageData = {
-      imageData: this.state.src,
+      imageData: this.state.croppedImageUrl ? this.state.croppedImageUrl : this.state.src,
+      path: this.state.src,
       importantPart: {
-        x: this.imageRef ? crop.x / this.imageRef.width : crop.x,
-        y: this.imageRef ? crop.y / this.imageRef.height : crop.y,
-        width: this.imageRef ? crop.width / this.imageRef.width : crop.width,
-        height: this.imageRef ? crop.height / this.imageRef.height : crop.height
+        x: this.imageRef ? crop.x / this.imageRef.width : 0,
+        y: this.imageRef ? crop.y / this.imageRef.height : 0,
+        width: this.imageRef ? crop.width / this.imageRef.width : 1,
+        height: this.imageRef ? crop.height / this.imageRef.height : 1
       },
       imageName: this.state.imageName
     };
@@ -343,17 +343,22 @@ export default class FormCroppedFileUploadField extends Component {
                   style={{ transform: `scale(${this.state.scale}) rotate(${this.state.rotate}deg)`,
                     border: '1px solid black',
                     objectFit: 'contain',
-                    maxWidth: '100%'}}
+                    width: this.props.field.targetWidth / 5+'px',
+                    maxheight: this.props.field.targetHeight / 5+'px',
+                    maxWidth: 'auto'
+                  }}
                   onLoad={this.onImageLoaded}
               />
               </ReactCrop>
           )}
-          <label hidden={!this.state.croppedImageUrl}>Bild bearbeitet</label>
+          <label hidden={!this.state.croppedImageUrl}>Vorschau</label>
           {this.state.croppedImageUrl && (
             <img alt="Crop" src={this.state.croppedImageUrl} style={{
                   border: '1px solid black',
                   objectFit: 'contain',
-                  maxWidth: '100%'
+                  width: this.props.field.targetWidth / 5+'px',
+                  maxHeight: this.props.field.targetHeight / 5+'px',
+                  maxWidth: 'auto'
                 }}
             />
           )}

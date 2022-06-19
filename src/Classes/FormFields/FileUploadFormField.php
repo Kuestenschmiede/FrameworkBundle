@@ -19,6 +19,8 @@ class FileUploadFormField extends FormField
     protected $uploadUrl = '';
     protected $titleFileTooBig = '';
     protected $textFileTooBig = '';
+    protected $targetWidth = '50vw';
+    protected $targetHeight = 'auto';
 
     const TYPE = 'fileupload';
 
@@ -32,6 +34,8 @@ class FileUploadFormField extends FormField
         $config['uploadUrl'] = $this->uploadUrl;
         $config['titleFileTooBig'] = $this->titleFileTooBig;
         $config['textFileTooBig'] = $this->textFileTooBig;
+        $config['targetWidth'] = $this->targetWidth;
+        $config['targetHeight'] = $this->targetHeight;
 
         return $config;
     }
@@ -163,5 +167,37 @@ class FileUploadFormField extends FormField
     public function setTextFileTooBig(string $textFileTooBig): void
     {
         $this->textFileTooBig = $textFileTooBig;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTargetWidth(): string
+    {
+        return $this->targetWidth;
+    }
+
+    /**
+     * @param string $targetWidth
+     */
+    public function setTargetWidth(string $targetWidth): void
+    {
+        $this->targetWidth = $targetWidth;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTargetHeight(): string
+    {
+        return $this->targetHeight;
+    }
+
+    /**
+     * @param string $targetHeight
+     */
+    public function setTargetHeight(string $targetHeight): void
+    {
+        $this->targetHeight = $targetHeight;
     }
 }

@@ -24,12 +24,17 @@ class ImageGalleryUploadFormField extends FormField
     protected $titleFileTooBig = '';
     protected $textFileTooBig = '';
 
+    protected $targetWidth = '50vw';
+    protected $targetHeight = 'auto';
+
     public function getConfiguration(): array
     {
         $conf = parent::getConfiguration();
         $conf['maxImages'] = $this->maxImages;
         $conf['titleFileTooBig'] = $this->titleFileTooBig;
         $conf['textFileTooBig'] = $this->textFileTooBig;
+        $conf['targetWidth'] = $this->targetWidth;
+        $conf['targetHeight'] = $this->targetHeight;
 
         return $conf;
     }
@@ -81,4 +86,37 @@ class ImageGalleryUploadFormField extends FormField
     {
         $this->textFileTooBig = $textFileTooBig;
     }
+
+    /**
+     * @return string
+     */
+    public function getTargetWidth(): string
+    {
+        return $this->targetWidth;
+    }
+
+    /**
+     * @param string $targetWidth
+     */
+    public function setTargetWidth(string $targetWidth): void
+    {
+        $this->targetWidth = $targetWidth;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTargetHeight(): string
+    {
+        return $this->targetHeight;
+    }
+
+    /**
+     * @param string $targetHeight
+     */
+    public function setTargetHeight(string $targetHeight): void
+    {
+        $this->targetHeight = $targetHeight;
+    }
+
 }

@@ -25,6 +25,11 @@ export default class FormRadioGroupField extends Component {
     }
     let options = [];
 
+    const cachedData = localStorage.getItem('form-radiogroup-'+this.props.field.name);
+    if (cachedData && this.props.field.cache) {
+      this.props.data[this.props.field.name] = JSON.parse(cachedData);
+    }
+
     if (this.props.field.options) {
       let keys = Object.keys(this.props.field.options);
       keys.forEach((element, index) => {
@@ -74,6 +79,9 @@ export default class FormRadioGroupField extends Component {
         let value = document.getElementById(this.props.form.props.name + "_" + this.props.field.name + '_' + element).value;
         this.props.data[this.props.field.name] = value;
         this.props.form.props.updateFunction(this.props.form.props.name, this.props.data, this.props.field);
+        if (this.props.field.cache) {
+          localStorage.setItem('form-radiogroup-'+this.props.field.name, JSON.stringify(this.props.data));
+        }
       }
     });
 

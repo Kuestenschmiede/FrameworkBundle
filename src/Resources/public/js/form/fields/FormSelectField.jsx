@@ -21,6 +21,9 @@ export default class FormSelectField extends Component {
 
   handleChange(data, action) {
     this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: data}, this.props.field);
+    if (this.props.field.cache) {
+      localStorage.setItem('form-select-'+this.props.field.name, JSON.stringify(data));
+    }
     if (this.props.field.instantRedirectUrl) {
       window.location = this.props.field.instantRedirectUrl.replace('{value}', data.value);
     }
@@ -82,8 +85,14 @@ export default class FormSelectField extends Component {
     }
     let options = [];
     let defaultValue = null;
-
+    let defaultValues = null;
     if (this.props.field.options) {
+      const cachedData = localStorage.getItem('form-select-'+this.props.field.name);
+      if (cachedData && this.props.field.cache) {
+        defaultValues = JSON.parse(cachedData);
+        this.props.data[this.props.field.name] = defaultValues;
+      }
+
       if (this.props.field.grouped) {
         options = this.props.field.options;
       } else {
@@ -93,10 +102,18 @@ export default class FormSelectField extends Component {
         let keys = Object.keys(this.props.field.options);
         keys.forEach((element, index) => {
           options.push({value: this.props.field.options[element].value, label: this.props.field.options[element].label});
-          if (this.props.data[this.props.field.name] === this.props.field.options[element].value) {
+
+          if (defaultValues) {
+             defaultValues.forEach((cachedElement, idx) => {
+               if (cachedElement.value === this.props.field.options[element].value) {
+                 defaultValue = {value: this.props.field.options[element].value, label: this.props.field.options[element].label};
+               }
+             });
+          } else if (this.props.data[this.props.field.name] === this.props.field.options[element].value) {
             defaultValue = {value: this.props.field.options[element].value, label: this.props.field.options[element].label};
           }
         });
+
         if (!defaultValue && this.props.field.selected) {
           // set default value for when no value is saved yet
           let defaultOption = this.props.field.selected;
@@ -132,14 +149,16 @@ export default class FormSelectField extends Component {
             optionLabel = this.props.data[this.props.field.name];
           }
         }
+
+        let optionValues = defaultValue ? defaultValue : optionValue;
         selectNode = <select tabIndex={-1}
                              autoComplete={"off"}
                              style={{ opacity: 0, height: 0, pointerEvents: "none"}}
-                             value={optionValue}
+                             value={optionValues}
                              required={this.props.field.required}
                              onChange={this.handleChangeDummy}
-                             aria-label={ariaLabel}>
-          <option value={optionValue}>{optionLabel}</option>
+                             aria-label={ariaLabel}>;
+          <option value={optionValues}>{optionLabel}</option>
         </select>;
       }
 
@@ -158,7 +177,7 @@ export default class FormSelectField extends Component {
             <Select id={this.props.field.name} name={name}
                     options={options} isMulti={this.props.field.multiple}
                     required={this.props.field.required} onChange={this.handleChange}
-                    defaultValue={this.props.field.multiple ? this.props.data[this.props.field.name] : defaultValue}
+                    defaultValue={this.props.data[this.props.field.name]}
                     placeholder={this.props.field.placeholder}
                     aria-label={ariaLabel}>
             </Select>

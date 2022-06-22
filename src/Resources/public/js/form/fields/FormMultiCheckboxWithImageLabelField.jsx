@@ -24,6 +24,12 @@ export default class FormMultiCheckboxWithImageLabelField extends Component {
       label = (<span className={'custom-label'} key={'label'}>{this.props.field.label}</span>);
     }
     let options = [];
+
+    const cachedData = localStorage.getItem('form-multicheckbox-'+this.props.field.name);
+    if (cachedData && this.props.field.cache) {
+      this.props.data[this.props.field.name] = JSON.parse(cachedData);
+    }
+
     if (this.props.field.options) {
       let keys = Object.keys(this.props.field.options);
       keys.forEach((element, index) => {
@@ -52,6 +58,7 @@ export default class FormMultiCheckboxWithImageLabelField extends Component {
     if (this.props.field.label) {
       description = (<span className={"field-description"} key={'description'}>{this.props.field.description}</span>);
     }
+
     return (
         <React.Fragment>
           <div className={this.props.field.className}>
@@ -90,5 +97,8 @@ export default class FormMultiCheckboxWithImageLabelField extends Component {
     }
 
     this.props.form.props.updateFunction(this.props.form.props.name, data, this.props.field);
+    if (this.props.field.cache) {
+      localStorage.setItem('form-multicheckbox-'+this.props.field.name, JSON.stringify(data));
+    }
   }
 }

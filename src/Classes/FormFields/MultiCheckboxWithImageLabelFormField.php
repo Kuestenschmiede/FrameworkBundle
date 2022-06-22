@@ -16,6 +16,8 @@ class MultiCheckboxWithImageLabelFormField extends FormField
 
     protected $optionClass = '';
 
+    protected $cache = false;
+
     const TYPE = 'checkboximage';
 
     public function getConfiguration() : array
@@ -23,6 +25,7 @@ class MultiCheckboxWithImageLabelFormField extends FormField
         $config = parent::getConfiguration();
         $config['options'] = $this->options;
         $config['optionClass'] = $this->optionClass;
+        $config['cache'] = $this->cache;
 
         return $config;
     }
@@ -57,5 +60,21 @@ class MultiCheckboxWithImageLabelFormField extends FormField
     public function setOptionClass(string $optionClass): void
     {
         $this->optionClass = $optionClass;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCache(): bool
+    {
+        return $this->cache;
+    }
+
+    /**
+     * @param bool $cache
+     */
+    public function setCache(bool $cache): void
+    {
+        $this->cache = $cache;
     }
 }

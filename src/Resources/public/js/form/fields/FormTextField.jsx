@@ -20,6 +20,10 @@ export default class FormTextField extends Component {
 
   handleChange(event) {
     this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: event.target.value}, this.props.field);
+
+    if (this.props.field.cache) {
+      localStorage.setItem('form-text-'+this.props.field.name, event.target.value);
+    }
     if (this.props.field.dynamicFieldlist) {
       let postData = {[this.props.field.name]: event.target.value};
       if (this.props.field.dynamicFieldlistAdditionalFields
@@ -30,6 +34,7 @@ export default class FormTextField extends Component {
           postData[addFields[i]] = this.props.data[addFields[i]];
         }
       }
+
       jQuery.post(this.props.field.dynamicFieldlistUrl, postData)
         .done((responseData) => {
           if (responseData && responseData.matchingFields
@@ -74,7 +79,12 @@ export default class FormTextField extends Component {
       description = (<small className={"field-description form-text text-muted"}>{this.props.field.description} {descriptionLink}</small>);
     }
 
-    let content = <React.Fragment>
+    const cachedData = localStorage.getItem('form-text-'+this.props.field.name);
+    if (cachedData && this.props.field.cache) {
+      this.props.data[this.props.field.name] = cachedData;
+    }
+
+    let content = <React.Fragment>!isOpen
       <div className={(this.props.field.className ? this.props.field.className + " " : "") + "c4g-form-field"}>
         {label}
         {this.props.errorText && typeof this.props.errorText === "string" && <div className={"text-danger"}>{this.props.errorText}</div>}
@@ -85,6 +95,7 @@ export default class FormTextField extends Component {
                defaultValue={this.props.data[this.props.field.name] || this.props.field.value}
                pattern={this.props.field.pattern}
                onChange={this.handleChange}
+               onFocus={this.handleChange}
                placeholder={this.props.field.placeholder}
                className={"c4g-form-control c4g-form-input" + ((this.props.errorText && typeof this.props.errorText === "string") ? " is-invalid" : "")}
                maxLength={this.props.field.maxLength}

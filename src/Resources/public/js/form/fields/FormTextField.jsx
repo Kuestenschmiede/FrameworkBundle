@@ -84,7 +84,7 @@ export default class FormTextField extends Component {
       this.props.data[this.props.field.name] = cachedData;
     }
 
-    let content = <React.Fragment>!isOpen
+    let content = <React.Fragment>
       <div className={(this.props.field.className ? this.props.field.className + " " : "") + "c4g-form-field"}>
         {label}
         {this.props.errorText && typeof this.props.errorText === "string" && <div className={"text-danger"}>{this.props.errorText}</div>}

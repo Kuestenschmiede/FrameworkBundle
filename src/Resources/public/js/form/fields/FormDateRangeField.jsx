@@ -57,10 +57,10 @@ export default class FormDateRangeField extends Component {
 
     if (this.props.field.cache) {
       field.onChange = this.cacheFromField;
-      const cachedData = localStorage.getItem('form-daterange-from-'+this.props.field.name);
+      const cachedData = localStorage.getItem('form-daterange-'+field.name);
       if (cachedData) {
         field.selected = new Date(cachedData * 1000);
-        field.fromValue = field.selected ;
+        //field.value = cachedData;
       }
     }
 
@@ -74,10 +74,10 @@ export default class FormDateRangeField extends Component {
 
     if (this.props.field.cache) {
       field.onChange = this.cacheUntilField;
-      const cachedData = localStorage.getItem('form-daterange-until-'+this.props.field.name);
+      const cachedData = localStorage.getItem('form-daterange-'+field.name);
       if (cachedData) {
         field.selected = new Date(cachedData * 1000);
-        field.untilValue = field.selected ;
+        //field.value = cachedData;
       }
     }
 
@@ -86,18 +86,18 @@ export default class FormDateRangeField extends Component {
 
   cacheFromField(date, event) {
     if (date !== null) {
-      this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: (date.getTime() / 1000)}, this.props.field);
+      this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.fromFieldname]: (date.getTime() / 1000)}, JSON.parse(JSON.stringify(this.props.field)));
     } else {
-      this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: ''}, this.props.field);
+      this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.fromFieldname]: ''}, JSON.parse(JSON.stringify(this.props.field)));
     }
 
     let cacheDate = '';
     if (this.props.field.cache) {
       if (date !== null) {
-        cacheDate = date.getTime() / 1000
+        cacheDate = date.getTime() / 1000;
       }
 
-      localStorage.setItem('form-daterange-from-' + this.props.field.name, cacheDate);
+      localStorage.setItem('form-daterange-' + this.props.field.fromFieldname, cacheDate);
     }
 
     event.preventDefault(); // needed to close the picker
@@ -105,18 +105,18 @@ export default class FormDateRangeField extends Component {
 
   cacheUntilField(date, event) {
     if (date !== null) {
-      this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: (date.getTime() / 1000)}, this.props.field);
+      this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.untilFieldname]: (date.getTime() / 1000)}, JSON.parse(JSON.stringify(this.props.field)));
     } else {
-      this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: ''}, this.props.field);
+      this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.untilFieldname]: ''}, JSON.parse(JSON.stringify(this.props.field)));
     }
 
     let cacheDate = '';
     if (this.props.field.cache) {
       if (date !== null) {
-        cacheDate = date.getTime() / 1000
+        cacheDate = date.getTime() / 1000;
       }
 
-      localStorage.setItem('form-daterange-until-' + this.props.field.name, cacheDate);
+      localStorage.setItem('form-daterange-' + this.props.field.untilFieldname, cacheDate);
     }
 
     event.preventDefault(); // needed to close the picker

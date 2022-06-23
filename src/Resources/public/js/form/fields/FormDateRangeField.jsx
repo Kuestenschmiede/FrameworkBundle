@@ -17,6 +17,8 @@ export default class FormDateRangeField extends Component {
   constructor(props) {
     super(props);
 
+    this.cacheFromField = this.cacheFromField.bind(this);
+    this.cacheUntilField = this.cacheUntilField.bind(this);
   }
 
   render() {
@@ -53,6 +55,15 @@ export default class FormDateRangeField extends Component {
     field.name = this.props.field.fromFieldname;
     field.placeholderText = this.props.field.fromPlaceholderText;
 
+    if (this.props.field.cache) {
+      field.onChange = this.cacheFromField;
+      const cachedData = localStorage.getItem('form-daterange-from-'+this.props.field.name);
+      if (cachedData) {
+        field.selected = new Date(cachedData * 1000);
+        field.fromValue = field.selected ;
+      }
+    }
+
     return this.transformField(field);
   }
 
@@ -61,7 +72,54 @@ export default class FormDateRangeField extends Component {
     field.name = this.props.field.untilFieldname;
     field.placeholderText = this.props.field.untilPlaceholderText;
 
+    if (this.props.field.cache) {
+      field.onChange = this.cacheUntilField;
+      const cachedData = localStorage.getItem('form-daterange-until-'+this.props.field.name);
+      if (cachedData) {
+        field.selected = new Date(cachedData * 1000);
+        field.untilValue = field.selected ;
+      }
+    }
+
     return this.transformField(field);
+  }
+
+  cacheFromField(date, event) {
+    if (date !== null) {
+      this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: (date.getTime() / 1000)}, this.props.field);
+    } else {
+      this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: ''}, this.props.field);
+    }
+
+    let cacheDate = '';
+    if (this.props.field.cache) {
+      if (date !== null) {
+        cacheDate = date.getTime() / 1000
+      }
+
+      localStorage.setItem('form-daterange-from-' + this.props.field.name, cacheDate);
+    }
+
+    event.preventDefault(); // needed to close the picker
+  }
+
+  cacheUntilField(date, event) {
+    if (date !== null) {
+      this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: (date.getTime() / 1000)}, this.props.field);
+    } else {
+      this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: ''}, this.props.field);
+    }
+
+    let cacheDate = '';
+    if (this.props.field.cache) {
+      if (date !== null) {
+        cacheDate = date.getTime() / 1000
+      }
+
+      localStorage.setItem('form-daterange-until-' + this.props.field.name, cacheDate);
+    }
+
+    event.preventDefault(); // needed to close the picker
   }
 
   transformField(field) {

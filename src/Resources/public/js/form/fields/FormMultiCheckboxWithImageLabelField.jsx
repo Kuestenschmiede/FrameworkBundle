@@ -24,15 +24,26 @@ export default class FormMultiCheckboxWithImageLabelField extends Component {
       label = (<span className={'custom-label'} key={'label'}>{this.props.field.label}</span>);
     }
     let options = [];
-
+    let defaultValues = null;
     const cachedData = localStorage.getItem('form-multicheckbox-'+this.props.field.name);
     if (cachedData && this.props.field.cache) {
-      this.props.data[this.props.field.name] = JSON.parse(cachedData);
+      defaultValues = JSON.parse(cachedData);
+      this.props.data[this.props.field.name] = defaultValues;
     }
 
     if (this.props.field.options) {
       let keys = Object.keys(this.props.field.options);
       keys.forEach((element, index) => {
+        let defaultChecked = false;
+
+        if (defaultValues) {
+          defaultValues.forEach((cachedElement, idx) => {
+            if (cachedElement.value === this.props.field.options[element].value) {
+              defaultChecked = true;
+            }
+          });
+        }
+
         options.push(
           <React.Fragment key={index}>
             <div className={this.props.field.optionClass}>
@@ -47,7 +58,8 @@ export default class FormMultiCheckboxWithImageLabelField extends Component {
                 <input type="checkbox" name={this.props.field.name}
                        value={element} required={this.props.field.required}
                        className={"c4g-form-input"}
-                       onChange={this.checkCheckbox}/>
+                       onChange={this.checkCheckbox}
+                       defaultChecked={defaultChecked}/>
               </label>
             </div>
           </React.Fragment>
@@ -98,7 +110,7 @@ export default class FormMultiCheckboxWithImageLabelField extends Component {
 
     this.props.form.props.updateFunction(this.props.form.props.name, data, this.props.field);
     if (this.props.field.cache) {
-      localStorage.setItem('form-multicheckbox-'+this.props.field.name, JSON.stringify(data));
+      localStorage.setItem('form-multicheckbox-'+this.props.field.name, JSON.stringify(data[this.props.field.name]));
     }
   }
 }

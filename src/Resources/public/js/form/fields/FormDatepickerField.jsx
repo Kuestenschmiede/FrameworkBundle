@@ -88,8 +88,8 @@ export default class FormDatepickerField extends Component {
           {label}
         </label>
         <DatePicker customInput={customElement}
-                    selected={startDate}
-                    onChange={this.handleChange}
+                    selected={this.props.field.selected ? this.props.field.selected : startDate}
+                    onChange={this.props.field.onChange ? this.props.field.onChange : this.handleChange}
                     onChangeRaw={this.handleChangeRaw}
                     name={this.props.field.name}
                     isClearable

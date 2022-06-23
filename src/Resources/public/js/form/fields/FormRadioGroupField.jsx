@@ -27,7 +27,7 @@ export default class FormRadioGroupField extends Component {
 
     const cachedData = localStorage.getItem('form-radiogroup-'+this.props.field.name);
     if (cachedData && this.props.field.cache) {
-      this.props.data[this.props.field.name] = JSON.parse(cachedData);
+      this.props.field.checked = cachedData;
     }
 
     if (this.props.field.options) {
@@ -68,10 +68,18 @@ export default class FormRadioGroupField extends Component {
     let value = event.target.value;
     this.props.data[this.props.field.name] = value;
     this.props.form.props.updateFunction(this.props.form.props.name, this.props.data, this.props.field);
+    if (this.props.field.cache) {
+      localStorage.setItem('form-radiogroup-'+this.props.field.name, this.props.data[this.props.field.name]);
+    }
   }
 
   componentDidMount() {
     // set initial filter, if a filter is initially checked
+    const cachedData = localStorage.getItem('form-radiogroup-'+this.props.field.name);
+    if (cachedData && this.props.field.cache) {
+      this.props.field.checked = cachedData;
+    }
+
     let keys = Object.keys(this.props.field.options);
     keys.forEach((element, index) => {
       let defaultChecked = this.props.field.checked === element;
@@ -79,9 +87,6 @@ export default class FormRadioGroupField extends Component {
         let value = document.getElementById(this.props.form.props.name + "_" + this.props.field.name + '_' + element).value;
         this.props.data[this.props.field.name] = value;
         this.props.form.props.updateFunction(this.props.form.props.name, this.props.data, this.props.field);
-        if (this.props.field.cache) {
-          localStorage.setItem('form-radiogroup-'+this.props.field.name, JSON.stringify(this.props.data));
-        }
       }
     });
 

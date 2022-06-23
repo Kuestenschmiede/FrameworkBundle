@@ -24,6 +24,7 @@ class DateRangeField extends FormField
     protected $untilValue = '';
     protected $headline = '';
     protected $headlineClass = '';
+    protected $cache = false;
 
     const TYPE = 'daterange';
 
@@ -42,6 +43,7 @@ class DateRangeField extends FormField
         $config['untilValue'] = $this->untilValue;
         $config['headline'] = $this->headline;
         $config['headlineClass'] = $this->headlineClass;
+        $config['cache'] = $this->cache;
 
         return $config;
     }
@@ -236,5 +238,21 @@ class DateRangeField extends FormField
     public function setHeadlineClass(string $headlineClass): void
     {
         $this->headlineClass = $headlineClass;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCache(): bool
+    {
+        return $this->cache;
+    }
+
+    /**
+     * @param bool $cache
+     */
+    public function setCache(bool $cache): void
+    {
+        $this->cache = $cache;
     }
 }

@@ -32,11 +32,13 @@ export default class TileAddressField extends Component {
         }
         postalCity =
             <React.Fragment>
-              <span className="postal" itemProp={itemPropPostalCode}>
-                {this.props.data[this.props.field.postalName]}
-              </span>
-              <span className="city" itemProp={itemPropAddressLocality}>
-                {this.props.data[this.props.field.cityName]}
+              <span itemProp={itemProp} className="postal-city">
+                <span className="postal" itemProp={itemPropPostalCode}>
+                  {this.props.data[this.props.field.postalName]}
+                </span>
+                <span className="city" itemProp={itemPropAddressLocality}>
+                  {this.props.data[this.props.field.cityName]}
+                </span>
               </span>
             </React.Fragment>;
       }
@@ -47,7 +49,7 @@ export default class TileAddressField extends Component {
           itemProp = 'streetAddress';
         }
         street =
-            <span itemProp={itemProp}>
+            <span itemProp={itemProp} className="street-address">
               <span className="street">
                 {this.props.data[this.props.field.streetName]}
               </span>

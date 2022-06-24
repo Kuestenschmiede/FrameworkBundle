@@ -60,7 +60,7 @@ export default class FormDateRangeField extends Component {
       const cachedData = localStorage.getItem('form-daterange-'+field.name);
       if (cachedData) {
         field.selected = new Date(cachedData * 1000);
-        //field.value = cachedData;
+        field.fromFieldname = cachedData;
       }
     }
 
@@ -77,7 +77,7 @@ export default class FormDateRangeField extends Component {
       const cachedData = localStorage.getItem('form-daterange-'+field.name);
       if (cachedData) {
         field.selected = new Date(cachedData * 1000);
-        //field.value = cachedData;
+        field.untilFieldname = cachedData;
       }
     }
 

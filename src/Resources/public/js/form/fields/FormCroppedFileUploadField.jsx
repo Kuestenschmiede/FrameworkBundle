@@ -9,12 +9,7 @@
  */
 
 import React, {Component} from "react";
-import ReactCrop, {
-  centerCrop,
-  makeAspectCrop,
-  Crop,
-  PixelCrop,
-} from 'react-image-crop';
+import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 import Swal from 'sweetalert2';
 import loadImage from "blueimp-load-image/js";
@@ -40,11 +35,7 @@ export default class FormCroppedFileUploadField extends Component {
         width: 90,
         height: 90,
         x: 5,
-        y: 5,
-        scale: 1,
-        rotate: 0,
-        aspect: (16 / 9),
-        completeCrop: 0
+        y: 5
       },
       croppedImageUrl: null
     };
@@ -72,7 +63,7 @@ export default class FormCroppedFileUploadField extends Component {
               e.target.files[0],
               img => {
                 var base64data = img.toDataURL(imageType);
-                this.setState({ src: base64data, imageName: imageName, scale: 1, rotate: 0});
+                this.setState({ src: base64data, imageName: imageName });
               },
               { orientation: true, canvas: true }
           );
@@ -96,8 +87,8 @@ export default class FormCroppedFileUploadField extends Component {
   };
 
   // If you setState the crop in here you should return false.
-  onImageLoaded = img => {
-    this.imageRef = img.currentTarget;
+  onImageLoaded = image => {
+    this.imageRef = image;
     let newCrop = JSON.parse(JSON.stringify(this.state.crop));
     if (this.props.data[this.props.field.name]) {
       let importantPart = this.props.data[this.props.field.name].importantPart;
@@ -114,13 +105,12 @@ export default class FormCroppedFileUploadField extends Component {
   async onCropComplete (crop) {
     await this.makeClientCrop(crop);
     let imageData = {
-      imageData: this.state.croppedImageUrl ? this.state.croppedImageUrl : this.state.src,
-      path: this.state.src,
+      imageData: this.state.src,
       importantPart: {
-        x: this.imageRef ? crop.x / this.imageRef.width : 0,
-        y: this.imageRef ? crop.y / this.imageRef.height : 0,
-        width: this.imageRef ? crop.width / this.imageRef.width : 1,
-        height: this.imageRef ? crop.height / this.imageRef.height : 1
+        x: crop.x / this.imageRef.width,
+        y: crop.y / this.imageRef.height,
+        width: crop.width / this.imageRef.width,
+        height: crop.height / this.imageRef.height
       },
       imageName: this.state.imageName
     };
@@ -136,73 +126,34 @@ export default class FormCroppedFileUploadField extends Component {
   async makeClientCrop(crop) {
     if (this.imageRef && crop.width && crop.height) {
       const croppedImageUrl = await this.getCroppedImg(
-        this.imageRef,
-        crop,
-        this.state.scale,
-        this.state.rotate
+          this.imageRef,
+          crop,
+          'newFile.jpeg'
       );
-
-      this.setState({croppedImageUrl: croppedImageUrl});
+      this.setState({ croppedImageUrl: croppedImageUrl });
     }
   }
 
-  getCroppedImg(image, crop, scale = 1, rotate = 0) {
+  getCroppedImg(image, crop, fileName) {
     const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    const TO_RADIANS = Math.PI / 180;
-
-    if (!ctx) {
-      throw new Error('No 2d context');
-    }
-
     const scaleX = image.naturalWidth / image.width;
     const scaleY = image.naturalHeight / image.height;
+    canvas.width = crop.width;
+    canvas.height = crop.height;
+    const ctx = canvas.getContext('2d');
 
-    // devicePixelRatio slightly increases sharpness on retina devices
-    // at the expense of slightly slower render times and needing to
-    // size the image back down if you want to download/upload and be
-    // true to the images natural size.
-    const pixelRatio = window.devicePixelRatio;
-    // const pixelRatio = 1
-
-    canvas.width = Math.floor(crop.width * scaleX * pixelRatio);
-    canvas.height = Math.floor(crop.height * scaleY * pixelRatio);
-
-    ctx.scale(pixelRatio, pixelRatio);
-    ctx.imageSmoothingQuality = 'high';
-
-    const cropX = crop.x * scaleX;
-    const cropY = crop.y * scaleY;
-
-    const rotateRads = rotate * TO_RADIANS;
-    const centerX = image.naturalWidth / 2;
-    const centerY = image.naturalHeight / 2;
-
-    ctx.save();
-
-    // 5) Move the crop origin to the canvas origin (0,0)
-    ctx.translate(-cropX, -cropY);
-    // 4) Move the origin to the center of the original position
-    ctx.translate(centerX, centerY);
-    // 3) Rotate around the origin
-    ctx.rotate(rotateRads);
-    // 2) Scale the image
-    ctx.scale(scale, scale);
-    // 1) Move the center of the image to the origin (0,0)
-    ctx.translate(-centerX, -centerY);
     ctx.drawImage(
         image,
+        crop.x * scaleX,
+        crop.y * scaleY,
+        crop.width * scaleX,
+        crop.height * scaleY,
         0,
         0,
-        image.naturalWidth,
-        image.naturalHeight,
-        0,
-        0,
-        image.naturalWidth,
-        image.naturalHeight,
+        crop.width,
+        crop.height
     );
 
-    ctx.restore();
     return canvas.toDataURL('image/jpeg');
   }
 
@@ -236,138 +187,39 @@ export default class FormCroppedFileUploadField extends Component {
       }
     }
 
+    const { crop, croppedImageUrl, src } = this.state;
     const fieldName = this.props.field.name;
 
     let description = null;
     if (this.props.field.description) {
       description = (<small className={"field-description form-text text-muted"}>{this.props.field.description}</small>);
     }
-
-    this.state.scale = this.state.scale ? this.state.scale : 1;
-    this.state.rotate = this.state.rotate ? this.state.rotate : 0;
-
-    //console.log(this);
-
     return (
-      <React.Fragment>
-        <div className={"form-group"}>
-          {label}
-
-          <div className="Crop-Controls">
+        <React.Fragment>
+          <div className={"form-group"}>
+            {label}
             <input type={"file"} accept=".jpg, .png, .jpeg" onChange={this.onSelectFile} id={fieldName} ref={(node) => {this.inputRef = node;}}
                    name={fieldName + (this.props.field.max > 1 ? "[]" : "")} className={"form-control-file"}/>
             {description}
-            <div>
-              <label hidden={!this.state.src} htmlFor="scale-input">{this.props.languageRefs.CROP_SCALE_LABEL}</label>
-              <input
-                  id="scale-input"
-                  type="range"
-                  step="0.1"
-                  min="1"
-                  max="2"
-                  list="scale-list"
-                  // defaultValue="1"
-                  value={this.state.scale ? this.state.scale : 1}
-                  disabled={!this.state.src}
-                  hidden={!this.state.src}
-                  onChange={(e) => {
-                      this.setState({scale: Number(e.target.value)}, () => this.onCropComplete(this.state.crop));
-                      e.target.value = "";
-                    }
-                  }
-              />
-              <output hidden={!this.state.src} className={"scale-output"} htmlFor="scale-input">{Math.trunc(this.state.scale*100)} %</output>
-              <datalist id="scale-list">
-                <option value="1" label="0%"></option>
-                <option value="1.1"></option>
-                <option value="1.2"></option>
-                <option value="1.3"></option>
-                <option value="1.4"></option>
-                <option value="1.5" label="50%"></option>
-                <option value="1.6"></option>
-                <option value="1.7"></option>
-                <option value="1.8"></option>
-                <option value="1.9"></option>
-                <option value="2" label="100%"></option>
-              </datalist>
-            </div>
-            <div>
-              <label hidden={!this.state.src} htmlFor="rotate-input">{this.props.languageRefs.CROP_ROTATE_LABEL}</label>
-              <input
-                  id="rotate-input"
-                  type="range"
-                  min="0"
-                  max="360"
-                  step="30"
-                  list="rotate-list"
-                  value={this.state.rotate ? this.state.rotate : 0}
-                  disabled={!this.state.src}
-                  hidden={!this.state.src}
-                  onChange={(e) => {
-                      this.setState({rotate: Number(e.target.value)}, () => this.onCropComplete(this.state.crop));
-                      e.target.value = "";
-                    }
-                  }
-              />
-              <output hidden={!this.state.src} className={"rotate-output"}  htmlFor="rotate-input">{this.state.rotate} °</output>
-              <datalist id="rotate-list">
-                <option value="0" label="0"></option>
-                <option value="30"></option>
-                <option value="60"></option>
-                <option value="90" label="90"></option>
-                <option value="120"></option>
-                <option value="150"></option>
-                <option value="180" label="180"></option>
-                <option value="210"></option>
-                <option value="240"></option>
-                <option value="270" label="270"></option>
-                <option value="300"></option>
-                <option value="330"></option>
-                <option value="360" label="360"></option>
-              </datalist>
-            </div>
           </div>
-          {Boolean(this.state.src) && (
+          {src && (
               <ReactCrop
-                  src={this.state.src}
-                  crop={this.state.crop}
+                  src={src}
+                  crop={crop}
                   ruleOfThirds
                   onImageLoaded={this.onImageLoaded}
-                  onChange={this.onCropChange}
                   onComplete={this.onCropComplete}
-                  aspect={this.state.aspect}
-              >
-              <img
-                  ref={(node) => {this.inputRef = node;}}
-                  alt="Crop me"
-                  src={this.state.src}
-                  style={{ transform: `scale(${this.state.scale}) rotate(${this.state.rotate}deg)`,
-                    border: '1px solid black',
-                    objectFit: 'contain',
-                    maxWidth: 'auto'
-                  }}
-                  onLoad={this.onImageLoaded}
+                  onChange={this.onCropChange}
               />
-              </ReactCrop>
           )}
-          <label className={"form-group-crop-label"} hidden={!this.state.croppedImageUrl}>{this.props.languageRefs.CROP_PREVIEW_LABEL}</label>
-          {this.state.croppedImageUrl && (
-            <img alt="Crop" src={this.state.croppedImageUrl} style={{
-                  border: '1px solid black',
-                  objectFit: 'contain',
-                  width: (this.props.field.targetWidth / 5)+'px',
-                  maxHeight: (this.props.field.targetHeight / 5)+'px',
-                  maxWidth: 'auto'
-                }}
-            />
+          {croppedImageUrl && (
+              <img alt="Crop" style={{ maxWidth: '100%' }} src={croppedImageUrl} />
           )}
-
-          {this.state.src && (
+          {src && (
               <button onClick={this.unsetImage} title={this.props.languageRefs.CLICK_TO_REMOVE_IMAGE}
                       className={"btn btn-primary btn-remove remove-image " + this.props.field.name}>{this.props.languageRefs.REMOVE_IMAGE}</button>
           )}
-        </div>
-      </React.Fragment>
+        </React.Fragment>
     );
   }
 
@@ -378,9 +230,7 @@ export default class FormCroppedFileUploadField extends Component {
       src: null,
       imageName: null,
       crop: null,
-      croppedImageUrl: null,
-      scale: 1,
-      rotate: 0
+      croppedImageUrl: null
     });
     if (this.inputRef !== null) {
       // clear file selection

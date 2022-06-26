@@ -14,7 +14,6 @@ class RadioGroupFormField extends FormField
 {
     protected $options = [];
     protected $checked = null;
-    protected $cache = false;
 
     /**
      * The CSS class that is set at each option.
@@ -33,7 +32,6 @@ class RadioGroupFormField extends FormField
         $config['checked'] = $this->checked;
         $config['optionsClass'] = $this->optionsClass;
         $config['iconClass'] = $this->iconClass;
-        $config['cache'] = $this->cache;
 
         return $config;
     }
@@ -118,22 +116,6 @@ class RadioGroupFormField extends FormField
     public function setIconClass(string $iconClass): void
     {
         $this->iconClass = $iconClass;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isCache(): bool
-    {
-        return $this->cache;
-    }
-
-    /**
-     * @param bool $cache
-     */
-    public function setCache(bool $cache): void
-    {
-        $this->cache = $cache;
     }
 
 }

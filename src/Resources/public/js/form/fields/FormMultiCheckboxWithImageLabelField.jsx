@@ -25,10 +25,12 @@ export default class FormMultiCheckboxWithImageLabelField extends Component {
     }
     let options = [];
     let defaultValues = null;
-    const cachedData = localStorage.getItem('form-multicheckbox-'+this.props.field.name);
-    if (cachedData && this.props.field.cache) {
-      defaultValues = JSON.parse(cachedData);
-      this.props.data[this.props.field.name] = defaultValues;
+    if (this.props.field.cache && this.props.field.entryPoint) {
+      const cachedData = localStorage.getItem('form-multicheckbox-' + this.props.field.entryPoint + '-' + this.props.field.name);
+      if (cachedData) {
+        defaultValues = JSON.parse(cachedData);
+        this.props.data[this.props.field.name] = defaultValues;
+      }
     }
 
     if (this.props.field.options) {
@@ -109,8 +111,8 @@ export default class FormMultiCheckboxWithImageLabelField extends Component {
     }
 
     this.props.form.props.updateFunction(this.props.form.props.name, data, this.props.field);
-    if (this.props.field.cache) {
-      localStorage.setItem('form-multicheckbox-'+this.props.field.name, JSON.stringify(data[this.props.field.name]));
+    if (this.props.field.cache && this.props.field.entryPoint) {
+      localStorage.setItem('form-multicheckbox-'+this.props.field.entryPoint+'-'+this.props.field.name, JSON.stringify(data[this.props.field.name]));
     }
   }
 }

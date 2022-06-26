@@ -21,8 +21,8 @@ export default class FormTextField extends Component {
   handleChange(event) {
     this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: event.target.value}, this.props.field);
 
-    if (this.props.field.cache) {
-      localStorage.setItem('form-text-'+this.props.field.name, event.target.value);
+    if (this.props.field.cache && this.props.field.entryPoint) {
+      localStorage.setItem('form-text-'+this.props.field.entryPoint+'-'+this.props.field.name, event.target.value);
     }
     if (this.props.field.dynamicFieldlist) {
       let postData = {[this.props.field.name]: event.target.value};
@@ -79,9 +79,11 @@ export default class FormTextField extends Component {
       description = (<small className={"field-description form-text text-muted"}>{this.props.field.description} {descriptionLink}</small>);
     }
 
-    const cachedData = localStorage.getItem('form-text-'+this.props.field.name);
-    if (cachedData && this.props.field.cache) {
-      this.props.data[this.props.field.name] = cachedData;
+    if (this.props.field.cache && this.props.field.entryPoint) {
+      const cachedData = localStorage.getItem('form-text-'+this.props.field.entryPoint+'-'+this.props.field.name);
+      if (cachedData) {
+        this.props.data[this.props.field.name] = cachedData;
+      }
     }
 
     let content = <React.Fragment>

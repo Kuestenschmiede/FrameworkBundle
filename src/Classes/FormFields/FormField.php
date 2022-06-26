@@ -20,6 +20,8 @@ abstract class FormField implements ConfigurationInterface
     protected $descriptionLink = '';
     protected $descriptionLinkLabel = '';
     protected $required = false;
+    protected $cache = false;
+    protected $entryPoint = '';
 
     /**
      * If true, the pattern has to match if field has a non empty value
@@ -72,6 +74,8 @@ abstract class FormField implements ConfigurationInterface
             'wrappingDivClass' => $this->wrappingDivClass ?: '',
             'hintText' => $this->hintText ?: '',
             'type' => $this::TYPE ?: '',
+            'cache' => $this->cache ?: false,
+            'entryPoint' => $this->entryPoint ?: ''
         ];
     }
 
@@ -346,5 +350,37 @@ abstract class FormField implements ConfigurationInterface
         $this->wrappingDivClass = $wrappingDivClass;
 
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCache(): bool
+    {
+        return $this->cache;
+    }
+
+    /**
+     * @param bool $cache
+     */
+    public function setCache(bool $cache): void
+    {
+        $this->cache = $cache;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEntryPoint(): string
+    {
+        return $this->entryPoint;
+    }
+
+    /**
+     * @param string $entryPoint
+     */
+    public function setEntryPoint(string $entryPoint): void
+    {
+        $this->entryPoint = $entryPoint;
     }
 }

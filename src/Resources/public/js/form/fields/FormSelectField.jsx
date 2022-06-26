@@ -21,8 +21,8 @@ export default class FormSelectField extends Component {
 
   handleChange(data, action) {
     this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: data}, this.props.field);
-    if (this.props.field.cache) {
-      localStorage.setItem('form-select-'+this.props.field.name, JSON.stringify(data));
+    if (this.props.field.cache && this.props.field.entryPoint) {
+      localStorage.setItem('form-select-'+this.props.field.entryPoint+'-'+this.props.field.name, JSON.stringify(data));
     }
     if (this.props.field.instantRedirectUrl) {
       window.location = this.props.field.instantRedirectUrl.replace('{value}', data.value);
@@ -87,10 +87,12 @@ export default class FormSelectField extends Component {
     let defaultValue = null;
     let defaultValues = null;
     if (this.props.field.options) {
-      const cachedData = localStorage.getItem('form-select-'+this.props.field.name);
-      if (cachedData && this.props.field.cache) {
-        defaultValues = JSON.parse(cachedData);
-        this.props.data[this.props.field.name] = defaultValues;
+      if (this.props.field.cache && this.props.field.entryPoint) {
+        const cachedData = localStorage.getItem('form-select-'+this.props.field.entryPoint+'-'+this.props.field.name);
+        if (cachedData) {
+          defaultValues = JSON.parse(cachedData);
+          this.props.data[this.props.field.name] = defaultValues;
+        }
       }
 
       if (this.props.field.grouped) {
@@ -125,7 +127,6 @@ export default class FormSelectField extends Component {
       if (this.props.field.hintText) {
         hint = <div className={""}>{this.props.field.hintText}</div>
       }
-
 
       let selectNode = null;
       if (this.props.field.required) {

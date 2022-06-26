@@ -55,9 +55,9 @@ export default class FormDateRangeField extends Component {
     field.name = this.props.field.fromFieldname;
     field.placeholderText = this.props.field.fromPlaceholderText;
 
-    if (this.props.field.cache) {
+    if (this.props.field.cache && this.props.field.entryPoint) {
       field.onChange = this.cacheFromField;
-      const cachedData = localStorage.getItem('form-daterange-'+field.name);
+      const cachedData = localStorage.getItem('form-daterange-'+this.props.field.entryPoint+'-'+field.name);
       if (cachedData) {
         field.selected = new Date(cachedData * 1000);
         field.fromFieldname = cachedData;
@@ -72,9 +72,9 @@ export default class FormDateRangeField extends Component {
     field.name = this.props.field.untilFieldname;
     field.placeholderText = this.props.field.untilPlaceholderText;
 
-    if (this.props.field.cache) {
+    if (this.props.field.cache && this.props.field.entryPoint) {
       field.onChange = this.cacheUntilField;
-      const cachedData = localStorage.getItem('form-daterange-'+field.name);
+      const cachedData = localStorage.getItem('form-daterange-'+this.props.field.entryPoint+'-'+field.name);
       if (cachedData) {
         field.selected = new Date(cachedData * 1000);
         field.untilFieldname = cachedData;
@@ -92,12 +92,12 @@ export default class FormDateRangeField extends Component {
     }
 
     let cacheDate = '';
-    if (this.props.field.cache) {
+    if (this.props.field.cache && this.props.field.entryPoint) {
       if (date !== null) {
         cacheDate = date.getTime() / 1000;
       }
 
-      localStorage.setItem('form-daterange-' + this.props.field.fromFieldname, cacheDate);
+      localStorage.setItem('form-daterange-'+this.props.field.entryPoint+'-'+this.props.field.fromFieldname, cacheDate);
     }
 
     event.preventDefault(); // needed to close the picker
@@ -111,12 +111,12 @@ export default class FormDateRangeField extends Component {
     }
 
     let cacheDate = '';
-    if (this.props.field.cache) {
+    if (this.props.field.cache && this.props.field.entryPoint) {
       if (date !== null) {
         cacheDate = date.getTime() / 1000;
       }
 
-      localStorage.setItem('form-daterange-' + this.props.field.untilFieldname, cacheDate);
+      localStorage.setItem('form-daterange-'+this.props.field.entryPoint+'-'+this.props.field.untilFieldname, cacheDate);
     }
 
     event.preventDefault(); // needed to close the picker

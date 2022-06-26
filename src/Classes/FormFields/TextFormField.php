@@ -16,7 +16,6 @@ class TextFormField extends FormField
     protected $value = '';
     protected $placeholder = '';
     protected $maxLength = 255;
-    protected $cache = false;
 
     /**
      * Load fieldlist from server when this field changes?
@@ -48,7 +47,6 @@ class TextFormField extends FormField
         $config['dynamicFieldlist'] = $this->dynamicFieldlist;
         $config['dynamicFieldlistUrl'] = $this->dynamicFieldlistUrl;
         $config['dynamicFieldlistAdditionalFields'] = $this->dynamicFieldlistAdditionalFields;
-        $config['cache'] = $this->cache;
 
         return $config;
     }
@@ -195,21 +193,5 @@ class TextFormField extends FormField
     public function setDynamicFieldlistAdditionalFields(array $dynamicFieldlistAdditionalFields): void
     {
         $this->dynamicFieldlistAdditionalFields = $dynamicFieldlistAdditionalFields;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isCache(): bool
-    {
-        return $this->cache;
-    }
-
-    /**
-     * @param bool $cache
-     */
-    public function setCache(bool $cache): void
-    {
-        $this->cache = $cache;
     }
 }

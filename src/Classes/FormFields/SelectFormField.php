@@ -19,7 +19,6 @@ class SelectFormField extends FormField
     protected $hidden = false;
     protected $placeholder = '';
     protected $synchronous = false;
-    protected $cache = false;
 
     /**
      * If true, the options have groups and are sorted in these groups.
@@ -70,7 +69,6 @@ class SelectFormField extends FormField
         $config['dynamicFieldlistUrl'] = $this->dynamicFieldlistUrl;
         $config['dynamicFieldlistAdditionalFields'] = $this->dynamicFieldlistAdditionalFields;
         $config['instantRedirectUrl'] = $this->instantRedirectUrl;
-        $config['cache'] = $this->cache;
 
         return $config;
     }
@@ -328,19 +326,4 @@ class SelectFormField extends FormField
         $this->instantRedirectUrl = $instantRedirectUrl;
     }
 
-    /**
-     * @return bool
-     */
-    public function isCache(): bool
-    {
-        return $this->cache;
-    }
-
-    /**
-     * @param bool $cache
-     */
-    public function setCache(bool $cache): void
-    {
-        $this->cache = $cache;
-    }
 }

@@ -246,6 +246,8 @@ export default class FormCroppedFileUploadField extends Component {
     this.state.scale = this.state.scale ? this.state.scale : 1;
     this.state.rotate = this.state.rotate ? this.state.rotate : 0;
 
+    //console.log(this);
+
     return (
       <React.Fragment>
         <div className={"form-group"}>
@@ -256,7 +258,7 @@ export default class FormCroppedFileUploadField extends Component {
                    name={fieldName + (this.props.field.max > 1 ? "[]" : "")} className={"form-control-file"}/>
             {description}
             <div>
-              <label hidden={!this.state.src} htmlFor="scale-input">Skalieren: </label> {/*ToDo Language*/}
+              <label hidden={!this.state.src} htmlFor="scale-input">{this.props.languageRefs.CROP_SCALE_LABEL}</label>
               <input
                   id="scale-input"
                   type="range"
@@ -290,7 +292,7 @@ export default class FormCroppedFileUploadField extends Component {
               </datalist>
             </div>
             <div>
-              <label hidden={!this.state.src} htmlFor="rotate-input">Rotieren: </label> {/*ToDo Language*/}
+              <label hidden={!this.state.src} htmlFor="rotate-input">{this.props.languageRefs.CROP_ROTATE_LABEL}</label>
               <input
                   id="rotate-input"
                   type="range"
@@ -335,7 +337,6 @@ export default class FormCroppedFileUploadField extends Component {
                   onComplete={this.onCropComplete}
                   aspect={this.state.aspect}
               >
-              <label>Originalbild</label>
               <img
                   ref={(node) => {this.inputRef = node;}}
                   alt="Crop me"
@@ -343,21 +344,19 @@ export default class FormCroppedFileUploadField extends Component {
                   style={{ transform: `scale(${this.state.scale}) rotate(${this.state.rotate}deg)`,
                     border: '1px solid black',
                     objectFit: 'contain',
-                    width: this.props.field.targetWidth / 5+'px',
-                    maxheight: this.props.field.targetHeight / 5+'px',
                     maxWidth: 'auto'
                   }}
                   onLoad={this.onImageLoaded}
               />
               </ReactCrop>
           )}
-          <label hidden={!this.state.croppedImageUrl}>Vorschau</label>
+          <label className={"form-group-crop-label"} hidden={!this.state.croppedImageUrl}>{this.props.languageRefs.CROP_PREVIEW_LABEL}</label>
           {this.state.croppedImageUrl && (
             <img alt="Crop" src={this.state.croppedImageUrl} style={{
                   border: '1px solid black',
                   objectFit: 'contain',
-                  width: this.props.field.targetWidth / 5+'px',
-                  maxHeight: this.props.field.targetHeight / 5+'px',
+                  width: (this.props.field.targetWidth / 5)+'px',
+                  maxHeight: (this.props.field.targetHeight / 5)+'px',
                   maxWidth: 'auto'
                 }}
             />

@@ -31,6 +31,12 @@ class DetailLinkField extends DetailField
      */
     private $linkTextName = '';
 
+    /**
+     * Generate link witk target blank option
+     * @var bool
+     */
+    private $targetBlank = false;
+
     const TYPE = 'link';
 
     public function getConfiguration()
@@ -39,6 +45,7 @@ class DetailLinkField extends DetailField
         $conf['icon'] = $this->icon;
         $conf['linkText'] = $this->linkText;
         $conf['linkTextName'] = $this->linkTextName;
+        $conf['targetBlank'] = $this->targetBlank;
 
         return $conf;
     }
@@ -89,5 +96,21 @@ class DetailLinkField extends DetailField
     public function setLinkTextName(string $linkTextName): void
     {
         $this->linkTextName = $linkTextName;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTargetBlank(): bool
+    {
+        return $this->targetBlank;
+    }
+
+    /**
+     * @param bool $targetBlank
+     */
+    public function setTargetBlank(bool $targetBlank): void
+    {
+        $this->targetBlank = $targetBlank;
     }
 }

@@ -31,15 +31,15 @@ export default class DetailLinkField extends Component {
       if (this.props.tagType) {
         className += " " + this.props.tagType;
       }
-      let targetBlank = " ";
+      let target = " ";
       if (this.props.targetBlank) {
-        targetBlank = "target='_blank' ";
+        target = "_blank";
       }
 
       return (
         <div className={className}>
           {icon}
-          <a {targetBlank}href={this.props.data[this.props.field.name]}>{this.props.data[this.props.field.linkTextName] || this.props.field.linkText}</a>
+          <a target={target} href={this.props.data[this.props.field.name]}>{this.props.data[this.props.field.linkTextName] || this.props.field.linkText}</a>
         </div>
       );
     } else {

@@ -178,7 +178,7 @@ export default class FormSelectField extends Component {
                 <Select id={this.props.field.name} name={name}
                         options={options} isMulti={this.props.field.multiple}
                         required={this.props.field.required} onChange={this.handleChange}
-                        defaultValue={this.props.data[this.props.field.name]}
+                        defaultValue={this.props.field.multiple ? this.props.data[this.props.field.name] : defaultValue}
                         placeholder={this.props.field.placeholder}
                         aria-label={ariaLabel}>
                 </Select>

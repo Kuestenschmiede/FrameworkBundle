@@ -31,7 +31,7 @@ export default class FormSelectField extends Component {
     if (this.props.field.dynamicFieldlist) {
       let postData = {[this.props.field.name]: data};
       if (this.props.field.dynamicFieldlistAdditionalFields
-          && this.props.field.dynamicFieldlistAdditionalFields.length > 0
+        && this.props.field.dynamicFieldlistAdditionalFields.length > 0
       ) {
         const addFields = this.props.field.dynamicFieldlistAdditionalFields;
         for (let i = 0; i < addFields.length; i++) {
@@ -40,12 +40,12 @@ export default class FormSelectField extends Component {
       }
       jQuery.post(this.props.field.dynamicFieldlistUrl, postData)
         .done((responseData) => {
-        if (responseData && responseData.matchingFields
+          if (responseData && responseData.matchingFields
             && responseData.nonMatchingFields
-        ) {
-          this.props.form.props.setFieldsFunction(this.props.form.props.name, responseData);
-        }
-      });
+          ) {
+            this.props.form.props.setFieldsFunction(this.props.form.props.name, responseData);
+          }
+        });
     }
   }
 

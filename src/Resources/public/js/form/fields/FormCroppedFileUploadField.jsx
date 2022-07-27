@@ -126,9 +126,9 @@ export default class FormCroppedFileUploadField extends Component {
   async makeClientCrop(crop) {
     if (this.imageRef && crop.width && crop.height) {
       const croppedImageUrl = await this.getCroppedImg(
-          this.imageRef,
-          crop,
-          'newFile.jpeg'
+        this.imageRef,
+        crop,
+        'newFile.jpeg'
       );
       this.setState({ croppedImageUrl: croppedImageUrl });
     }
@@ -143,15 +143,15 @@ export default class FormCroppedFileUploadField extends Component {
     const ctx = canvas.getContext('2d');
 
     ctx.drawImage(
-        image,
-        crop.x * scaleX,
-        crop.y * scaleY,
-        crop.width * scaleX,
-        crop.height * scaleY,
-        0,
-        0,
-        crop.width,
-        crop.height
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width,
+      crop.height
     );
 
     return canvas.toDataURL('image/jpeg');
@@ -195,31 +195,31 @@ export default class FormCroppedFileUploadField extends Component {
       description = (<small className={"field-description form-text text-muted"}>{this.props.field.description}</small>);
     }
     return (
-        <React.Fragment>
-          <div className={"form-group"}>
-            {label}
-            <input type={"file"} accept=".jpg, .png, .jpeg" onChange={this.onSelectFile} id={fieldName} ref={(node) => {this.inputRef = node;}}
-                   name={fieldName + (this.props.field.max > 1 ? "[]" : "")} className={"form-control-file"}/>
-            {description}
-          </div>
-          {src && (
-              <ReactCrop
-                  src={src}
-                  crop={crop}
-                  ruleOfThirds
-                  onImageLoaded={this.onImageLoaded}
-                  onComplete={this.onCropComplete}
-                  onChange={this.onCropChange}
-              />
-          )}
-          {croppedImageUrl && (
-              <img alt="Crop" style={{ maxWidth: '100%' }} src={croppedImageUrl} />
-          )}
-          {src && (
-              <button onClick={this.unsetImage} title={this.props.languageRefs.CLICK_TO_REMOVE_IMAGE}
-                      className={"btn btn-primary btn-remove remove-image " + this.props.field.name}>{this.props.languageRefs.REMOVE_IMAGE}</button>
-          )}
-        </React.Fragment>
+      <React.Fragment>
+        <div className={"form-group"}>
+          {label}
+          <input type={"file"} accept=".jpg, .png, .jpeg" onChange={this.onSelectFile} id={fieldName} ref={(node) => {this.inputRef = node;}}
+                 name={fieldName + (this.props.field.max > 1 ? "[]" : "")} className={"form-control-file"}/>
+          {description}
+        </div>
+        {src && (
+          <ReactCrop
+            src={src}
+            crop={crop}
+            ruleOfThirds
+            onImageLoaded={this.onImageLoaded}
+            onComplete={this.onCropComplete}
+            onChange={this.onCropChange}
+          />
+        )}
+        {croppedImageUrl && (
+          <img alt="Crop" style={{ maxWidth: '100%' }} src={croppedImageUrl} />
+        )}
+        {src && (
+          <button onClick={this.unsetImage} title={this.props.languageRefs.CLICK_TO_REMOVE_IMAGE}
+                  className={"btn btn-primary btn-remove remove-image " + this.props.field.name}>{this.props.languageRefs.REMOVE_IMAGE}</button>
+        )}
+      </React.Fragment>
     );
   }
 

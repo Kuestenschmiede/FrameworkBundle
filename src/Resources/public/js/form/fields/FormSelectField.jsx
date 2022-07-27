@@ -31,7 +31,7 @@ export default class FormSelectField extends Component {
     if (this.props.field.dynamicFieldlist) {
       let postData = {[this.props.field.name]: data};
       if (this.props.field.dynamicFieldlistAdditionalFields
-        && this.props.field.dynamicFieldlistAdditionalFields.length > 0
+          && this.props.field.dynamicFieldlistAdditionalFields.length > 0
       ) {
         const addFields = this.props.field.dynamicFieldlistAdditionalFields;
         for (let i = 0; i < addFields.length; i++) {
@@ -39,13 +39,13 @@ export default class FormSelectField extends Component {
         }
       }
       jQuery.post(this.props.field.dynamicFieldlistUrl, postData)
-        .done((responseData) => {
-          if (responseData && responseData.matchingFields
-            && responseData.nonMatchingFields
-          ) {
-            this.props.form.props.setFieldsFunction(this.props.form.props.name, responseData);
-          }
-        });
+          .done((responseData) => {
+            if (responseData && responseData.matchingFields
+                && responseData.nonMatchingFields
+            ) {
+              this.props.form.props.setFieldsFunction(this.props.form.props.name, responseData);
+            }
+          });
     }
   }
 
@@ -106,11 +106,11 @@ export default class FormSelectField extends Component {
           options.push({value: this.props.field.options[element].value, label: this.props.field.options[element].label});
 
           if (defaultValues) {
-             defaultValues.forEach((cachedElement, idx) => {
-               if (cachedElement.value === this.props.field.options[element].value) {
-                 defaultValue = {value: this.props.field.options[element].value, label: this.props.field.options[element].label};
-               }
-             });
+            defaultValues.forEach((cachedElement, idx) => {
+              if (cachedElement.value === this.props.field.options[element].value) {
+                defaultValue = {value: this.props.field.options[element].value, label: this.props.field.options[element].label};
+              }
+            });
           } else if (this.props.data[this.props.field.name] === this.props.field.options[element].value) {
             defaultValue = {value: this.props.field.options[element].value, label: this.props.field.options[element].label};
           }
@@ -169,24 +169,24 @@ export default class FormSelectField extends Component {
       }
 
       return (
-        <React.Fragment>
-          <div className={(this.props.field.className ? this.props.field.className + " " : "") + "c4g-form-field"}>
-            {label}
-            {this.props.errorText && typeof this.props.errorText === "string" && <div className={"text-danger"}>{this.props.errorText}</div>}
-            {hint}
-            <React.Fragment>
-            <Select id={this.props.field.name} name={name}
-                    options={options} isMulti={this.props.field.multiple}
-                    required={this.props.field.required} onChange={this.handleChange}
-                    defaultValue={this.props.data[this.props.field.name]}
-                    placeholder={this.props.field.placeholder}
-                    aria-label={ariaLabel}>
-            </Select>
-              {selectNode}
-            </React.Fragment>
-            {description}
-          </div>
-        </React.Fragment>
+          <React.Fragment>
+            <div className={(this.props.field.className ? this.props.field.className + " " : "") + "c4g-form-field"}>
+              {label}
+              {this.props.errorText && typeof this.props.errorText === "string" && <div className={"text-danger"}>{this.props.errorText}</div>}
+              {hint}
+              <React.Fragment>
+                <Select id={this.props.field.name} name={name}
+                        options={options} isMulti={this.props.field.multiple}
+                        required={this.props.field.required} onChange={this.handleChange}
+                        defaultValue={this.props.data[this.props.field.name]}
+                        placeholder={this.props.field.placeholder}
+                        aria-label={ariaLabel}>
+                </Select>
+                {selectNode}
+              </React.Fragment>
+              {description}
+            </div>
+          </React.Fragment>
       );
 
     } else {

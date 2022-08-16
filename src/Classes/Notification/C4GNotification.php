@@ -20,8 +20,8 @@ use NotificationCenter\Model\Notification;
  */
 class C4GNotification
 {
-    private $tokens = [];
-    private $optionalTokens = [];
+    private array $tokens = [];
+    private array $optionalTokens = [];
 
     public function __construct(array $notification)
     {

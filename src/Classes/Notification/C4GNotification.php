@@ -11,6 +11,7 @@
 
 namespace con4gis\FrameworkBundle\Classes\Notification;
 
+use con4gis\FrameworkBundle\Exception\NotificationException;
 use NotificationCenter\Model\Notification;
 
 /**
@@ -23,11 +24,14 @@ class C4GNotification
     private array $tokens = [];
     private array $optionalTokens = [];
 
+    /**
+     * @throws NotificationException
+     */
     public function __construct(array $notification)
     {
         foreach ($notification as $key => $value) {
             if (!is_array($value)) {
-                throw new \Exception("C4GNotification: Incorrect configuration, '$key' must be an array.");
+                throw new NotificationException("Incorrect configuration, '$key' must be an array.");
             }
             foreach ($value as $token) {
                 $this->tokens[$token] = '';
@@ -35,12 +39,15 @@ class C4GNotification
         }
     }
 
+    /**
+     * @throws NotificationException
+     */
     public function setTokenValue(string $token, string $value)
     {
         if (is_string($this->tokens[$token]) === true) {
             $this->tokens[$token] = $value;
         } else {
-            throw new \Exception("C4GNotification: Unknown token '$token'.");
+            throw new NotificationException("Unknown token '$token'.");
         }
     }
 
@@ -49,11 +56,14 @@ class C4GNotification
         $this->optionalTokens[] = $token;
     }
 
+    /**
+     * @throws NotificationException
+     */
     public function send(array $notificationIds)
     {
         foreach ($this->tokens as $key => $token) {
             if ($token === '' && !in_array($key, $this->optionalTokens)) {
-                throw new \Exception("C4GNotification: The token '$key' has not been defined.");
+                throw new NotificationException("The token '$key' has not been defined.");
             }
         }
 
@@ -62,7 +72,7 @@ class C4GNotification
             if ($notificationModel !== null) {
                 $notificationModel->send($this->tokens);
             } else {
-                throw new \Exception("C4GNotification: Could not find notification with id $notificationId.");
+                throw new NotificationException("Could not find notification with id $notificationId.");
             }
         }
     }

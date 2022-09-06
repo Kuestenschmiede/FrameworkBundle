@@ -99,6 +99,7 @@ export default class FormDatepickerField extends Component {
                     dateFormat={this.props.field.dateFormat}
                     showTimeSelect={this.props.field.showTimeSelect}
                     showMonthDropdown={!this.props.field.showTimeSelectOnly}
+                    showYearDropdown={!this.props.field.showTimeSelectOnly}
                     timeCaption={this.props.field.timeCaption}
                     allowSameDay={true}
                     locale={locale}

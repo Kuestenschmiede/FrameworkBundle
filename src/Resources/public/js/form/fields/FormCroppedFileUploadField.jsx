@@ -90,7 +90,7 @@ export default class FormCroppedFileUploadField extends Component {
   onImageLoaded = image => {
     this.imageRef = image;
     let newCrop = JSON.parse(JSON.stringify(this.state.crop));
-    if (this.props.data[this.props.field.name]) {
+    if (this.props.data[this.props.field.name] && this.props.data[this.props.field.name] !== '00000000-0000-0000-0000-000000000000') {
       let importantPart = this.props.data[this.props.field.name].importantPart;
       newCrop.x = importantPart.x * this.imageRef.width;
       newCrop.y = importantPart.y * this.imageRef.height;

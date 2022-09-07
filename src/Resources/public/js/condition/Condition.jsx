@@ -15,15 +15,17 @@ export default class Condition extends Component {
   constructor(props) {
     super(props);
 
-    this.isConditionMet = this.isConditionMet.bind(this);
+    this.state = {};
+  }
 
+  static getDerivedStateFromProps(props) {
     let ok = true;
     let conditions = [];
 
-    if (this.props.conditions && typeof this.props.conditions.forEach === 'function') {
+    if (props.conditions && typeof props.conditions.forEach === 'function') {
       try {
-        this.props.conditions.forEach(function(condition) {
-          if (this.isConditionMet(condition) === false) {
+        props.conditions.forEach(function(condition) {
+          if (Condition.isConditionMet(condition, props) === false) {
             ok = false;
             condition.ok = false;
           } else {
@@ -36,28 +38,28 @@ export default class Condition extends Component {
       }
     }
 
-    this.state = {
+    return {
       conditions: conditions,
       ok: ok
     };
   }
 
-  isConditionMet(condition){
+  static isConditionMet(condition, props){
     let fieldValue, conditionValue;
-    if (typeof this.props.data[condition.field] === 'object') {
-      if (this.props.data[condition.field] !== null && typeof this.props.data[condition.field].value !== 'undefined') {
-        fieldValue = String(this.props.data[condition.field].value);
+    if (typeof props.data[condition.field] === 'object') {
+      if (props.data[condition.field] !== null && typeof props.data[condition.field].value !== 'undefined') {
+        fieldValue = String(props.data[condition.field].value);
       } else {
         fieldValue = null;
       }
     } else {
-      fieldValue = String(this.props.data[condition.field]);
+      fieldValue = String(props.data[condition.field]);
     }
     conditionValue = String(condition.value);
     if (condition.type === 'or' && condition.conditions.length > 1) {
       let met = false;
       condition.conditions.forEach(function(element) {
-        if (this.isConditionMet(element)) {
+        if (Condition.isConditionMet(element, props)) {
           met = true;
         }
       }, this);

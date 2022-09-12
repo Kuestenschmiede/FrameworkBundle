@@ -53,7 +53,7 @@ export default class FormMultiDatepickerField extends Component {
     }
 
     return (
-      <Condition>
+      <Condition data={this.props.data} conditions={this.props.field.conditions} field={this.props.field.name}>
         <div className={'multi-date-picker'}>
           <div className={'' + (this.props.field.errorText ? 'c4g-error' : '')}>
             <label htmlFor={this.props.field.name}>

@@ -57,8 +57,17 @@ abstract class FormField implements ConfigurationInterface
 
     const TYPE = '';
 
+    private array $conditions = [];
+
     public function getConfiguration() : array
     {
+        $conditions = [];
+        if (!empty($this->conditions)) {
+            foreach ($this->conditions as $condition) {
+                $conditions[] = $condition->getConfiguration();
+            }
+        }
+
         return [
             'name' => $this->name ?: '',
             'label' => $this->label ?: '',
@@ -75,7 +84,8 @@ abstract class FormField implements ConfigurationInterface
             'hintText' => $this->hintText ?: '',
             'type' => $this::TYPE ?: '',
             'cache' => $this->cache ?: false,
-            'entryPoint' => $this->entryPoint ?: ''
+            'entryPoint' => $this->entryPoint ?: '',
+            'conditions' => $conditions
         ];
     }
 
@@ -278,6 +288,7 @@ abstract class FormField implements ConfigurationInterface
 
     /**
      * @return array
+     * @deprecated
      */
     public function getConditionField(): array
     {
@@ -287,6 +298,7 @@ abstract class FormField implements ConfigurationInterface
     /**
      * @param string $conditionField
      * @return FormField
+     * @deprecated
      */
     public function setConditionField(string $conditionField): FormField
     {
@@ -297,6 +309,7 @@ abstract class FormField implements ConfigurationInterface
 
     /**
      * @return array
+     * @deprecated
      */
     public function getConditionValue(): array
     {
@@ -306,6 +319,7 @@ abstract class FormField implements ConfigurationInterface
     /**
      * @param string $conditionValue
      * @return FormField
+     * @deprecated
      */
     public function setConditionValue(string $conditionValue): FormField
     {
@@ -382,5 +396,10 @@ abstract class FormField implements ConfigurationInterface
     public function setEntryPoint(string $entryPoint): void
     {
         $this->entryPoint = $entryPoint;
+    }
+
+    public function addCondition(ConfigurationInterface $condition)
+    {
+        $this->conditions[] = $condition;
     }
 }

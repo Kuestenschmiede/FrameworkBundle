@@ -29,7 +29,7 @@ export default class FormMultiDatepickerField extends Component {
     dateObjects.forEach(function (dateObject) {
       let date = dateObject.toDate();
       if (date !== null) {
-        let value = Math.floor(date.getTime() / 1000);
+        let value = Math.floor(date.getTime());
         newValue.push(value);
       } else {
         newValue.push('');
@@ -48,7 +48,7 @@ export default class FormMultiDatepickerField extends Component {
         if (isNaN(date)) {
           date = 0;
         }
-        dates[index] = date * 1000;
+        dates[index] = date;
       }, this);
     }
 

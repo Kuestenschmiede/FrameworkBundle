@@ -91,6 +91,7 @@
     "react-sortable-tree": "^2.8.0",
     "react-youtube": "^7.14.0",
     "sweetalert2": "^10.16.8",
-    "sweetalert2-react-content": "^3.3.2"
+    "sweetalert2-react-content": "^3.3.2",
+    "react-multi-date-picker": "^3.3.0"
   }
 }

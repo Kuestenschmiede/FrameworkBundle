@@ -13,6 +13,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import checkIfFieldIsRendered from "../../util/conditions";
 
+const Condition = React.lazy(() => import("../../condition/Condition.jsx"));
+
 export default class FormDatepickerField extends Component {
   constructor(props) {
     super(props);
@@ -83,38 +85,40 @@ export default class FormDatepickerField extends Component {
                                 aria-label={this.props.field.placeholderText} id={this.props.field.name}/>);
 
     return (
-      <div className={"c4g-form-field form-group " + this.props.field.name}>
-        <label className={this.props.field.required ? "c4g-required" : null}>
-          {label}
-        </label>
-        <DatePicker customInput={customElement}
-                    selected={this.props.field.selected ? this.props.field.selected : startDate}
-                    onChange={this.props.field.onChange ? this.props.field.onChange : this.handleChange}
-                    onChangeRaw={this.handleChangeRaw}
-                    name={this.props.field.name}
-                    isClearable
-                    placeholderText={this.props.field.placeholderText}
-                    required={this.props.field.required}
-          // className={className}
-                    dateFormat={this.props.field.dateFormat}
-                    showTimeSelect={this.props.field.showTimeSelect}
-                    showMonthDropdown={!this.props.field.showTimeSelectOnly}
-                    showYearDropdown={!this.props.field.showTimeSelectOnly}
-                    scrollableYearDropdown={!this.props.field.showTimeSelectOnly}
-                    timeCaption={this.props.field.timeCaption}
-                    allowSameDay={true}
-                    locale={locale}
-                    popperPlacement={"bottom-end"}
-                    customInputRef={"ref"}
-                    ref={this.pickerRef}
-                    customRef={this.pickerRef}
-                    autoComplete={"off"}
-                    shouldCloseOnSelect
-                    dropdownMode={"scroll"}
-                    id={this.props.field.name}
-        />
-        <small className={"field-description form-text text-muted"}>{description}</small>
-      </div>
+      <Condition data={this.props.data} conditions={this.props.field.conditions} field={this.props.field.name}>
+        <div className={"c4g-form-field form-group " + this.props.field.name}>
+          <label className={this.props.field.required ? "c4g-required" : null}>
+            {label}
+          </label>
+          <DatePicker customInput={customElement}
+                      selected={this.props.field.selected ? this.props.field.selected : startDate}
+                      onChange={this.props.field.onChange ? this.props.field.onChange : this.handleChange}
+                      onChangeRaw={this.handleChangeRaw}
+                      name={this.props.field.name}
+                      isClearable
+                      placeholderText={this.props.field.placeholderText}
+                      required={this.props.field.required}
+            // className={className}
+                      dateFormat={this.props.field.dateFormat}
+                      showTimeSelect={this.props.field.showTimeSelect}
+                      showMonthDropdown={!this.props.field.showTimeSelectOnly}
+                      showYearDropdown={!this.props.field.showTimeSelectOnly}
+                      scrollableYearDropdown={!this.props.field.showTimeSelectOnly}
+                      timeCaption={this.props.field.timeCaption}
+                      allowSameDay={true}
+                      locale={locale}
+                      popperPlacement={"bottom-end"}
+                      customInputRef={"ref"}
+                      ref={this.pickerRef}
+                      customRef={this.pickerRef}
+                      autoComplete={"off"}
+                      shouldCloseOnSelect
+                      dropdownMode={"scroll"}
+                      id={this.props.field.name}
+          />
+          <small className={"field-description form-text text-muted"}>{description}</small>
+        </div>
+      </Condition>
     );
   }
 

@@ -31,8 +31,6 @@ export default class FormMultiDatepickerField extends Component {
       if (date !== null) {
         let value = Math.floor(date.getTime());
         newValue.push(value);
-      } else {
-        newValue.push('');
       }
     }, this);
     this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: newValue}, this.props.field);

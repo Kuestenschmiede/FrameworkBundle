@@ -24,6 +24,11 @@ class MultiDatePickerFormField extends FormField
         return $config;
     }
 
+    public function validate(array $parameters)
+    {
+        return true;
+    }
+
     /**
      * @return string
      */

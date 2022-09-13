@@ -65,7 +65,7 @@ export default class FormMultiDatepickerField extends Component {
               multiple={true}
               value={this.props.data[this.props.field.name]}
               onChange={this.handleChange}
-              render={<CustomInput id={this.props.field.name} error={!!this.props.errorText} />}
+              render={<CustomInput id={this.props.field.name} error={!!this.props.errorText} required={this.props.field.required}/>}
               format={'DD.MM.YYYY HH:mm:ss'}
               plugins={[
                 <TimePicker position="bottom" />,
@@ -85,10 +85,11 @@ export default class FormMultiDatepickerField extends Component {
   }
 }
 
-function CustomInput({openCalendar, value, handleValueChange, id, error}) {
+function CustomInput({openCalendar, value, handleValueChange, id, error, required}) {
   return (
     <input
       id={id}
+      required={required}
       onFocus={openCalendar}
       value={value}
       onChange={handleValueChange}

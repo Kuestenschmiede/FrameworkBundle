@@ -29,10 +29,8 @@ export default class FormMultiDatepickerField extends Component {
     dateObjects.forEach(function (dateObject) {
       let date = dateObject.toDate();
       if (date !== null) {
-        let value = Math.floor(date.getTime() / 1000);
+        let value = Math.floor(date.getTime());
         newValue.push(value);
-      } else {
-        newValue.push('');
       }
     }, this);
     this.props.form.props.updateFunction(this.props.form.props.name, {[this.props.field.name]: newValue}, this.props.field);
@@ -48,34 +46,36 @@ export default class FormMultiDatepickerField extends Component {
         if (isNaN(date)) {
           date = 0;
         }
-        dates[index] = date * 1000;
+        dates[index] = date;
       }, this);
     }
 
     return (
-      <Condition>
-        <div className={''}>
-          <label htmlFor={this.props.field.name}>
-            {this.props.field.label}
-          </label>
-        </div>
-        <div className={'c4g-form-field form-group' + (this.props.field.className ? ' ' + this.props.field.className : '')}>
-          <DatePicker
-            multiple={true}
-            value={this.props.data[this.props.field.name]}
-            onChange={this.handleChange}
-            render={<CustomInput id={this.props.field.name} />}
-            format={'DD.MM.YYYY HH:mm:ss'}
-            plugins={[
-              <TimePicker position="bottom" />,
-              <DatePanel markFocused />
-            ]}
-          />
-        </div>
-        <div>
-          <span>
-            {this.props.field.description}
-          </span>
+      <Condition data={this.props.data} conditions={this.props.field.conditions} field={this.props.field.name}>
+        <div className={'multi-date-picker'}>
+          <div className={'' + (this.props.errorText ? 'c4g-error' : '')}>
+            <label htmlFor={this.props.field.name}>
+              {this.props.field.label}
+            </label>
+          </div>
+          <div className={'c4g-form-field form-group' + (this.props.field.className ? ' ' + this.props.field.className : '') + (this.props.errorText ? ' c4g-error' : '')}>
+            <DatePicker
+              multiple={true}
+              value={this.props.data[this.props.field.name]}
+              onChange={this.handleChange}
+              render={<CustomInput id={this.props.field.name} error={!!this.props.errorText} required={this.props.field.required}/>}
+              format={'DD.MM.YYYY HH:mm:ss'}
+              plugins={[
+                <TimePicker position="bottom" />,
+                <DatePanel markFocused />
+              ]}
+            />
+          </div>
+          <div className={this.props.errorText ? 'c4g-error' : ''}>
+            <span>
+              {this.props.errorText ? this.props.errorText : this.props.field.description}
+            </span>
+          </div>
         </div>
       </Condition>
     );
@@ -83,15 +83,16 @@ export default class FormMultiDatepickerField extends Component {
   }
 }
 
-function CustomInput({openCalendar, value, handleValueChange, id}) {
+function CustomInput({openCalendar, value, handleValueChange, id, error, required}) {
   return (
     <input
       id={id}
+      required={required}
       onFocus={openCalendar}
       value={value}
       onChange={handleValueChange}
       type="text"
-      className="form-control"
+      className={"form-control" + (error ? " c4g-error" : "")}
       autoComplete="off"
       inputMode="none"
     />

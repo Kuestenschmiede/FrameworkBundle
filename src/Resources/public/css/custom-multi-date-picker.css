@@ -1,7 +1,11 @@
-.rmdp-focused {
+.multi-date-picker .rmdp-focused {
     background-color: darkblue !important;
 }
 
-.rmdp-container {
+.multi-date-picker .rmdp-container {
     display: block !important;
+}
+
+.multi-date-picker .c4g-error {
+    color: darkred;
 }

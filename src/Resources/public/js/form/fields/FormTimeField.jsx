@@ -11,6 +11,8 @@
 import React, {Component} from "react";
 import checkIfFieldIsRendered from "../../util/conditions";
 
+const Condition = React.lazy(() => import("../../condition/Condition.jsx"));
+
 export default class FormTimeField extends Component {
   constructor(props) {
     super(props);
@@ -92,23 +94,25 @@ export default class FormTimeField extends Component {
     }
 
     return (
-      <div className={'c4g-form-field form-group'}>
-        <label className={this.props.field.required ? 'c4g-required' : ''}>{label}</label>
-        <input type={'time'}
-               className={className + " form-control"}
-               required={this.props.field.required}
-               defaultValue={this.convertTimeToString(this.props.data[this.props.field.name])}
-               pattern={this.regex.fullPattern}
-               placeholder={'HH:MM'}
-               onChange={this.handleChange}
-               maxLength={5}
-        />
-        <input type={'hidden'}
-               name={this.props.field.name}
-               value={this.props.data[this.props.field.name] || ''}
-        />
-        <small className="field-description form-text text-muted">{description}</small>
-      </div>
+      <Condition data={this.props.data} conditions={this.props.field.conditions} field={this.props.field.name}>
+        <div className={'c4g-form-field form-group'}>
+          <label className={this.props.field.required ? 'c4g-required' : ''}>{label}</label>
+          <input type={'time'}
+                 className={className + " form-control"}
+                 required={this.props.field.required}
+                 defaultValue={this.convertTimeToString(this.props.data[this.props.field.name])}
+                 pattern={this.regex.fullPattern}
+                 placeholder={'HH:MM'}
+                 onChange={this.handleChange}
+                 maxLength={5}
+          />
+          <input type={'hidden'}
+                 name={this.props.field.name}
+                 value={this.props.data[this.props.field.name] || ''}
+          />
+          <small className="field-description form-text text-muted">{description}</small>
+        </div>
+      </Condition>
     );
   }
 }

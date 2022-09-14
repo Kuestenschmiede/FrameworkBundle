@@ -12,6 +12,8 @@ import React, {Component} from "react";
 import Select from "react-select";
 import checkIfFieldIsRendered from "../../util/conditions";
 
+const Condition = React.lazy(() => import("../../condition/Condition.jsx"));
+
 export default class FormSelectField extends Component {
   constructor(props) {
     super(props);
@@ -170,22 +172,24 @@ export default class FormSelectField extends Component {
 
       return (
           <React.Fragment>
-            <div className={(this.props.field.className ? this.props.field.className + " " : "") + "c4g-form-field"}>
-              {label}
-              {this.props.errorText && typeof this.props.errorText === "string" && <div className={"text-danger"}>{this.props.errorText}</div>}
-              {hint}
-              <React.Fragment>
-                <Select id={this.props.field.name} name={name}
-                        options={options} isMulti={this.props.field.multiple}
-                        required={this.props.field.required} onChange={this.handleChange}
-                        defaultValue={this.props.field.multiple ? this.props.data[this.props.field.name] : defaultValue}
-                        placeholder={this.props.field.placeholder}
-                        aria-label={ariaLabel}>
-                </Select>
-                {selectNode}
-              </React.Fragment>
-              {description}
-            </div>
+            <Condition data={this.props.data} conditions={this.props.field.conditions} field={this.props.field.name}>
+              <div className={(this.props.field.className ? this.props.field.className + " " : "") + "c4g-form-field"}>
+                {label}
+                {this.props.errorText && typeof this.props.errorText === "string" && <div className={"text-danger"}>{this.props.errorText}</div>}
+                {hint}
+                <React.Fragment>
+                  <Select id={this.props.field.name} name={name}
+                          options={options} isMulti={this.props.field.multiple}
+                          required={this.props.field.required} onChange={this.handleChange}
+                          defaultValue={this.props.field.multiple ? this.props.data[this.props.field.name] : defaultValue}
+                          placeholder={this.props.field.placeholder}
+                          aria-label={ariaLabel}>
+                  </Select>
+                  {selectNode}
+                </React.Fragment>
+                {description}
+              </div>
+            </Condition>
           </React.Fragment>
       );
 

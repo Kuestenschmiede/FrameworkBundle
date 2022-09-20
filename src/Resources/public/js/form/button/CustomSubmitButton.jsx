@@ -105,7 +105,7 @@ export default class CustomSubmitButton extends Component {
         if (fields.hasOwnProperty(fieldId)) {
           const field = fields[fieldId];
           if (field.name) {
-            const fieldNode = $("#" + field.name);
+            let fieldNode = $("#" + field.name);
             if (field.required && fieldNode.length && hasConditions(field, data, this.props.form.props.component.fields)) {
               let invalid = false;
               if (field.type === "number") {
@@ -115,20 +115,50 @@ export default class CustomSubmitButton extends Component {
                 ) {
                   invalid = true;
                 }
+              } else if (field.type === "select") {
+                if (
+                  !data[field.name] ||
+                  (typeof data[field.name] === 'string' && !data[field.name]) ||
+                  (typeof data[field.name] === 'object' && !data[field.name].value)
+                ) {
+                  invalid = true;
+                }
               } else {
                 if (!data[field.name]) {
                   invalid = true;
                 }
               }
               if (invalid) {
+                if (field.type === "select") {
+                  fieldNode = fieldNode.children()[1];
+                  fieldNode.style.borderColor = '#dc3545';
+                  fieldNode.style.boxShadow = 'none';
+                  fieldNode.parentNode.nextSibling.addEventListener('select', function () {
+                    fieldNode.style.removeProperty('borderColor');
+                    fieldNode.style.removeProperty('boxShadow');
+                  });
+                } else {
+                  fieldNode = fieldNode[0];
+                  $(fieldNode).keyup(function () {
+                    $(this).removeClass("is-invalid");
+                    $(this).off("keyup");
+                  });
+                  fieldNode.classList.add("is-invalid");
+                  if (!fieldNode.classList.contains('form-control')) {
+                    fieldNode.classList.add('form-control');
+                  }
+                }
                 fieldNode.focus();
-                fieldNode.keyup(function () {
-                  $(this).removeClass("is-invalid");
-                  $(this).off("keyup");
-                });
-                fieldNode.addClass("is-invalid");
+                fieldNode.scrollIntoView({behavior: 'smooth'});
+
                 this.callSubmitFailed(data, [field]);
                 return false;
+              } else {
+                if (field.type === "select") {
+                  fieldNode = fieldNode.children()[1];
+                  fieldNode.style.removeProperty('borderColor');
+                  fieldNode.style.removeProperty('boxShadow');
+                }
               }
             }
           }

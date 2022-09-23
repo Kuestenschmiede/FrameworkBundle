@@ -121,7 +121,11 @@ export default class FormSelectField extends Component {
         if (!defaultValue && this.props.field.selected) {
           // set default value for when no value is saved yet
           let defaultOption = this.props.field.selected;
-          defaultValue = {value: this.props.field.options[defaultOption].value, label: this.props.field.options[defaultOption].label};
+          this.props.field.options.forEach((element) => {
+            if (defaultOption === element.value) {
+              defaultValue = {value: element.value, label: element.label};
+            }
+          }, this);
         }
       }
 

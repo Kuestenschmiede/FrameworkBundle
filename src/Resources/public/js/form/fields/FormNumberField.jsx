@@ -44,7 +44,7 @@ export default class FormNumberField extends Component {
                    id={this.props.field.name}
                    name={this.props.field.name}
                    required={this.props.field.required}
-                   defaultValue={this.props.data[this.props.field.name] || this.props.field.value}
+                   defaultValue={this.props.data[this.props.field.name] || this.props.field.value || null}
                    onChange={this.handleChange}
                    min={this.props.field.min}
                    max={this.props.field.max}

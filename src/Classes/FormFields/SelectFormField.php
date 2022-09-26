@@ -98,7 +98,8 @@ class SelectFormField extends FormField
             return !$this->required || !empty($parameters[$this->name]);
         }
 
-        return parent::validate($parameters) ;//&& in_array($parameters[$this->name], $options);
+        return parent::validate($parameters);//&& in_array($parameters[$this->name], $options);
+
     }
 
     /**

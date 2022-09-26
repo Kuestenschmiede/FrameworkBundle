@@ -91,6 +91,7 @@ abstract class FormField implements ConfigurationInterface
 
     public function validate(array $parameters)
     {
+        
         if ($this->conditionField !== []) {
             foreach ($this->conditionField as $key => $condition) {
                 if ($parameters[$condition] !== $this->conditionValue[$key]) {

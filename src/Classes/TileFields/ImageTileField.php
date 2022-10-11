@@ -15,6 +15,26 @@ class ImageTileField extends TileField
     protected $altName = '';
     protected $imageSource = '';
     protected $imageAlt = '';
+    protected $href = '';
+    protected $hrefFields = [];
+    protected $externalLinkField = '';
+    protected $externalLinkFieldConditionField = '';
+    protected $externalLinkFieldConditionValue = '';
+    protected $asyncCall = false;
+
+    /**
+     * Dispatches a JS hook after the button was clicked.
+     * @var bool
+     */
+    protected $hookAfterClick = false;
+
+    /**
+     * Name of the hook. It will be written into window.c4gHooks[$dispatchHookName].
+     * @var string
+     */
+    protected $hookName = '';
+
+    private string $redirectPageOnSuccess = '';
 
     const TYPE = 'image';
 
@@ -24,6 +44,15 @@ class ImageTileField extends TileField
         $config['altName'] = $this->altName;
         $config['imageSource'] = $this->imageSource;
         $config['imageAlt'] = $this->imageAlt;
+        $config['href'] = $this->href;
+        $config['externalLinkField'] = $this->externalLinkField;
+        $config['externalLinkFieldConditionField'] = $this->externalLinkFieldConditionField;
+        $config['externalLinkFieldConditionValue'] = $this->externalLinkFieldConditionValue;
+        $config['hookAfterClick'] = $this->hookAfterClick;
+        $config['hookName'] = $this->hookName;
+        $config['redirectPageOnSuccess'] = $this->redirectPageOnSuccess;
+        $config['hrefFields'] = $this->hrefFields;
+        $config['asyncCall'] = $this->asyncCall;
 
         return $config;
     }
@@ -83,5 +112,157 @@ class ImageTileField extends TileField
         $this->imageAlt = $imageAlt;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHref(): string
+    {
+        return $this->href;
+    }
+
+    /**
+     * @param string $href
+     */
+    public function setHref(string $href): void
+    {
+        $this->href = $href;
+    }
+
+    /**
+     * @return array
+     */
+    public function getHrefFields(): array
+    {
+        return $this->hrefFields;
+    }
+
+    /**
+     * @param array $hrefFields
+     */
+    public function setHrefFields(array $hrefFields): void
+    {
+        $this->hrefFields = $hrefFields;
+    }
+
+    /**
+     * @param string $hrefField
+     */
+    public function setHrefField(string $hrefField)
+    {
+        $this->hrefFields[] = $hrefField;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExternalLinkField(): string
+    {
+        return $this->externalLinkField;
+    }
+
+    /**
+     * @param string $externalLinkField
+     */
+    public function setExternalLinkField(string $externalLinkField): void
+    {
+        $this->externalLinkField = $externalLinkField;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExternalLinkFieldConditionField(): string
+    {
+        return $this->externalLinkFieldConditionField;
+    }
+
+    /**
+     * @param string $externalLinkFieldConditionField
+     */
+    public function setExternalLinkFieldConditionField(string $externalLinkFieldConditionField): void
+    {
+        $this->externalLinkFieldConditionField = $externalLinkFieldConditionField;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExternalLinkFieldConditionValue(): string
+    {
+        return $this->externalLinkFieldConditionValue;
+    }
+
+    /**
+     * @param string $externalLinkFieldConditionValue
+     */
+    public function setExternalLinkFieldConditionValue(string $externalLinkFieldConditionValue): void
+    {
+        $this->externalLinkFieldConditionValue = $externalLinkFieldConditionValue;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAsyncCall(): bool
+    {
+        return $this->asyncCall;
+    }
+
+    /**
+     * @param bool $asyncCall
+     */
+    public function setAsyncCall(bool $asyncCall): void
+    {
+        $this->asyncCall = $asyncCall;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHookAfterClick(): bool
+    {
+        return $this->hookAfterClick;
+    }
+
+    /**
+     * @param bool $hookAfterClick
+     */
+    public function setHookAfterClick(bool $hookAfterClick): void
+    {
+        $this->hookAfterClick = $hookAfterClick;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHookName(): string
+    {
+        return $this->hookName;
+    }
+
+    /**
+     * @param string $hookName
+     */
+    public function setHookName(string $hookName): void
+    {
+        $this->hookName = $hookName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRedirectPageOnSuccess(): string
+    {
+        return $this->redirectPageOnSuccess;
+    }
+
+    /**
+     * @param string $redirectPageOnSuccess
+     */
+    public function setRedirectPageOnSuccess(string $redirectPageOnSuccess): void
+    {
+        $this->redirectPageOnSuccess = $redirectPageOnSuccess;
     }
 }

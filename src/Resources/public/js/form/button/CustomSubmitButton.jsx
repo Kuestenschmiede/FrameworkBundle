@@ -122,11 +122,10 @@ export default class CustomSubmitButton extends Component {
                   (typeof data[field.name].forEach === 'function' && data[field.name].length === 0) ||
                   (typeof data[field.name] === 'object' && typeof data[field.name].forEach !== 'function' && !data[field.name].value)
                 ) {
-                  console.log(typeof data[field.name] === 'string' && !data[field.name]);
-                  console.log(typeof data[field.name].forEach === 'function' && data[field.name].length === 0);
-                  console.log(typeof data[field.name] === 'object' && typeof data[field.name].forEach !== 'function' && !data[field.name].value);
-                  console.log(data[field.name]);
-                  console.log('ich bin hier');
+                  //console.log(typeof data[field.name] === 'string' && !data[field.name]);
+                  //console.log(typeof data[field.name].forEach === 'function' && data[field.name].length === 0);
+                  //console.log(typeof data[field.name] === 'object' && typeof data[field.name].forEach !== 'function' && !data[field.name].value);
+                  //console.log(data[field.name]);
                   invalid = true;
                 }
               } else {

@@ -24,6 +24,7 @@ class RegularExpression
     const PHONE = '^(\+|00|0)[1-9 ][0-9 \/\-\(\)\.]{7,}$'; //Phone numbers with brackets, slashes and so on
     const NAME = '^[\p{L}]{1}[- \p{L}]*[\p{L}]{1}$'; //Names, allows special letters (ä, á, etc.) as well as whitespaces and (-) unless they are at the end or beginning.
     const URL = '^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'; //URL
+    const URL_UMLAUT = '^(https?:\/\/)?(www\.)?[-a-zA-Z0-9äÄöÖüÜ@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'; //URL
     const YEAR = '^[1][90](\d{2})|[2][0](\d{2})$'; //Year, from 1900 to 20xx. Will also allow 29xx, so make sure to set a max value!
     const DATE_D_M_Y = '^([0-2][0-9]|[3][0-1])[.]([0][0-9]|[1][0-2])[.]([1][90](\d{2})|[2][0](\d{2}))$'; //Dates in DD.MM.YYYY format
 }

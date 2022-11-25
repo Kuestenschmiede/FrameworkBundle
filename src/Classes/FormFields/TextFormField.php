@@ -64,7 +64,7 @@ class TextFormField extends FormField
         $value = (string) $parameters[$this->name];
         if ($value === '' && $this->required) {
             return false;
-        } elseif (strlen($value) > $this->maxLength) {
+        } elseif (mb_strlen($value) > $this->maxLength) {
             return false;
         }
 

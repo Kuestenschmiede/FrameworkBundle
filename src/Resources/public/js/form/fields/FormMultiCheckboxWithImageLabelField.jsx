@@ -37,29 +37,30 @@ export default class FormMultiCheckboxWithImageLabelField extends Component {
       let keys = Object.keys(this.props.field.options);
       keys.forEach((element, index) => {
         let defaultChecked = false;
-
+        let additionalClassname = '';
         if (defaultValues) {
           defaultValues.forEach((cachedElement, idx) => {
-            if (cachedElement.value === this.props.field.options[element].value) {
+            if (element && (cachedElement === element)) {
               defaultChecked = true;
+              additionalClassname = ' checked-mcb';
             }
           });
         }
 
         options.push(
           <React.Fragment key={index}>
-            <div className={this.props.field.optionClass}>
-              <label title={this.props.field.options[element].alt} className={"c4g-form-label"}>
+            <div className={this.props.field.optionClass+additionalClassname}>
+              <label title={this.props.field.options[element].alt} className={"c4g-form-label"+additionalClassname}>
                 <img src={this.props.field.options[element].src}
                      alt={this.props.field.options[element].alt}
                      title={this.props.field.options[element].alt}
-                     className={"c4g-img-fluid"}
+                     className={"c4g-img-fluid"+additionalClassname}
                      width="100%"
                      height="100%"
                 />
                 <input type="checkbox" name={this.props.field.name}
                        value={element} required={this.props.field.required}
-                       className={"c4g-form-input"}
+                       className={"c4g-form-input"+additionalClassname}
                        onChange={this.checkCheckbox}
                        defaultChecked={defaultChecked}/>
               </label>

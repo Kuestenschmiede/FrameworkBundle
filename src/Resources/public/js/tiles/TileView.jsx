@@ -20,6 +20,8 @@ const CarouselTile = React.lazy(() => import("./CarouselTile.jsx"));
 const ExperimentalGridTile = React.lazy(() => import("./ExperimentalGridTile.jsx"));
 const InfiniteScroll = React.lazy(() => import("react-infinite-scroll-component"));
 
+const TileMapperField = React.lazy(() => import("./fields/TileMapperField.jsx"));
+
 export default class TileView extends Component {
 
   constructor(props) {
@@ -146,6 +148,7 @@ export default class TileView extends Component {
                                          key={id}
                                          fields={this.props.fields}
                                          conditionalClasses={this.props.component.conditionalClasses}
+                                         languageRefs={this.props.languageRefs}
                     />
                   })
                 }
@@ -178,6 +181,7 @@ export default class TileView extends Component {
                                                fields={this.props.fields}
                                                conditionalClasses={this.props.component.conditionalClasses}
                                                list={this}
+                                               languageRefs={this.props.languageRefs}
                   />
                 })
               }

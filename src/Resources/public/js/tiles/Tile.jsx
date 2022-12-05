@@ -49,7 +49,7 @@ export default class Tile extends Component {
           headerFields.map((item, id) => {
             // let field = FieldTypeMapper.mapTileField(item.type);
             // return React.createElement(field, {key: id, field: item, data: this.props.dataEntry});
-            return <TileMapperField key={id} field={item} data={this.props.dataEntry} list={this.props.list} fields={this.props.fields}/>;
+            return <TileMapperField key={id} field={item} data={this.props.dataEntry} list={this.props.list} fields={this.props.fields} languageRefs={this.props.languageRefs}/>;
           }, this)
         }
       </div>;
@@ -61,7 +61,7 @@ export default class Tile extends Component {
           contentFields.map((item, id) => {
             // let field = FieldTypeMapper.mapTileField(item.type);
             // return React.createElement(field, {key: id, field: item, data: this.props.dataEntry});
-            return <TileMapperField key={id} field={item} data={this.props.dataEntry} list={this.props.list} fields={this.props.fields}/>;
+            return <TileMapperField key={id} field={item} data={this.props.dataEntry} list={this.props.list} fields={this.props.fields} languageRefs={this.props.languageRefs}/>;
           }, this)
         }
       </div>
@@ -73,7 +73,7 @@ export default class Tile extends Component {
           footerFields.map((item, id) => {
             // let field = FieldTypeMapper.mapTileField(item.type);
             // return React.createElement(field, {key: id, field: item, data: this.props.dataEntry});
-            return <TileMapperField key={id} field={item} data={this.props.dataEntry} list={this.props.list} fields={this.props.fields}/>;
+            return <TileMapperField key={id} field={item} data={this.props.dataEntry} list={this.props.list} fields={this.props.fields} languageRefs={this.props.languageRefs}/>;
           }, this)
         }
       </div>;

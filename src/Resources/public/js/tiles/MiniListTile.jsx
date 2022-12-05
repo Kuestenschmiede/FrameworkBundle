@@ -26,12 +26,12 @@ export default class MiniListTile extends Component {
       if (item.type === "wrapper") {
         wrappedFields = wrappedFields.concat(item.wrappedFields);
         // fields.push(React.createElement(field, {key: id, field: item, data: this.props.dataEntry, fields: this.props.fields, list: this.props.list}));
-        fields.push(<TileMapperField key={id} field={item} data={this.props.dataEntry} fields={this.props.fields} list={this.props.list}/>);
+        fields.push(<TileMapperField key={id} field={item} data={this.props.dataEntry} fields={this.props.fields} list={this.props.list} languageRefs={this.props.languageRefs}/>);
       } else {
         if (!wrappedFields.includes(item.name)) {
           // only render non-wrapped fields
           // since the wrapped fields will be rendered by the wrapper
-          fields.push(<TileMapperField key={id} field={item} data={this.props.dataEntry} fields={this.props.fields} list={this.props.list}/>);
+          fields.push(<TileMapperField key={id} field={item} data={this.props.dataEntry} fields={this.props.fields} list={this.props.list} languageRefs={this.props.languageRefs}/>);
         }
       }
     });

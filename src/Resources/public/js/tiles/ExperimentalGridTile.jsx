@@ -8,7 +8,7 @@
  * @link https://www.con4gis.org
  */
 
-import React, {Component} from "react";
+import React, {Component, Suspense} from "react";
 
 const TileMapperField = React.lazy(() => import("./fields/TileMapperField.jsx"));
 
@@ -16,7 +16,6 @@ export default class ExperimentalGridTile extends Component {
 
   constructor(props) {
     super(props);
-
   }
 
   render() {
@@ -37,7 +36,7 @@ export default class ExperimentalGridTile extends Component {
           {
             this.props.fields.map((item, id) => {
               if (!wrappedFields.includes(item.name)) {
-                return <TileMapperField key={id} field={item} data={this.props.dataEntry} list={this.props.list} fields={this.props.fields}/>;
+                return <TileMapperField key={id} field={item} data={this.props.dataEntry} list={this.props.list} fields={this.props.fields} languageRefs={this.props.languageRefs}/>;
               }
             })
           }

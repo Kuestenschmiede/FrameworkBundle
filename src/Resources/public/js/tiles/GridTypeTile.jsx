@@ -8,7 +8,7 @@
  * @link https://www.con4gis.org
  */
 
-import React, {Component} from "react";
+import React, {Component, Suspense} from "react";
 
 const TileMapperField = React.lazy(() => import("./fields/TileMapperField.jsx"));
 
@@ -27,7 +27,7 @@ export default class GridTypeTile extends Component {
 
           {
             this.props.fields.map((item, id) => {
-              return <TileMapperField key={id} field={item} data={this.props.dataEntry} list={this.props.list}/>;
+              return <TileMapperField key={id} field={item} data={this.props.dataEntry} list={this.props.list} languageRefs={this.props.languageRefs}/>;
             })
           }
 

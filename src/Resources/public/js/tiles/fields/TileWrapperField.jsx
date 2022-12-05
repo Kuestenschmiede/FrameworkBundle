@@ -34,7 +34,7 @@ export default class TileWrapperField extends Component {
 
     let innerFields = [];
     wrappedFields.map((item, id) => {
-      innerFields.push(<TileMapperField key={id} field={item} data={this.props.data} list={this.props.list} fields={this.props.fields}/>)
+      innerFields.push(<TileMapperField key={id} field={item} data={this.props.data} list={this.props.list} fields={this.props.fields} languageRefs={this.props.languageRefs}/>)
     });
 
     return (

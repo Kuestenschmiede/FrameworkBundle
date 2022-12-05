@@ -18,6 +18,8 @@ const ListTypeTileDescriptionPriceDateTimeField = React.lazy(() => import("./Lis
 const ListTypeTileTagLinkField = React.lazy(() => import("./ListTypeTileTagLinkField.jsx"));
 const ListTypeTileModalFormButtonField = React.lazy(() => import("./ListTypeTileModalFormButtonField.jsx"));
 const TileLinkButtonField = React.lazy(() => import("./../TileLinkButtonField.jsx"));
+const TileOSMOpeningHoursField = React.lazy(() => import("./../TileOSMOpeningHoursField.jsx"));
+
 
 export default class ListTypeTileMapperField extends Component {
 
@@ -44,6 +46,8 @@ export default class ListTypeTileMapperField extends Component {
         return <TileLinkButtonField {...this.props}/>;
       case "modal-form-button":
         return <ListTypeTileModalFormButtonField {...this.props}/>;
+      case "osm-opening-hours":
+        return <TileOSMOpeningHoursField {...this.props}/>;
       default:
         return null;
     }

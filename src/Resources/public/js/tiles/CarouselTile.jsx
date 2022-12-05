@@ -8,7 +8,7 @@
  * @link https://www.con4gis.org
  */
 
-import React, {Component} from "react";
+import React, {Component, Suspense} from "react";
 const TileMapperField = React.lazy(() => import("./fields/TileMapperField.jsx"));
 
 export default class CarouselTile extends Component {
@@ -27,7 +27,7 @@ export default class CarouselTile extends Component {
       <a className={this.props.className || ""} href={this.props.dataEntry.href} itemScope={itemType} itemType={itemType}>
         {
           this.props.fields.map((item, id) => {
-            return <TileMapperField key={id} field={item} data={this.props.dataEntry}/>;
+            return <TileMapperField key={id} field={item} data={this.props.dataEntry} languageRefs={this.props.languageRefs}/>;
           })
         }
       </a>

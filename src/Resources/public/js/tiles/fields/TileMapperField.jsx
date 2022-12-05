@@ -28,6 +28,7 @@ const TileDateField = React.lazy(() => import("./TileDateField.jsx"));
 const TileDistanceField = React.lazy(() => import("./TileDistanceField.jsx"));
 const TileTagField = React.lazy(() => import("./TileTagField.jsx"));
 const TileWrapperField = React.lazy(() => import("./TileWrapperField.jsx"));
+const TileOSMOpeningHoursField = React.lazy(() => import("./TileOSMOpeningHoursField.jsx"));
 
 export default class TileMapperField extends Component {
 
@@ -74,6 +75,8 @@ export default class TileMapperField extends Component {
         return <TileTagField {...this.props}/>;
       case "wrapper":
         return <TileWrapperField {...this.props}/>;
+      case "osm-opening-hours":
+        return <TileOSMOpeningHoursField {...this.props}/>;
       default:
         return null;
     }

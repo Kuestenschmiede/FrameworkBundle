@@ -10,6 +10,8 @@
 
 import React, {Component} from "react";
 
+const Condition = React.lazy(() => import("../../condition/Condition.jsx"));
+
 export default class TileAddressField extends Component {
   constructor(props) {
     super(props);
@@ -65,13 +67,15 @@ export default class TileAddressField extends Component {
         itemType = 'https://schema.org/PostalAddress';
       }
       return (
-          <div className={this.props.field.wrapperClass}>
-            {label}
-            <span className={this.props.field.class} itemProp={itemProp} itemType={itemType} itemScope={itemType}>
-              {street}
-              {postalCity}
-            </span>
-          </div>
+          <Condition data={this.props.data} conditions={this.props.field.conditions}>
+            <div className={this.props.field.wrapperClass}>
+              {label}
+              <span className={this.props.field.class} itemProp={itemProp} itemType={itemType} itemScope={itemType}>
+                {street}
+                {postalCity}
+              </span>
+            </div>
+          </Condition>
       );
     }
     return ('')

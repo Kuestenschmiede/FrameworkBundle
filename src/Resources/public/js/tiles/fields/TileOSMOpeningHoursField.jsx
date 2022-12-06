@@ -74,7 +74,7 @@ export default class OSMOpeningHoursTileField extends Component {
 
           for (let i = 0; i < sortedDays.length; i++) {
             let cnt = 0;
-            let dayoutput = [<div key={(i + 1)} className={"opening-hours-day"}>{weekdays[sortedDays[i]]}</div>];
+
             let intervals = [];
             for (let j = 0; j < outputArr.length; j++) {
               if (outputArr[j][0] === sortedDays[i]) {
@@ -85,9 +85,12 @@ export default class OSMOpeningHoursTileField extends Component {
             }
 
             if (cnt === 0) {
-              let day = <div key={(i + 1) + 300} className={"opening-hours-day-interval"}>Geschlossen</div>;
-              intervals.push(day);
+              // let day = <div key={(i + 1) + 300} className={"opening-hours-day-interval"}>Geschlossen</div>;
+              // intervals.push(day);
+              continue;
             }
+
+            let dayoutput = [<div key={(i + 1)} className={"opening-hours-day"}>{weekdays[sortedDays[i]]}</div>];
 
             days.push(<div className={"opening-hours-day-entry"} key={(i + 3) * 1000}>
               {dayoutput}
@@ -125,13 +128,17 @@ export default class OSMOpeningHoursTileField extends Component {
       openingHours = <div className={"opening-hours-opened"}>{osmNode}{hintNode}</div>;
     }
 
-    return (
-        <div className={this.props.field.class+" opening-hours"}>
-          {/*<h3 key={0} className={"opening-hours-headline"}>{this.props.languageRefs.OPENING_HOURS}</h3>*/}
-          {daysNode}
-          {openingHours}
-        </div>
-    );
+    if ((daysNode !== null) || (openingHours !== null)) {
+      return (
+          <div className={this.props.field.class+" opening-hours"}>
+            {/*<h3 key={0} className={"opening-hours-headline"}>{this.props.languageRefs.OPENING_HOURS}</h3>*/}
+            {daysNode}
+            {openingHours}
+          </div>
+      );
+    } else {
+      return '';
+    }
   }
 
   //ToDo translation

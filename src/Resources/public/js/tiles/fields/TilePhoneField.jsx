@@ -10,6 +10,8 @@
 
 import React, {Component} from "react";
 
+const Condition = React.lazy(() => import("../../condition/Condition.jsx"));
+
 export default class TilePhoneField extends Component {
 
   constructor(props) {
@@ -30,10 +32,12 @@ export default class TilePhoneField extends Component {
       let phoneNumber = this.props.data[this.props.field.name];
       href += phoneNumber;
       return (
-          <div className={this.props.field.wrapperClass}>
-            {label}
-            <a className={this.props.field.class} itemProp={itemProp} href={href}>{phoneNumber}</a>
-          </div>
+          <Condition data={this.props.data} conditions={this.props.field.conditions}>
+            <div className={this.props.field.wrapperClass}>
+              {label}
+              <a className={this.props.field.class} itemProp={itemProp} href={href}>{phoneNumber}</a>
+            </div>
+          </Condition>
       );
     }
     return ('');

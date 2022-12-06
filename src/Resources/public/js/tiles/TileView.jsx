@@ -226,6 +226,8 @@ export default class TileView extends Component {
                         if (currentFilterData[key][i] !== prevFilterData[key][i]) {
                           delta = true;
                           break;
+                        } else {
+                          delta = true; //hotfix
                         }
                       }
                     } else {

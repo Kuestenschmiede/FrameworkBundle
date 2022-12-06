@@ -214,7 +214,7 @@ export class C4gUiManager extends Component {
     }
 
     this.setState({components: components}, () => {
-      // this.nodeRefs[component.name].setState({asyncLoading: true});
+      //this.nodeRefs[component.name].setState({asyncLoading: true});
     });
   }
 

@@ -244,9 +244,11 @@ abstract class FormField implements ConfigurationInterface
     /**
      * @param bool $patternRequired
      */
-    public function setPatternRequired(bool $patternRequired): void
+    public function setPatternRequired(bool $patternRequired): FormField
     {
         $this->patternRequired = $patternRequired;
+
+        return $this;
     }
 
     /**

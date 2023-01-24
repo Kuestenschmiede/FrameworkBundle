@@ -158,6 +158,7 @@ export default class TableView extends Component {
     };
     options["searchOpen"] = !!this.searchOpen;
     options["searchAlwaysOpen"] = true;
+    options["responsive"] = "";
 
     return (
       <div className={""}>

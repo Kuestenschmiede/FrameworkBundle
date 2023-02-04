@@ -10,6 +10,9 @@
  */
 namespace con4gis\FrameworkBundle\Classes\TileFields;
 
+use con4gis\FrameworkBundle\Classes\Conditions\FieldValueCondition;
+use con4gis\FrameworkBundle\Classes\ConfigurationInterface;
+
 class ImageTileField extends TileField
 {
     protected $altName = '';
@@ -21,6 +24,28 @@ class ImageTileField extends TileField
     protected $externalLinkFieldConditionField = '';
     protected $externalLinkFieldConditionValue = '';
     protected $asyncCall = false;
+
+//    /**
+//     * Set additional classes depending on other field values. The format should be
+//     * 'fieldName' => 'class'
+//     * The check will be a boolean check, so if the value for 'fieldName' is true, the class will be added.
+//     * @var string
+//     */
+//    protected $conditionalClasses = [];
+
+    /**
+     * The fields this fields' display depends upon, if there is one.
+     * @var array
+     */
+    protected $conditionField = [];
+
+    /**
+     * The value of the conditionFields for which this field is displayed.
+     * @var array
+     */
+    protected $conditionValue = [];
+
+    private $conditions = [];
 
     /**
      * Dispatches a JS hook after the button was clicked.
@@ -53,6 +78,20 @@ class ImageTileField extends TileField
         $config['redirectPageOnSuccess'] = $this->redirectPageOnSuccess;
         $config['hrefFields'] = $this->hrefFields;
         $config['asyncCall'] = $this->asyncCall;
+
+        if (!empty($this->conditionField && count($this->conditionField) === count($this->conditionValue))) {
+            foreach ($this->conditionField as $key => $field) {
+                $this->addCondition(new FieldValueCondition($this->conditionField[$key], $this->conditionValue[$key]));
+            }
+        }
+
+        if (!empty($this->conditions)) {
+            $conditions = [];
+            foreach ($this->conditions as $condition) {
+                $conditions[] = $condition->getConfiguration();
+            }
+            $config['conditions'] = $conditions;
+        }
 
         return $config;
     }
@@ -264,5 +303,46 @@ class ImageTileField extends TileField
     public function setRedirectPageOnSuccess(string $redirectPageOnSuccess): void
     {
         $this->redirectPageOnSuccess = $redirectPageOnSuccess;
+    }
+
+    /**
+     * @return array
+     * @deprecated
+     */
+    public function getConditionField(): array
+    {
+        return $this->conditionField;
+    }
+
+    /**
+     * @param string $conditionField
+     * @deprecated
+     */
+    public function setConditionField(string $conditionField)
+    {
+        $this->conditionField[] = $conditionField;
+    }
+
+    /**
+     * @return array
+     * @deprecated
+     */
+    public function getConditionValue(): array
+    {
+        return $this->conditionValue;
+    }
+
+    /**
+     * @param string $conditionValue
+     * @deprecated
+     */
+    public function setConditionValue(string $conditionValue)
+    {
+        $this->conditionValue[] = $conditionValue;
+    }
+
+    public function addCondition(ConfigurationInterface $condition)
+    {
+        $this->conditions[] = $condition;
     }
 }

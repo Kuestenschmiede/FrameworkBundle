@@ -10,6 +10,8 @@
 
 import React, {Component} from "react";
 
+const Condition = React.lazy(() => import("../../condition/Condition.jsx"));
+
 export default class TileImageField extends Component {
   constructor(props) {
     super(props);
@@ -83,6 +85,7 @@ export default class TileImageField extends Component {
 
       if (href) {
         return (
+          <Condition data={this.props.data} conditions={this.props.field.conditions}>
           <div className={this.props.field.wrapperClass}>
             {label}
             <a href={href} rel={"noreferrer noopener"} data-name={this.props.data['name']} data-moreurl={href}>
@@ -96,9 +99,11 @@ export default class TileImageField extends Component {
             />
             </a>
           </div>
+          </Condition>
         );
       } else {
         return (
+          <Condition data={this.props.data} conditions={this.props.field.conditions}>
           <div className={this.props.field.wrapperClass}>
             {label}
             <img className={this.props.field.class}
@@ -110,6 +115,7 @@ export default class TileImageField extends Component {
                  title={this.props.field.title || this.props.field.imageAlt || (this.props.data[this.props.field.name] && this.props.data[this.props.field.name].alt)}
             />
           </div>
+          </Condition>
         );
       }
 

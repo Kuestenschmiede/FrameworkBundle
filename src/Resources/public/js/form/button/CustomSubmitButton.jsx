@@ -301,15 +301,15 @@ export default class CustomSubmitButton extends Component {
       let street = data.locationStreet;
       let streetnumber = data.locationStreetNumber;
       let alertText = "";
-      if (!city) {
+      if (!city && response.address) {
         city = response.address.city || response.address.town || response.address.village;
         alertText += "<b>Ort:</b> " + city + "<br>";
       }
-      if (!street) {
+      if (!street && response.address) {
         street = response.address.road || response.address.street;
         alertText += "<b>Straße:</b> " + street + "<br>";
       }
-      if (!streetnumber && response.address.house_number) {
+      if (!streetnumber && response.address) {
         streetnumber = response.address.house_number;
         alertText += "<b>Hausnummer:</b> " + streetnumber + "<br>";
       }

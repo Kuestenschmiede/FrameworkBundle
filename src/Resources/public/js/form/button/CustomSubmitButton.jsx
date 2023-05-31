@@ -309,7 +309,7 @@ export default class CustomSubmitButton extends Component {
         street = response.address.road || response.address.street;
         alertText += "<b>Straße:</b> " + street + "<br>";
       }
-      if (!streetnumber && response.address) {
+      if (!streetnumber && response.address && response.address.house_number) {
         streetnumber = response.address.house_number;
         alertText += "<b>Hausnummer:</b> " + streetnumber + "<br>";
       }

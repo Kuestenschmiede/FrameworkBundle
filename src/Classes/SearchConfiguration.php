@@ -33,7 +33,7 @@ class SearchConfiguration
     {
         foreach ($data as $key => $row) {
             if (is_array($row)) {
-                if ($row[0]['value'] && $row[0]['label']) {
+                if ($row[0] && $row[0]['value'] && $row[0]['label']) {
                     foreach ($row as $value) {
                         if ($value['label']) {
                             // options format

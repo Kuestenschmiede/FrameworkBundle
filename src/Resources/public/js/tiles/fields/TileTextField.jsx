@@ -39,11 +39,23 @@ export default class TileTextField extends Component {
       if (typeof this.props.field.format === 'string' && this.props.field.format !== '') {
         value = this.format(value);
       }
+
+      let additionalClass = '';
+      if (value && this.props.field.generateValueClasses) {
+        additionalClass = value.toLowerCase().toString().replace(/[ |\&\(\)=>]/g,'');
+        additionalClass = additionalClass.toString().replace('ü','ue');
+        additionalClass = additionalClass.toString().replace('ö','oe');
+        additionalClass = additionalClass.toString().replace('ä','ae');
+        additionalClass = additionalClass.toString().replace('ß','ss');
+
+        additionalClass = ' '+this.props.field.class+'--'+additionalClass;
+      }
+
       return (
         <Condition data={this.props.data} conditions={this.props.field.conditions}>
           <div className={this.props.field.wrapperClass}>
               {label}
-            <span className={this.props.field.class} itemProp={itemProp}>
+            <span className={this.props.field.class+additionalClass} itemProp={itemProp}>
               {value}
             </span>
           </div>

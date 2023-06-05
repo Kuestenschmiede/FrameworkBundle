@@ -17,6 +17,7 @@ abstract class TileField
     protected $class = '';
     protected $innerClass = '';
     protected $wrapperClass = '';
+    protected $generateValueClasses = '';
 
     protected $renderSection = self::RENDERSECTION_CONTENT;
 
@@ -49,6 +50,7 @@ abstract class TileField
             'renderSection' => $this->renderSection,
             'innerClass' => $this->innerClass,
             'wrapperClass' => $this->wrapperClass,
+            'generateValueClasses' => $this->generateValueClasses
         ];
     }
 
@@ -190,5 +192,21 @@ abstract class TileField
     public function setWrapperClass(string $wrapperClass): void
     {
         $this->wrapperClass = $wrapperClass;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGenerateValueClasses(): string
+    {
+        return $this->generateValueClasses;
+    }
+
+    /**
+     * @param string $generateValueClasses
+     */
+    public function setGenerateValueClasses(string $generateValueClasses): void
+    {
+        $this->generateValueClasses = $generateValueClasses;
     }
 }

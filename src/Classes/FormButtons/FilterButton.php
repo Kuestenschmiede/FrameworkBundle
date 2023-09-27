@@ -15,6 +15,7 @@ class FilterButton extends FormButton
     protected $asyncUrl = '';
     protected $targetComponent = 'tiles';
     protected $outerClass = '';
+    protected $filterButton = false;
 
     const TYPE = 'filter';
 
@@ -24,6 +25,8 @@ class FilterButton extends FormButton
         $config['asyncUrl'] = $this->asyncUrl;
         $config['targetComponent'] = $this->targetComponent;
         $config['outerClass'] = $this->outerClass;
+        $config['resetFilter'] = $this->filterButton;
+        $config['resetFilterCaption'] = $GLOBALS['TL_LANG']['con4gis']['framework']['frontend']['button']['filterReset'];
 
         return $config;
     }
@@ -86,5 +89,15 @@ class FilterButton extends FormButton
     public function setOuterClass(string $outerClass): void
     {
         $this->outerClass = $outerClass;
+    }
+
+    public function isFilterButton(): bool
+    {
+        return $this->filterButton;
+    }
+
+    public function setFilterButton(bool $filterButton): void
+    {
+        $this->filterButton = $filterButton;
     }
 }

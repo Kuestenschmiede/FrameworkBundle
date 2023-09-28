@@ -53,6 +53,32 @@ export default class FilterButton extends Component {
     this.props.form.activeButton = null;
   }
 
+  checkFilter() {
+    var result = false;
+    const fields = this.props.form.props.component.fields;
+    fields.forEach((field) => {
+      if (field.name != 'moduleId') {
+        if ((!result || result == null) && (field.type == "checkboximage")) {
+          result = localStorage.getItem('form-multicheckbox-' + field.entryPoint + '-' + field.name);
+        }
+        if ((!result || result == null) && (field.type == "daterange")) {
+          result = localStorage.getItem('form-form-daterange-' + field.entryPoint + '-' + field.name);
+        }
+        if ((!result || result == null) && (field.type == "radio")) {
+          result = localStorage.getItem('form-radiogroup-' + field.entryPoint + '-' + field.name);
+        }
+        if ((!result || result == null) && (field.type == "select")) {
+          result = localStorage.getItem('form-select-' + field.entryPoint + '-' + field.name);
+        }
+        if ((!result || result == null) && (field.type == "text")) {
+          result = localStorage.getItem('form-text-' + field.entryPoint + '-' + field.name);
+        }
+      };
+    });
+
+    return result && result !== null ? true : false;
+  }
+
   resetFilter() {
     let keys = Object.keys(this.props.form.props.component.data);
     let formData = {};
@@ -85,12 +111,24 @@ export default class FilterButton extends Component {
   }
 
   render() {
-    return (
-      <div className={this.props.button.outerClass || ""}>
-        <button className={this.props.button.className} type="submit" onClick={this.clickButton}>{this.props.button.caption}</button>
-        <button className={this.props.button.className+'-reset c4g-btn-reset'} type="submit" onClick={()=>{this.resetFilter()}}>{this.props.button.resetFilterCaption}</button>
-      </div>
-    );
+    if (this.checkFilter() == true) {
+      return (
+        <div className={this.props.button.outerClass || ""}>
+          <button className={this.props.button.className} type="submit"
+                  onClick={this.clickButton}>{this.props.button.caption}</button>
+          <button className={this.props.button.className + '-reset c4g-btn-reset'} type="submit" onClick={() => {
+            this.resetFilter()
+          }}>{this.props.button.resetFilterCaption}</button>
+        </div>
+      );
+    } else {
+      return (
+        <div className={this.props.button.outerClass || ""}>
+          <button className={this.props.button.className} type="submit"
+                  onClick={this.clickButton}>{this.props.button.caption}</button>
+        </div>
+      );
+    }
   }
 
   componentDidMount() {

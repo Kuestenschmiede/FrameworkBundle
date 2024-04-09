@@ -56,7 +56,6 @@ export default class FormSelectField extends Component {
   }
 
   render() {
-
     let label = null;
     let ariaLabel = null;
     // check condition

@@ -81,8 +81,10 @@ export default class FilterButton extends Component {
 
   resetFilter() {
     let keys = Object.keys(this.props.form.props.component.data);
+
     let formData = {};
     const fields = this.props.form.props.component.fields;
+    const data =  this.props.form.props.component.data;
     fields.forEach((field) => {
       if (field.name != 'moduleId') {
         formData[field.name] = '';
@@ -103,7 +105,7 @@ export default class FilterButton extends Component {
           localStorage.removeItem('form-text-'+field.entryPoint+'-'+field.name);
         }
       } else {
-        formData[element] = data[element];
+        formData[field] = data[field];
       }
     });
     this.props.form.props.setFilterDataFunction(this.props.button.targetComponent, formData, false);

@@ -62,7 +62,7 @@ export default class FilterButton extends Component {
           result = localStorage.getItem('form-multicheckbox-' + field.entryPoint + '-' + field.name);
         }
         if ((!result || result == null) && (field.type == "daterange")) {
-          result = localStorage.getItem('form-form-daterange-' + field.entryPoint + '-' + field.name);
+          result = localStorage.getItem('form-daterange-' + field.entryPoint + '-' + field.name);
         }
         if ((!result || result == null) && (field.type == "radio")) {
           result = localStorage.getItem('form-radiogroup-' + field.entryPoint + '-' + field.name);
@@ -108,8 +108,10 @@ export default class FilterButton extends Component {
         formData[field] = data[field];
       }
     });
+
     this.props.form.props.setFilterDataFunction(this.props.button.targetComponent, formData, false);
     this.props.form.activeButton = null;
+    window.location.reload();
   }
 
   render() {

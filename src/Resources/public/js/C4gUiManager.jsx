@@ -212,10 +212,7 @@ export class C4gUiManager extends Component {
     if (components[component].setAsyncAfterFilter) {
       components[component].asyncLoading = true;
     }
-
-    this.setState({components: components}, () => {
-      //this.nodeRefs[component.name].setState({asyncLoading: true});
-    });
+    this.setState({components: components});
   }
 
   setRowData(component, rowData, id) {

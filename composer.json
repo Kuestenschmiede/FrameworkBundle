@@ -20,8 +20,8 @@
   "require": {
     "php": "^8.0",
     "contao/core-bundle": "^4.9",
-    "con4gis/core": "^7.0",
-    "con4gis/maps": "^8.2",
+    "con4gis/core": "^7.1",
+    "con4gis/maps": "^8 || ^9",
     "ext-json": "*",
     "contao-components/jquery": "^3.7",
     "menatwork/contao-multicolumnwizard-bundle": "^3.6"

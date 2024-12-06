@@ -32,8 +32,8 @@ class SearchConfiguration
     public function addData(array $data, array $fields)
     {
         foreach ($data as $key => $row) {
-            if (is_array($row)) {
-                if ($row[0] && $row[0]['value'] && $row[0]['label']) {
+            if (is_array($row) && count($row) > 0) {
+                if (key_exists(0, $row) && $row[0] && $row[0]['value'] && $row[0]['label']) {
                     foreach ($row as $value) {
                         if ($value['label']) {
                             // options format

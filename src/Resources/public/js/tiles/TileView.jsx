@@ -36,15 +36,16 @@ export default class TileView extends Component {
     this.asyncUrl = this.props.component.asyncUrl;
 
     this.positionActive = false;
+    this.geoPermissionDenied = true; // default
 
     this.position = [];
 
-    if (props.data && props.data.length > 0) {
-      this.checkPosition();
-      if (this.positionActive) {
-        this.addDistances(props.data);
-      }
-    }
+    // if (props.data && props.data.length > 0) {
+    //   this.checkPosition();
+    //   if (this.positionActive) {
+    //     this.addDistances(props.data);
+    //   }
+    // }
     
     this.fetchMoreData = this.fetchMoreData.bind(this);
     this.applyTextFilter = this.applyTextFilter.bind(this);
@@ -105,6 +106,17 @@ export default class TileView extends Component {
             </div>
           </div>
         </div>;
+      } else {
+        return <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="alert alert-dark" role="alert">
+                <div style={{textAlign: "center", margin: "auto"}}><img
+                    src="bundles/con4gisframework/img/preloader-image.svg" className="preloader-image" alt=""/></div>
+              </div>
+            </div>
+          </div>
+        </div>
       }
     }
 
@@ -369,11 +381,15 @@ export default class TileView extends Component {
         if (filterParams.sorting === "distance") {
           if (this.positionActive && this.position) {
             filterParams.pos = this.position;
-          }
-          else {
+          } else {
             this.checkPosition();
             if (this.positionActive) {
               const setPosition = (position) => {
+                if (position === false) {
+                  this.geoPermissionDenied = true;
+                  this.position = [];
+                }
+                this.geoPermissionDenied = false;
                 this.position = [position.coords.longitude, position.coords.latitude];
                 this.fetchMoreData();
               }
@@ -385,6 +401,10 @@ export default class TileView extends Component {
         } else {
           url.search = new URLSearchParams(filterParams).toString();
         }
+      }
+
+      if (this.props.component.filterData.sorting === "distance" && (this.position.length === 0) && !this.geoPermissionDenied) {
+        return;
       }
       fetch(url.href)
         .then(response => response.json())

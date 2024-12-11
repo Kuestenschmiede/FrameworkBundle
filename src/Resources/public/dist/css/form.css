@@ -35,29 +35,19 @@ input[type=file] {
 .ck ul {
   display: block;
   list-style-type: disc;
-  -webkit-margin-before: 1em;
   margin-block-start: 1em;
-  -webkit-margin-after: 1em;
   margin-block-end: 1em;
-  -webkit-margin-start: 0;
   margin-inline-start: 0;
-  -webkit-margin-end: 0;
   margin-inline-end: 0;
-  -webkit-padding-start: 40px;
   padding-inline-start: 40px
 }
 .ck ol {
   display: block;
   list-style-type: decimal;
-  -webkit-margin-before: 1em;
   margin-block-start: 1em;
-  -webkit-margin-after: 1em;
   margin-block-end: 1em;
-  -webkit-margin-start: 0;
   margin-inline-start: 0;
-  -webkit-margin-end: 0;
   margin-inline-end: 0;
-  -webkit-padding-start: 40px;
   padding-inline-start: 40px
 }
 textarea {

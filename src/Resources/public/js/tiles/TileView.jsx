@@ -481,12 +481,22 @@ export default class TileView extends Component {
     });
 
     let resultData = [];
-    newData.forEach((item, id) => {
-      let notContained = !currentUniques.includes(item[fieldName]);
-      if (notContained) {
-        resultData.push(item);
+
+    if (newData && Array.isArray(newData) && (newData.length > 0))  {
+      newData.forEach((item, id) => {
+        let notContained = !currentUniques.includes(item[fieldName]);
+        if (notContained) {
+          resultData.push(item);
+        }
+      });
+    } else if (newData && typeof newData === 'object') {
+      for (var newDataElement in newData) {
+        let notContained = !currentUniques.includes(newData[newDataElement][fieldName]);
+        if (notContained) {
+          resultData.push(newData[newDataElement]);
+        }
       }
-    });
+    }
 
     return resultData;
   }

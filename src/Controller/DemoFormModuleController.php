@@ -2,7 +2,7 @@
 /*
  * This file is part of con4gis, the gis-kit for Contao CMS.
  * @package con4gis
- * @version 8
+ * @version 10
  * @author con4gis contributors (see "authors.txt")
  * @license LGPL-3.0-or-later
  * @copyright (c) 2010-2021, by Küstenschmiede GmbH Software & Design
@@ -10,23 +10,21 @@
  */
 namespace con4gis\FrameworkBundle\Controller;
 
-use con4gis\MapsBundle\Classes\MapDataConfigurator;
 use con4gis\FrameworkBundle\Classes\FormButtons\SubmitButton;
 use con4gis\FrameworkBundle\Classes\FormFields\GeopickerFormField;
-use con4gis\FrameworkBundle\Classes\FrontendConfiguration;
 use con4gis\FrameworkBundle\Classes\FormFields\SelectFormField;
 use con4gis\FrameworkBundle\Classes\FormFields\TextFormField;
 use con4gis\FrameworkBundle\Classes\Forms\Form;
+use con4gis\FrameworkBundle\Classes\FrontendConfiguration;
+use con4gis\MapsBundle\Classes\MapDataConfigurator;
 use Contao\ContentModel;
 use Contao\CoreBundle\Controller\FrontendModule\AbstractFrontendModuleController;
-use Contao\CoreBundle\ServiceAnnotation\FrontendModule;
 use Contao\Database;
 use Contao\ModuleModel;
 use Contao\StringUtil;
 use Contao\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
 class DemoFormModuleController extends AbstractFrontendModuleController
 {
@@ -36,7 +34,7 @@ class DemoFormModuleController extends AbstractFrontendModuleController
 
     const TYPE = 'demo_form_module';
 
-    protected function getResponse(Template $template, ModuleModel $model, Request $request): ?Response
+    protected function getResponse(Template $template, ModuleModel $model, Request $request): Response
     {
         $this->model = $model;
 

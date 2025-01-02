@@ -19,9 +19,9 @@
   ],
   "require": {
     "php": "^8.0",
-    "contao/core-bundle": "^4.9",
-    "con4gis/core": "^7.1",
-    "con4gis/maps": "^8 || ^9",
+    "contao/core-bundle": "^4.13 || ^5.0",
+    "con4gis/core": "^7.2",
+    "con4gis/maps": "^10",
     "ext-json": "*",
     "contao-components/jquery": "^3.7",
     "menatwork/contao-multicolumnwizard-bundle": "^3.6"
@@ -54,7 +54,7 @@
   "extra": {
     "contao-manager-plugin": "con4gis\\FrameworkBundle\\ContaoManager\\Plugin",
     "branch-alias": {
-      "dev-main": "1.1.x-dev"
+      "dev-main": "2.0.x-dev"
     }
   }
 }

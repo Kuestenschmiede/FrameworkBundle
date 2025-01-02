@@ -2,7 +2,7 @@
 /*
  * This file is part of con4gis, the gis-kit for Contao CMS.
  * @package con4gis
- * @version 8
+ * @version 10
  * @author con4gis contributors (see "authors.txt")
  * @license LGPL-3.0-or-later
  * @copyright (c) 2010-2021, by Küstenschmiede GmbH Software & Design
@@ -12,15 +12,14 @@ namespace con4gis\FrameworkBundle\Controller;
 
 
 use con4gis\FrameworkBundle\Classes\Columns\DatabaseColumn;
-use con4gis\FrameworkBundle\Classes\FrontendConfiguration;
 use con4gis\FrameworkBundle\Classes\Detail\DetailField;
 use con4gis\FrameworkBundle\Classes\Detail\DetailTextField;
 use con4gis\FrameworkBundle\Classes\Detail\DetailView;
+use con4gis\FrameworkBundle\Classes\FrontendConfiguration;
 use Contao\CoreBundle\Controller\FrontendModule\AbstractFrontendModuleController;
 use Contao\Database;
 use Contao\ModuleModel;
 use Contao\StringUtil;
-use Contao\System;
 use Contao\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,7 +33,7 @@ class DemoDetailModuleController extends AbstractFrontendModuleController
     const AJAX_GET_ROUTE = '/con4gis/projects/demo_default_data/{moduleId}/{dataId}';
     const TYPE = 'demo_detail_module';
     
-    protected function getResponse(Template $template, ModuleModel $model, Request $request): ?Response
+    protected function getResponse(Template $template, ModuleModel $model, Request $request): Response
     {
         $table = strval($model->demo_table_module_source_table);
         $columns = StringUtil::deserialize($model->demo_table_module_source_fields);

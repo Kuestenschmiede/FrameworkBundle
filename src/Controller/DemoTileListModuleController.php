@@ -2,7 +2,7 @@
 /*
  * This file is part of con4gis, the gis-kit for Contao CMS.
  * @package con4gis
- * @version 8
+ * @version 10
  * @author con4gis contributors (see "authors.txt")
  * @license LGPL-3.0-or-later
  * @copyright (c) 2010-2021, by Küstenschmiede GmbH Software & Design
@@ -12,19 +12,16 @@ namespace con4gis\FrameworkBundle\Controller;
 
 use con4gis\CoreBundle\Classes\C4GUtils;
 use con4gis\FrameworkBundle\Classes\FrontendConfiguration;
-use con4gis\FrameworkBundle\Classes\TileFields\PostalCityTileField;
 use con4gis\FrameworkBundle\Classes\TileFields\TextTileField;
 use con4gis\FrameworkBundle\Classes\TileLists\TileList;
 use Contao\CoreBundle\Controller\FrontendModule\AbstractFrontendModuleController;
-use Contao\CoreBundle\ServiceAnnotation\FrontendModule;
 use Contao\Database;
 use Contao\ModuleModel;
 use Contao\StringUtil;
-use Contao\System;
 use Contao\Template;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DemoTileListModuleController extends AbstractFrontendModuleController
@@ -36,7 +33,7 @@ class DemoTileListModuleController extends AbstractFrontendModuleController
     const AJAX_GET_ROUTE = '/con4gis/projects/demo_tile_list_data/{moduleId}/{offset}';
     const TYPE = 'demo_tile_list_module';
 
-    protected function getResponse(Template $template, ModuleModel $model, Request $request): ?Response
+    protected function getResponse(Template $template, ModuleModel $model, Request $request): Response
     {
         $table = strval($model->demo_table_module_source_table);
         $columns = StringUtil::deserialize($model->demo_table_module_source_fields);

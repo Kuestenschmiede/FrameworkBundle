@@ -4,33 +4,17 @@ services:
     public: true
 
   con4gis\FrameworkBundle\Controller\DemoTableModuleController:
-    tags:
-      -
-        name: contao.frontend_module
-        category: con4gis
-        renderer: forward
-        template: mod_framework_module_default
+    class: con4gis\FrameworkBundle\Controller\DemoTableModuleController
+    public: true
 
   con4gis\FrameworkBundle\Controller\DemoTileListModuleController:
-    tags:
-      -
-        name: contao.frontend_module
-        category: con4gis
-        renderer: forward
-        template: mod_framework_module_default
+    class: con4gis\FrameworkBundle\Controller\DemoTileListModuleController
+    public: true
 
   con4gis\FrameworkBundle\Controller\DemoDetailModuleController:
-    tags:
-      -
-        name: contao.frontend_module
-        category: con4gis
-        renderer: forward
-        template: mod_framework_module_default
+    class: con4gis\FrameworkBundle\Controller\DemoDetailModuleController
+    public: true
 
   con4gis\FrameworkBundle\Controller\DemoFormModuleController:
-    tags:
-      -
-        name: contao.frontend_module
-        category: con4gis
-        renderer: forward
-        template: mod_framework_module_default
+    class: con4gis\FrameworkBundle\Controller\DemoFormModuleController
+    public: true

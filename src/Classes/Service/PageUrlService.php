@@ -15,6 +15,7 @@ use con4gis\CoreBundle\Classes\C4GUtils;
 use Contao\Config;
 use Contao\Environment;
 use Contao\Input;
+use Symfony\Component\HttpFoundation\Request;
 
 class PageUrlService
 {
@@ -22,10 +23,14 @@ class PageUrlService
     private $pageUrl;
     private $basePageUrl;
 
-    public function __construct()
+    public function __construct(Request $request)
     {
         if (!isset($_GET['item']) && Config::get('useAutoItem') && isset($_GET['auto_item'])) {
             Input::setGet('item', Input::get('auto_item'));
+        }
+        if (!Input::get('item') && $request && $request->attributes->has('auto_item')) {
+            $item = $request->attributes->get('auto_item');
+            Input::setGet('item', $item);
         }
         $this->alias = Input::get('item') ? urlencode(Input::get('item')) : '';
         $this->pageUrl = Environment::get('base') . Environment::get('request');

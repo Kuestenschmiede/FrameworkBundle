@@ -12,6 +12,7 @@ namespace con4gis\FrameworkBundle\Classes\FormFields;
 
 use con4gis\CoreBundle\Classes\C4GUtils;
 use Contao\Controller;
+use Contao\System;
 
 class RequestTokenFormField extends HiddenFormField
 {
@@ -20,6 +21,7 @@ class RequestTokenFormField extends HiddenFormField
 
     public function __construct()
     {
-        $this->value = C4GUtils::replaceInsertTags('{{request_token}}');
+        $requestToken = System::getContainer()->get('contao.csrf.token_manager')->getDefaultTokenValue();
+        $this->value = $requestToken;
     }
 }

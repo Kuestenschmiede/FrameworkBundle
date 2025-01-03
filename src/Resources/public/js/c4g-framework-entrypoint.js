@@ -17,7 +17,7 @@ import React, {Component} from "react";
 import ReactDOM from "react-dom";
 
 jQuery(document).ready(function() {
-    window.frameworkData.forEach(function (configuration) {
+  window.frameworkData && window.frameworkData.forEach(function (configuration) {
       if (configuration && configuration.entryPoint) {
         ReactDOM.render(
             React.createElement(C4gUiManager, configuration),

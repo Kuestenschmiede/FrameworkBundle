@@ -60,12 +60,17 @@ class DemoTableModuleController extends AbstractFrontendModuleController
     }
 
     /**
-     * @Route("/con4gis/projects/demo_table_data/{moduleId}/{offset}", name="projects_demo_table_data", methods={"GET"}, requirements={"moduleId"="\d+", "offset"="\d+"})
      * @param Request $request
      * @param $moduleId
      * @param $offset
      * @return JsonResponse
      */
+    #[Route(
+        path: '/con4gis/projects/demo_table_data/{moduleId}/{offset}',
+        name: 'projects_demo_table_data',
+        methods: ['GET'],
+        requirements: ['moduleId' => '\d+', 'offset' => '\d+']
+    )]
     public function getDataAction(Request $request, int $moduleId, int $offset) {
         $this->get('contao.framework')->initialize();
         $this->model = ModuleModel::findByPk($moduleId);

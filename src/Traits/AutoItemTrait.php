@@ -22,7 +22,7 @@ trait AutoItemTrait
 
     protected function setAlias($request) {
         if (!isset($_GET['item']) && Config::get('useAutoItem') && isset($_GET['auto_item'])) {
-            Input::setGet('item', Input::get('auto_item'));
+            Input::setGet('item', Input::get('auto_item', true));
         }
         if (!Input::get('item') && $request && $request->attributes->has('auto_item')) {
             $item = $request->attributes->get('auto_item');

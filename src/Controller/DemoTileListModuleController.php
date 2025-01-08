@@ -55,6 +55,12 @@ class DemoTileListModuleController extends AbstractFrontendModuleController
     }
 
     /**
+     * @Route(
+     *      path="/con4gis/projects/demo_tile_list_data/{moduleId}/{offset}",
+     *      name="projects_demo_tile_list_data",
+     *      methods={"GET"},
+     *      requirements={"moduleId"="\d+", "offset"="\d+"}
+     *  )
      * @param Request $request
      * @param $moduleId
      * @param $offset

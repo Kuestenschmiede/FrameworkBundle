@@ -60,6 +60,12 @@ class DemoTableModuleController extends AbstractFrontendModuleController
     }
 
     /**
+     * @Route(
+     *      path="/con4gis/projects/demo_table_data/{moduleId}/{offset}",
+     *      name="projects_demo_table_data",
+     *      methods={"GET"},
+     *      requirements={"moduleId"="\d+", "offset"="\d+"}
+     *  )
      * @param Request $request
      * @param $moduleId
      * @param $offset

@@ -90,7 +90,7 @@ export default class FormSelectField extends Component {
     if (this.props.field.options) {
       if (this.props.field.cache && this.props.field.entryPoint) {
         const cachedData = localStorage.getItem('form-select-'+this.props.field.entryPoint+'-'+this.props.field.name);
-        if (cachedData) {
+        if (cachedData && (!this.props.data[this.props.field.name] || this.props.data[this.props.field.name].length === 0)) {
           defaultValues = JSON.parse(cachedData);
           this.props.data[this.props.field.name] = defaultValues;
         }

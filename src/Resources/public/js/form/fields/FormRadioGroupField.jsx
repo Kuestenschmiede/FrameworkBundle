@@ -32,10 +32,14 @@ export default class FormRadioGroupField extends Component {
       }
     }
 
+    if (this.props.data[this.props.field.name]) {
+      this.props.field.checked = this.props.data[this.props.field.name];
+    }
+
     if (this.props.field.options) {
       let keys = Object.keys(this.props.field.options);
       keys.forEach((element, index) => {
-        let defaultChecked = this.props.field.checked === element;
+        let defaultChecked = this.props.data[this.props.field.name] ? (this.props.data[this.props.field.name] === element) : (this.props.field.checked === element);
         options.push(
           <React.Fragment key={index}>
             <div className={this.props.field.optionsClass}>

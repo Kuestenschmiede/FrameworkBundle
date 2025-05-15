@@ -92,12 +92,24 @@ export default class TileImageField extends Component {
           </div>
       );
 
-      if (this.props.field.href) {
+      let href = this.props.field.href;
+
+      if (this.hasValidExternalLink()) {
+        href = this.props.data[this.props.field.externalLinkField];
+      } else {
+        if (this.props.field.hrefFields) {
+          this.props.field.hrefFields.map((item, id) => {
+            href = href.replace(item, this.props.data[item]);
+          });
+        }
+      }
+
+      if (href) {
         return (
             <Condition data={this.props.data} conditions={this.props.field.conditions}>
               <div className={this.props.field.wrapperClass}>
                 {label}
-                <a href={this.props.field.href} rel="noreferrer noopener">
+                <a href={href} rel="noreferrer noopener">
                   {imageElement}
                 </a>
               </div>

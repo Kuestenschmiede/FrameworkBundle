@@ -49,7 +49,7 @@
 /* Styles für den Orientierungsmodus */
 .c4g-list-element__image-wrapper .image-container.portrait,
 .c4g-list-element__image-wrapper .image-container.landscape {
-    aspect-ratio: 16/9;
+    aspect-ratio: 4/3;
 }
 
 .c4g-list-element__image-wrapper .image-container.portrait .main-image,
@@ -75,6 +75,7 @@
 .c4g-list-element__image-wrapper .image-container.portrait .main-image {
     object-fit: contain;
     padding: 0 15%;
+    object-position: 50%;
 }
 
 .c4g-list-element__image-wrapper .image-container.landscape .main-image {

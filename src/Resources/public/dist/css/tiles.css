@@ -30,7 +30,7 @@
 }
 .c4g-list-element__image-wrapper .image-container.landscape,
 .c4g-list-element__image-wrapper .image-container.portrait {
-  aspect-ratio: 16/9
+  aspect-ratio: 4/3
 }
 .c4g-list-element__image-wrapper .image-container.landscape .main-image,
 .c4g-list-element__image-wrapper .image-container.portrait .main-image {
@@ -54,7 +54,9 @@
 .c4g-list-element__image-wrapper .image-container.portrait .main-image {
   -o-object-fit: contain;
   object-fit: contain;
-  padding: 0 15%
+  padding: 0 15%;
+  -o-object-position: 50%;
+  object-position: 50%
 }
 .c4g-list-element__image-wrapper .image-container.landscape .main-image {
   -o-object-fit: cover;

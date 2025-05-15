@@ -5,7 +5,7 @@
  * @version 10
  * @author con4gis contributors (see "authors.txt")
  * @license LGPL-3.0-or-later
- * @copyright (c) 2010-2021, by Küstenschmiede GmbH Software & Design
+ * @copyright (c) 2010-2025, by Küstenschmiede GmbH Software & Design
  * @link https://www.con4gis.org
  */
 namespace con4gis\FrameworkBundle\Classes\TileFields;
@@ -24,6 +24,7 @@ class ImageTileField extends TileField
     protected $externalLinkFieldConditionField = '';
     protected $externalLinkFieldConditionValue = '';
     protected $asyncCall = false;
+    protected $checkOrientation = true;
 
 //    /**
 //     * Set additional classes depending on other field values. The format should be
@@ -78,6 +79,7 @@ class ImageTileField extends TileField
         $config['redirectPageOnSuccess'] = $this->redirectPageOnSuccess;
         $config['hrefFields'] = $this->hrefFields;
         $config['asyncCall'] = $this->asyncCall;
+        $config['checkOrientation'] = $this->checkOrientation;
 
         if (!empty($this->conditionField && count($this->conditionField) === count($this->conditionValue))) {
             foreach ($this->conditionField as $key => $field) {
@@ -344,5 +346,15 @@ class ImageTileField extends TileField
     public function addCondition(ConfigurationInterface $condition)
     {
         $this->conditions[] = $condition;
+    }
+
+    public function isCheckOrientation(): bool
+    {
+        return $this->checkOrientation;
+    }
+
+    public function setCheckOrientation(bool $checkOrientation): void
+    {
+        $this->checkOrientation = $checkOrientation;
     }
 }

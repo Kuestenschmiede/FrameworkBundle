@@ -4,7 +4,7 @@
  * @version 10
  * @author con4gis contributors (see "authors.txt")
  * @license LGPL-3.0-or-later
- * @copyright (c) 2010-2021, by Küstenschmiede GmbH Software & Design
+ * @copyright (c) 2010-2025, by Küstenschmiede GmbH Software & Design
  * @link https://www.con4gis.org
  */
 
@@ -17,6 +17,11 @@ export default class TileImageField extends Component {
     super(props);
     this.hasValidExternalLink = this.hasValidExternalLink.bind(this);
     this.executeAsyncCall = this.executeAsyncCall.bind(this);
+    this.handleImageLoad = this.handleImageLoad.bind(this);
+
+    this.state = {
+      orientation: ''
+    };
   }
 
   hasValidExternalLink() {
@@ -45,83 +50,72 @@ export default class TileImageField extends Component {
     }
   }
 
+  handleImageLoad(event) {
+    if (this.props.field.checkOrientation) {
+      const img = event.target;
+      if (img.classList.contains('main-image')) {
+        const orientation = img.naturalWidth / img.naturalHeight >= 1 ? 'landscape' : 'portrait';
+        this.setState({ orientation });
+      }
+    }
+  }
+
   render() {
     if (this.props.data[this.props.field.name] || this.props.field.imageSource) {
       let label = null;
       if (this.props.field.label) {
         label = <span className={"entry-label"}>{this.props.field.label}</span>;
       }
-      let itemProp = null;
-      if (this.props.field.itemProp) {
-        itemProp = this.props.field.itemProp;
-      }
-      let height, width;
-      if (this.props.data[this.props.field.name]) {
-        if (this.props.data[this.props.field.name].height) {
-          height = this.props.data[this.props.field.name].height;
-        }
-        if (this.props.data[this.props.field.name].width) {
-          width = this.props.data[this.props.field.name].width;
-        }
-      }
-      if (!height && this.props.field.height) {
-        height = this.props.field.height;
-      }
-      if (!width && this.props.field.width) {
-        width = this.props.field.width;
-      }
 
-      let href = this.props.field.href;
+      const imageSource = this.props.field.imageSource ||
+          (this.props.data[this.props.field.name] && this.props.data[this.props.field.name].src);
+      const imageAlt = this.props.field.imageAlt ||
+          (this.props.data[this.props.field.name] && this.props.data[this.props.field.name].alt);
 
-      if (this.hasValidExternalLink()) {
-        href = this.props.data[this.props.field.externalLinkField];
-      } else {
-        if (this.props.field.hrefFields) {
-          this.props.field.hrefFields.map((item, id) => {
-            href = href.replace(item, this.props.data[item]);
-          });
-        }
-      }
-
-      if (href) {
-        return (
-          <Condition data={this.props.data} conditions={this.props.field.conditions}>
-          <div className={this.props.field.wrapperClass}>
-            {label}
-            <a href={href} rel={"noreferrer noopener"} data-name={this.props.data['name']} data-moreurl={href}>
-            <img className={this.props.field.class}
-                 height={height}
-                 width={width}
-                 itemProp={itemProp} loading={"lazy"}
-                 src={this.props.field.imageSource || (this.props.data[this.props.field.name] && this.props.data[this.props.field.name].src)}
-                 alt={this.props.field.imageAlt || (this.props.data[this.props.field.name] && this.props.data[this.props.field.name].alt)}
-                 title={this.props.field.title || this.props.field.imageAlt || (this.props.data[this.props.field.name] && this.props.data[this.props.field.name].alt)}
-            />
-            </a>
-          </div>
-          </Condition>
-        );
-      } else {
-        return (
-          <Condition data={this.props.data} conditions={this.props.field.conditions}>
-          <div className={this.props.field.wrapperClass}>
-            {label}
-            <img className={this.props.field.class}
-                 itemProp={itemProp} loading={"lazy"}
-                 height={height}
-                 width={width}
-                 src={this.props.field.imageSource || (this.props.data[this.props.field.name] && this.props.data[this.props.field.name].src)}
-                 alt={this.props.field.imageAlt || (this.props.data[this.props.field.name] && this.props.data[this.props.field.name].alt)}
-                 title={this.props.field.title || this.props.field.imageAlt || (this.props.data[this.props.field.name] && this.props.data[this.props.field.name].alt)}
+      const imageElement = (
+          <div className={`image-container${this.props.field.checkOrientation ? ` ${this.state.orientation}` : ''}`}>
+            {this.props.field.checkOrientation && (
+              <img
+                  src={imageSource}
+                  alt=""
+                  loading="lazy"
+                  className="background-image"
+              />
+            )}
+            <img
+                src={imageSource}
+                alt={imageAlt}
+                className={`${this.props.field.class || ''} main-image`}
+                loading="lazy"
+                onLoad={this.handleImageLoad}
             />
           </div>
-          </Condition>
+      );
+
+      if (this.props.field.href) {
+        return (
+            <Condition data={this.props.data} conditions={this.props.field.conditions}>
+              <div className={this.props.field.wrapperClass}>
+                {label}
+                <a href={this.props.field.href} rel="noreferrer noopener">
+                  {imageElement}
+                </a>
+              </div>
+            </Condition>
         );
       }
 
+      return (
+          <Condition data={this.props.data} conditions={this.props.field.conditions}>
+            <div className={this.props.field.wrapperClass}>
+              {label}
+              {imageElement}
+            </div>
+          </Condition>
+      );
     }
-    return ('')
 
+    return null;
   }
 
   executeAsyncCall(href) {
@@ -138,7 +132,7 @@ export default class TileImageField extends Component {
       cache: 'no-cache',
       credentials: 'include',
       headers: {
-        'X-Requested-With' : 'XMLHttpRequest'
+        'X-Requested-With': 'XMLHttpRequest'
       },
       redirect: 'follow',
       referrerPolicy: 'no-referrer',
@@ -173,7 +167,8 @@ export default class TileImageField extends Component {
             scope.props.list.props.setFunction(scope.props.list.props.name, newData, []);
           }
         });
-      } catch (e) {}
+      } catch (e) {
+      }
     });
 
     // check for hook that needs to be executed
@@ -187,5 +182,4 @@ export default class TileImageField extends Component {
       }
     }
   }
-
 }

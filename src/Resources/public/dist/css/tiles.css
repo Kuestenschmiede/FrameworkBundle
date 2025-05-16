@@ -20,25 +20,25 @@
 .c4g-btn-reset {
   margin-left: 2px
 }
-.c4g-list-element__image-wrapper .image-container {
+.image-wrapper .image-container {
   position: relative;
   overflow: hidden;
   width: 100%
 }
-.c4g-list-element__image-wrapper .image-container .main-image {
+.image-wrapper .image-container .main-image {
   width: 100%
 }
-.c4g-list-element__image-wrapper .image-container.landscape,
-.c4g-list-element__image-wrapper .image-container.portrait {
+.image-wrapper .image-container.landscape,
+.image-wrapper .image-container.portrait {
   aspect-ratio: 4/3
 }
-.c4g-list-element__image-wrapper .image-container.landscape .main-image,
-.c4g-list-element__image-wrapper .image-container.portrait .main-image {
+.image-wrapper .image-container.landscape .main-image,
+.image-wrapper .image-container.portrait .main-image {
   height: 100%;
   position: relative;
   z-index: 2
 }
-.c4g-list-element__image-wrapper .image-container .background-image {
+.image-wrapper .image-container .background-image {
   position: absolute;
   top: 0;
   left: 0;
@@ -51,17 +51,17 @@
   object-fit: cover;
   pointer-events: none
 }
-.c4g-list-element__image-wrapper .image-container.portrait .main-image {
+.image-wrapper .image-container.portrait .main-image {
   -o-object-fit: contain;
   object-fit: contain;
   padding: 0 15%;
   -o-object-position: 50%;
   object-position: 50%
 }
-.c4g-list-element__image-wrapper .image-container.landscape .main-image {
+.image-wrapper .image-container.landscape .main-image {
   -o-object-fit: cover;
   object-fit: cover
 }
-.c4g-list-element__image-wrapper .image-container.landscape .background-image {
+.image-wrapper .image-container.landscape .background-image {
   display: none
 }

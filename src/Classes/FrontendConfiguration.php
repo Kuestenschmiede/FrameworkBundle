@@ -80,7 +80,7 @@ class FrontendConfiguration implements JsonSerializable
             'sorting' => count($list->getSelectedSortings()) > 0 ? $list->getSelectedSortings() : false,
             'updated' => $list->isUpdated(),
             'textBeforeUpdate' => $list->getTextBeforeUpdate(),
-            'textAfterUpdate' => $list->getTextAfterUpdate(),
+            'textAfterUpdate' => $list->getTextAfterUpdate() ?: "Keine Ergebnisse.",
             'bottomLine' => $list->getBottomLine(),
             'filterData' => $list->getFilterData(),
             'loadingText' => $list->getLoadingText(),

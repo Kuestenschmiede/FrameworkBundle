@@ -17,6 +17,7 @@ use con4gis\FrameworkBundle\Classes\Forms\FormInterface;
 use con4gis\FrameworkBundle\Classes\TableFields\TableField;
 use con4gis\FrameworkBundle\Classes\Tables\Table;
 use con4gis\FrameworkBundle\Classes\TileLists\TileList;
+use Contao\System;
 use \JsonSerializable;
 
 /**
@@ -67,6 +68,8 @@ class FrontendConfiguration implements JsonSerializable
             $fields[] = $tileField->getConfiguration();
         }
 
+        System::loadLanguageFile('frontend');
+
         $configuration = [
             'data' => $data,
             'fields' => $fields,
@@ -80,7 +83,7 @@ class FrontendConfiguration implements JsonSerializable
             'sorting' => count($list->getSelectedSortings()) > 0 ? $list->getSelectedSortings() : false,
             'updated' => $list->isUpdated(),
             'textBeforeUpdate' => $list->getTextBeforeUpdate(),
-            'textAfterUpdate' => $list->getTextAfterUpdate() ?: "Keine Ergebnisse.",
+            'textAfterUpdate' => $list->getTextAfterUpdate() ?: $GLOBALS['TL_LANG']['con4gis']['framework']['frontend']['listNoResults'],
             'bottomLine' => $list->getBottomLine(),
             'filterData' => $list->getFilterData(),
             'loadingText' => $list->getLoadingText(),

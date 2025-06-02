@@ -12,6 +12,7 @@
 $GLOBALS['TL_LANG']['con4gis']['framework']['frontend']['button']['submit'] = 'Abschicken';
 $GLOBALS['TL_LANG']['con4gis']['framework']['frontend']['button']['filter'] = 'Filtern';
 $GLOBALS['TL_LANG']['con4gis']['framework']['frontend']['button']['filterReset'] = 'Filter zurücksetzen';
+$GLOBALS['TL_LANG']['con4gis']['framework']['frontend']['listNoResults'] = 'Keine Ergebnisse.';
 
 $GLOBALS['TL_LANG']['con4gis']['framework']['ckeditor']['paragraph'] = 'Absatz';
 $GLOBALS['TL_LANG']['con4gis']['framework']['ckeditor']['heading'] = ['Titel', 'Untertitel'];

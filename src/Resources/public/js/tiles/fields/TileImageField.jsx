@@ -87,6 +87,8 @@ export default class TileImageField extends Component {
                 alt={imageAlt}
                 className={`${this.props.field.class || ''} main-image`}
                 loading="lazy"
+                decoding="async"
+                fetchpriority="high"
                 onLoad={this.handleImageLoad}
             />
           </div>

@@ -30,7 +30,7 @@
 }
 .image-wrapper .image-container.landscape,
 .image-wrapper .image-container.portrait {
-  aspect-ratio: 4/3
+  aspect-ratio: auto
 }
 .image-wrapper .image-container .main-image {
   height: 100%;

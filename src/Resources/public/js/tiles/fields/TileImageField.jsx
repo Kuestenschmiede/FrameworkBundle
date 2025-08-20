@@ -77,13 +77,15 @@ export default class TileImageField extends Component {
             {this.props.field.checkOrientation && (
               <img
                   src={imageSource}
-                  alt=""
+                  title={imageAlt}
+                  alt={imageAlt}
                   loading="lazy"
                   className="background-image"
               />
             )}
             <img
                 src={imageSource}
+                title={imageAlt}
                 alt={imageAlt}
                 className={`${this.props.field.class || ''} main-image`}
                 loading="lazy"

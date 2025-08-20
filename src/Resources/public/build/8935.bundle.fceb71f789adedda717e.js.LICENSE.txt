@@ -5,7 +5,7 @@
  * @license MIT
  */
 
-/*! @vimeo/player v2.29.0 | (c) 2025 Vimeo | MIT License | https://github.com/vimeo/player.js */
+/*! @vimeo/player v2.29.3 | (c) 2025 Vimeo | MIT License | https://github.com/vimeo/player.js */
 
 /*! Native Promise Only
     v0.8.1 (c) Kyle Simpson

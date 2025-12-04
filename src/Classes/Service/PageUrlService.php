@@ -16,6 +16,7 @@ use Contao\Config;
 use Contao\Environment;
 use Contao\Input;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class PageUrlService
 {
@@ -23,8 +24,9 @@ class PageUrlService
     private $pageUrl;
     private $basePageUrl;
 
-    public function __construct(Request $request)
+    public function __construct(RequestStack $requestStack)
     {
+        $request = $requestStack->getCurrentRequest();
         if (!isset($_GET['item']) && Config::get('useAutoItem') && isset($_GET['auto_item'])) {
             Input::setGet('item', Input::get('auto_item',true));
         }

@@ -2,6 +2,8 @@ services:
 
   con4gis\FrameworkBundle\Classes\Service\PageUrlService:
     public: true
+    autowire: true
+    autoconfigure: true
 
   con4gis\FrameworkBundle\Controller\DemoTableModuleController:
     class: con4gis\FrameworkBundle\Controller\DemoTableModuleController

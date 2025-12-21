@@ -186,7 +186,10 @@ export default class FormSelectField extends Component {
                           required={this.props.field.required} onChange={this.handleChange}
                           defaultValue={this.props.field.multiple ? this.props.data[this.props.field.name] : defaultValue}
                           placeholder={this.props.field.placeholder}
-                          aria-label={ariaLabel}>
+                          aria-label={ariaLabel}
+                          isDisabled={this.props.field.readonly}
+                          isClearable={!this.props.field.readonly}
+                          components={this.props.field.readonly ? { MultiValueRemove: () => null } : {}}>
                   </Select>
                   {selectNode}
                 </React.Fragment>

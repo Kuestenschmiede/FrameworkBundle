@@ -20,6 +20,7 @@ abstract class FormField implements ConfigurationInterface
     protected $descriptionLink = '';
     protected $descriptionLinkLabel = '';
     protected $required = false;
+    protected $readonly = false;
     protected $cache = false;
     protected $entryPoint = '';
 
@@ -76,6 +77,7 @@ abstract class FormField implements ConfigurationInterface
             'descriptionLinkLabel' => $this->descriptionLinkLabel ?: '',
             'required' => $this->required ?: false,
             'requiredPattern' => $this->patternRequired ?: false,
+            'readonly' => $this->readonly ?: false,
             'className' => $this->className ?: '',
             'conditionField' => $this->conditionField ?: [],
             'conditionValue' => $this->conditionValue ?: [],
@@ -229,6 +231,25 @@ abstract class FormField implements ConfigurationInterface
     public function setRequired(bool $required = true): FormField
     {
         $this->required = $required;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isReadonly(): bool
+    {
+        return $this->readonly;
+    }
+
+    /**
+     * @param bool $readonly
+     * @return FormField
+     */
+    public function setReadonly(bool $readonly = true): FormField
+    {
+        $this->readonly = $readonly;
 
         return $this;
     }

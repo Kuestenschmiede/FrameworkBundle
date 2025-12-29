@@ -138,10 +138,12 @@ export default class CustomSubmitButton extends Component {
                   fieldNode = fieldNode.children()[1];
                   fieldNode.style.borderColor = '#dc3545';
                   fieldNode.style.boxShadow = 'none';
-                  fieldNode.parentNode.nextSibling.addEventListener('select', function () {
-                    fieldNode.style.removeProperty('borderColor');
-                    fieldNode.style.removeProperty('boxShadow');
-                  });
+                  if (fieldNode.parentNode && fieldNode.parentNode.nextSibling) {
+                    fieldNode.parentNode.nextSibling.addEventListener('select', function () {
+                      fieldNode.style.removeProperty('borderColor');
+                      fieldNode.style.removeProperty('boxShadow');
+                    });
+                  }
                 } else {
                   fieldNode = fieldNode[0];
                   $(fieldNode).keyup(function () {

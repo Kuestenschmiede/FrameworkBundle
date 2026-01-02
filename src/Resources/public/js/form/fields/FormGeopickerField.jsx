@@ -17,10 +17,13 @@ export default class FormGeopickerField extends Component {
   constructor(props) {
     super(props);
 
-    this.mapData = this.props.field.mapData || this.props.form.props.component.mapData;
-    this.geoxName = this.props.field.geoxName || this.props.field.geoxName;
-    this.geoyName = this.props.field.geoyName || this.props.field.geoyName;
-    this.geoJsonName = this.props.field.geoJsonName || this.props.field.geoJsonName;
+    this.mapData = this.props.field.mapData || this.props.form.props.component.mapData || {};
+    this.mapData.mapId = this.mapData.mapId || 0;
+    this.mapData.mapDiv = "c4g_map_" + this.mapData.mapId;
+    this.mapData.addIdToDiv = false;
+    this.geoxName = this.props.field.geoxName || 'geox';
+    this.geoyName = this.props.field.geoyName || 'geoy';
+    this.geoJsonName = this.props.field.geoJsonName || 'geojson';
 
     this.state = {
       initial: true
@@ -31,13 +34,12 @@ export default class FormGeopickerField extends Component {
   }
 
   render() {
-    this.mapData.mapDiv = "c4g_map";
     let map = null;
     if (!this.state.initial) {
       map = <MapController ref={(node) => {this.props.form.mapControllerRef = node;}} mapData={this.mapData} />;
     }
     let description = null;
-    if (this.props.field.label) {
+    if (this.props.field.description) {
       description = (<span className={"field-description"}>{this.props.field.description}</span>);
     }
     let inputField = null;
@@ -52,7 +54,7 @@ export default class FormGeopickerField extends Component {
     }
     return (
       <React.Fragment>
-        <div id={"c4g_map_" + this.mapData.mapId}></div>
+        <div id={this.mapData.mapDiv} style={{width: this.mapData.width || '100%', height: this.mapData.height || '500px'}}></div>
         {map}
         <label htmlFor="">{this.props.field.label}</label>
         {inputField}

@@ -35,6 +35,7 @@ const FormMultiCheckboxWithImageLabelField = React.lazy(() => import("./FormMult
 const FormTimeField = React.lazy(() => import("./FormTimeField.jsx"));
 const FormNumberRangeField = React.lazy(() => import("./FormNumberRangeField.jsx"));
 const FormMultiDatepickerField = React.lazy(() => import("./FormMultiDatepickerField.jsx"));
+const FormRatingField = React.lazy(() => import("./FormRatingField.jsx"));
 
 export default class FormMapperField extends Component {
 
@@ -98,6 +99,8 @@ export default class FormMapperField extends Component {
         return <FormNumberRangeField  {...this.props}/>;
       case "multi-date-picker":
         return <FormMultiDatepickerField  {...this.props}/>;
+      case "rating":
+        return <FormRatingField {...this.props}/>;
       default:
         return null;
     }

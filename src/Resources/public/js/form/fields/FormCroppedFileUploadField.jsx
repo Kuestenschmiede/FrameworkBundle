@@ -142,7 +142,7 @@ export default class FormCroppedFileUploadField extends Component {
     const scaleY = image.naturalHeight / image.height;
     canvas.width = crop.width;
     canvas.height = crop.height;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', {willReadFrequently: true});
 
     ctx.drawImage(
       image,

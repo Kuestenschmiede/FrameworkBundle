@@ -19,8 +19,8 @@ export default class ListTypeTileImageField extends Component {
     if (this.props.data[this.props.field.name] || this.props.field.imageSource) {
       const src = this.props.field.imageSource || (this.props.data[this.props.field.name] && this.props.data[this.props.field.name].src);
       const alt = this.props.field.imageAlt || (this.props.data[this.props.field.name] && this.props.data[this.props.field.name].alt);
-      const width = this.props.data[this.props.field.name] && this.props.data[this.props.field.name].width ? this.props.data[this.props.field.name].width : null;
-      const height = this.props.data[this.props.field.name] && this.props.data[this.props.field.name].height ? this.props.data[this.props.field.name].height : null;
+      const width = (this.props.data[this.props.field.name] && this.props.data[this.props.field.name].width) ? this.props.data[this.props.field.name].width : (this.props.field.class && this.props.field.class.includes('background-image') ? 841 : null);
+      const height = (this.props.data[this.props.field.name] && this.props.data[this.props.field.name].height) ? this.props.data[this.props.field.name].height : (this.props.field.class && this.props.field.class.includes('background-image') ? 594 : null);
       return (
           <img className={this.props.field.class}
                src={src}

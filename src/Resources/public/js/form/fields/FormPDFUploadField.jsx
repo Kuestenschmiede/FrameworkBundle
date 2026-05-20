@@ -160,9 +160,9 @@ export default class FormPDFUploadField extends Component {
   unsetFile() {
     let data = this.props.data;
     data[this.props.field.name] = null;
-    if (this.inputRef !== null) {
+    if (this.inputElement !== null) {
       // clear file selection
-      this.inputRef.value = "";
+      this.inputElement.value = "";
     }
     this.props.form.props.updateFunction(this.props.form.props.name, data, this.props.field);
   }

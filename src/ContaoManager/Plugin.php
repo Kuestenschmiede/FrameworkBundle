@@ -8,6 +8,7 @@
  * @link https://www.con4gis.org
  */
 namespace con4gis\FrameworkBundle\ContaoManager;
+use Symfony\Component\Routing\RouteCollection;
 
 use con4gis\CoreBundle\con4gisCoreBundle;
 use con4gis\FrameworkBundle\con4gisFrameworkBundle;
@@ -32,7 +33,7 @@ class Plugin implements BundlePluginInterface, ConfigPluginInterface, RoutingPlu
      *
      * @return ConfigInterface[]
      */
-    public function getBundles(ParserInterface $parser)
+    public function getBundles(ParserInterface $parser): array
     {
         return [
             BundleConfig::create(con4gisFrameworkBundle::class)
@@ -45,7 +46,7 @@ class Plugin implements BundlePluginInterface, ConfigPluginInterface, RoutingPlu
         $loader->load('@con4gisFrameworkBundle/Resources/config/service.yml');
     }
 
-    public function getRouteCollection(LoaderResolverInterface $resolver, KernelInterface $kernel)
+    public function getRouteCollection(LoaderResolverInterface $resolver, KernelInterface $kernel): ?RouteCollection
     {
         return $resolver
             ->resolve(__DIR__.'/../Resources/config/routing.yml')

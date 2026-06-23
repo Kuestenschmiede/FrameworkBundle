@@ -24,6 +24,7 @@ var config = {
   resolve: {
     roots: ['node_modules', 'src/Resources/public/js'],
     extensions: ['.jsx', '.js'],
+    fullySpecified: false,
     fallback: {
       "http": false,
       "https": false,
@@ -41,6 +42,12 @@ var config = {
   ],
   module: {
     rules: [
+      {
+        test: /\.m?js/,
+        resolve: {
+          fullySpecified: false,
+        },
+      },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules(?!\/ol)/,

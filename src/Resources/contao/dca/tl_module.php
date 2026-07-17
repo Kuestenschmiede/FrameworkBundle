@@ -24,7 +24,7 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['demo_detail_module'] =
 
 
 $GLOBALS['TL_DCA']['tl_module']['palettes']['demo_form_module'] =
-    '{title_legend},name,headline,type;';
+    '{title_legend},name,headline,type';
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['demo_table_module_source_table'] =
     [
@@ -32,9 +32,9 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['demo_table_module_source_table'] =
         'exclude'                 => true,
         'default'                 => '',
         'inputType'               => 'select',
-        'options_callback'        => [ModuleCallback::class, 'getTableOptions'],
+        'options_callback'        => [ModuleCallback::class,'getTableOptions'],
         'sql'                     => "varchar(50) NOT NULL default ''",
-        'eval'                    => ['submitOnChange' => true, 'includeBlankOption' => true]
+        'eval'                    => ['submitOnChange' => true,'includeBlankOption' => true]
     ];
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['demo_table_module_source_fields'] =
@@ -42,7 +42,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['demo_table_module_source_fields'] =
         'label'                   => &$GLOBALS['TL_LANG']['tl_module']['demo_table_module_source_fields'],
         'exclude'                 => true,
         'inputType'               => 'checkboxWizard',
-        'options_callback'        => [ModuleCallback::class, 'getFieldOptions'],
+        'options_callback'        => [ModuleCallback::class,'getFieldOptions'],
         'sql'                     => "TEXT NULL",
         'eval'                    => ['multiple' => true]
     ];
@@ -53,7 +53,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['demo_module_authorization'] =
         'exclude'                 => true,
         'default'                 => '',
         'inputType'               => 'select',
-        'options_callback'        => [ModuleCallback::class, 'getAuthorizationOptions'],
+        'options_callback'        => [ModuleCallback::class,'getAuthorizationOptions'],
         'sql'                     => "varchar(20) NOT NULL default ''",
         'eval'                    => ['class' => 'clr']
     ];
@@ -64,7 +64,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['demo_module_load_step'] =
         'exclude'                 => true,
         'default'                 => 0,
         'inputType'               => 'text',
-        'options_callback'        => [ModuleCallback::class, 'getAuthorizationOptions'],
+        'options_callback'        => [ModuleCallback::class,'getAuthorizationOptions'],
         'sql'                     => "int(10) NOT NULL default 0",
-        'eval'                    => ['class' => 'clr', 'rgxp' => 'natural']
+        'eval'                    => ['class' => 'clr','rgxp' => 'natural']
     ];

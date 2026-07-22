@@ -28,7 +28,7 @@ export default class TileTagField extends Component {
       let index = -1;
       tags.map((item, id) => {
         if (item.image) {
-          let tagName = item.name;
+          let tagName = item.name || '';
           tagName = tagName.toLowerCase();
           tagName = tagName.replace(" ", "-");
           tagName = tagName.replace("ä", "ae");

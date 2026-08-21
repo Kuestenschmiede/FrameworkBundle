@@ -374,7 +374,7 @@ export default class TileView extends Component {
     if (loadData) {
       this.setState({asyncLoading: false});
       let url = this.asyncUrl.replace("{offset}", this.props.data.length);
-      url = new URL(url, window.location.protocol + window.location.hostname);
+      url = new URL(url, window.location.origin);
       if (typeof this.props.component.filterData !== 'undefined' && Object.keys(this.props.component.filterData).length !== 0) {
         let filterParams = this.props.component.filterData;
         filterParams = this.transformSelectOptions(filterParams);
@@ -403,7 +403,7 @@ export default class TileView extends Component {
         }
       }
 
-      if (this.props.component.filterData.sorting === "distance" && (this.position.length === 0) && !this.geoPermissionDenied) {
+      if (this.props.component.filterData && this.props.component.filterData.sorting === "distance" && (this.position.length === 0) && !this.geoPermissionDenied) {
         return;
       }
       fetch(url.href)
@@ -416,6 +416,7 @@ export default class TileView extends Component {
               // set updated to true
               this.props.setFunction(this.props.name, this.props.component.data, this.props.component.filterData);
             } else {
+              let rawCount = Array.isArray(responseData) ? responseData.length : 0;
               // check for duplicates
               if (this.props.component.uniqueField) {
                 responseData = this.removeDuplicates(this.props.component.data, responseData);
@@ -425,11 +426,11 @@ export default class TileView extends Component {
                 let maxData = parseInt(this.props.component.maxData, 10);
                 let loadStep = parseInt(this.props.component.loadStep, 10);
                 let async = false;
-                let maxDataReached = maxData > 0 && data.length === maxData;
-                let expectedCountMatched = loadStep === responseData.length;
-                if (maxDataReached) {
+                let maxDataReached = maxData > 0 && data.length >= maxData;
+                let hasMore = (loadStep > 0 && rawCount < loadStep) ? false : true;
+                if (maxDataReached || !hasMore) {
                   async = false;
-                } else if (expectedCountMatched) {
+                } else {
                   async = true;
                 }
                 this.setState({asyncLoading: async});
@@ -476,9 +477,9 @@ export default class TileView extends Component {
   removeDuplicates(currentData, newData) {
     let fieldName = this.props.component.uniqueField;
 
-    const currentUniques = currentData.map((item, id) => {
-      return item[fieldName];
-    });
+    const currentUniques = Array.isArray(currentData) ? currentData.map((item, id) => {
+      return item ? item[fieldName] : null;
+    }) : [];
 
     let resultData = [];
 

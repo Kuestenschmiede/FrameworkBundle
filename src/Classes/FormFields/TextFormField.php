@@ -54,20 +54,24 @@ class TextFormField extends FormField
     {
         if ($this->conditionField !== []) {
             foreach ($this->conditionField as $key => $condition) {
-                if ($parameters[$condition] !== $this->conditionValue[$key]) {
+                if (($parameters[$condition] ?? null) !== $this->conditionValue[$key]) {
                     return true;
                 }
             }
         }
 
-        $value = (string) $parameters[$this->name];
+        $value = (string) ($parameters[$this->name] ?? '');
         if ($value === '' && $this->required) {
             return false;
         } elseif (mb_strlen($value) > $this->maxLength) {
             return false;
         }
 
-        return preg_match('/' . $this->pattern . '/i', $parameters[$this->name]) === 1;
+        if ($this->pattern) {
+            return preg_match('/' . $this->pattern . '/i', (string)($parameters[$this->name] ?? '')) === 1;
+        }
+
+        return true;
     }
 
     /**

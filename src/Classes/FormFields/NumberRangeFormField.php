@@ -37,13 +37,13 @@ class NumberRangeFormField extends FormField
     {
         if ($this->conditionField !== []) {
             foreach ($this->conditionField as $key => $condition) {
-                if ($parameters[$condition] !== $this->conditionValue[$key]) {
+                if (($parameters[$condition] ?? null) !== $this->conditionValue[$key]) {
                     return true;
                 }
             }
         }
 
-        $value = $parameters[$this->name];
+        $value = $parameters[$this->name] ?? '';
         if ($value === '') {
             return false;
         } elseif ($value < $this->min || $value > $this->max) {

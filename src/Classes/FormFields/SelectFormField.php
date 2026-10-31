@@ -76,18 +76,18 @@ class SelectFormField extends FormField
     {
         if ($this->conditionField !== []) {
             foreach ($this->conditionField as $key => $condition) {
-                if ($parameters[$condition] !== $this->conditionValue[$key]) {
+                if (($parameters[$condition] ?? null) !== $this->conditionValue[$key]) {
                     return true;
                 }
             }
         }
 
-        if (!$this->required && $parameters[$this->name] === '') {
+        if (!$this->required && ($parameters[$this->name] ?? '') === '') {
             return true;
         }
 
         $options = array_column($this->options, 'value');
-        if (is_array($parameters[$this->name]) && $this->multiple) {
+        if (isset($parameters[$this->name]) && is_array($parameters[$this->name]) && $this->multiple) {
             foreach ($parameters[$this->name] as $parameter) {
                 if (!in_array($parameter, $options)) {
                     return false;

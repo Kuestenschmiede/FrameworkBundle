@@ -27,7 +27,7 @@ class TextAreaFormField extends FormField
 
     public function validate(array $parameters)
     {
-        $value = (string) $parameters[$this->name];
+        $value = (string) ($parameters[$this->name] ?? '');
         if ($value === '') {
             return !$this->required;
         }
